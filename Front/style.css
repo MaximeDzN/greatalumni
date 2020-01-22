@@ -10,29 +10,128 @@ Fonts:
 
 
 ****/
+:root{
+    /** Colors **/
+    --darkblue: #0B6A7D;
+    --middleblue: #119DA4;
+    --lightblue: #BFDBF7;
+    --black: #343434;
+    /** Heights **/
+    --navheight: 4rem;
+    /** fonts **/
+    --logofont: 'Bebas Neue', cursive;
+    --titlefont: 'Alata', sans-serif;
+    --textfont: 'Noto Serif', serif;
+}
+
+.logo{
+    font-family:var(--logofont)
+}
+
+h1, h2, h3, h4, h5, h6, a{
+    font-family: var(--titlefont)
+}
+
+p, span{
+    font-family:var(--textfont)
+}
+
+body{
+    padding:0;
+    margin:0;
+    background-color:var(--lightblue)
+}
+
+.container{
+    display: grid;
+}
+
+textarea:focus, input:focus, *:focus{
+    outline: none;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+}
+
+/***** [2] - Navbar ****/
+
+nav{
+    height:var(--navheight);
+    width:calc(100% - 2rem);
+    position:fixed;
+    display:flex;
+    justify-content: space-around;
+    background-color:var(--darkblue);
+    color:white;
+    padding:0rem 1rem;
+}
+nav div{
+    display:flex;
+}
+nav .nav_brand{
+    width:35%;
+    
+}
+nav .nav_brand a{
+    margin:auto 1rem;
+    font-size:1.5rem;
+}
+nav .nav_lookup{
+    width:30%;
+    display:flex;
+}
+nav .nav_lookup input{
+    width:60%;
+    height:40%;
+    padding:0.2rem 0.5rem;
+    border: solid white 2px;
+    margin:auto 2em auto auto;
+    border-radius:15px;
+    z-index:5;
+}
+nav .nav_lookup input:active, nav .nav_lookup input:focus{
+    border: solid var(--lightblue) 2px;
+}
+nav .nav_lookup i{
+    z-index:1;
+    margin:auto 0rem;
+    left:-2500px;
+    color:black;
+}
+nav .nav_menu{
+    width:35%;
+    display:flex;
+    justify-content: flex-end;
+}
+nav .nav_menu a{
+    height:100%;
+    padding:0rem 0.5rem;
+    display:block;
+    transition:0.3s;
+    font-size:1.2rem;
+    display:flex;
+}
+nav .nav_menu a span{
+    margin:auto auto;
+    font-family:var(--titlefont);
+}
+nav .nav_menu a:hover{
+    background-color:white;
+    color:var(--darkblue);
+}
 
 body{
     padding:0;
     margin:0;
 }
 
-.container{
-    background-color:greenyellow;
-    padding:0;
-    margin:0;
-    display: grid;
-}
 
-nav{
-    height:5rem;
-    width:100%;
-    background-color:#BFDBF7;
-    position:fixed;
-}
 
 main{
     height:100vh;
-    margin-top:5rem;
+    margin-top:var(--navheight);;
     display:grid;
     grid-template-columns: 0.2fr 0.5fr 2fr 0.2fr;
     grid-template-rows:0.5fr 0.1fr 2fr;
@@ -77,8 +176,14 @@ legend {
 
 footer{
     height:5rem;
-    width:100%;
-    background-color:#BFDBF7;
+    padding:1em;
+    display:flex;
+    background-color:var(--black);
+    color:white;
+}
+
+footer span, footer p{
+    margin:auto auto
 }
 
 label {
