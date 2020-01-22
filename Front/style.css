@@ -1,0 +1,121 @@
+/****
+Colors : 
+BFDBF7 : light blue
+119DA4 : light blue-green
+0B6A7D : blu saphire middle
+343434 : blacked
+
+Fonts:
+
+
+
+****/
+
+body{
+    padding:0;
+    margin:0;
+}
+
+.container{
+    background-color:greenyellow;
+    padding:0;
+    margin:0;
+    display: grid;
+}
+
+nav{
+    height:5rem;
+    width:100%;
+    background-color:#BFDBF7;
+    position:fixed;
+}
+
+main{
+    height:100vh;
+    margin-top:5rem;
+    display:grid;
+    grid-template-columns: 0.2fr 0.5fr 2fr 0.2fr;
+    grid-template-rows:0.5fr 0.1fr 2fr;
+    grid-template-areas: 
+    "marge1 photo infos marge2"
+    "marge1 button button marge2"
+    "marge1 otherinfos otherinfos marge2 ";
+}
+
+legend {
+    color:#DF3F3F;
+    font-weight:bold
+    }
+
+.user_profil_marge1{
+    grid-area: marge1;
+    background-color: red;
+}
+
+.user_profil_photo{
+    grid-area: photo;
+    background-color: purple;
+
+}
+
+.user_profil_infos{
+    grid-area: infos;
+    background-color: lightcoral;
+}
+.user_profil_button{
+    grid-area: button;
+    background-color: lemonchiffon;
+}
+.user_profil_otherinfos{
+    grid-area: otherinfos;
+    background-color: lightseagreen;
+}
+.user_profil_marge2{
+    grid-area: marge2;
+    background-color: pink;
+}
+
+footer{
+    height:5rem;
+    width:100%;
+    background-color:#BFDBF7;
+}
+
+label {
+margin-top:10px;
+display:block;
+}
+
+label.inline {
+display:inline;
+margin-right:50px;
+}
+
+input, textarea, select {
+padding:3px;
+border:1px solid #F5C5C5;
+border-radius:5px;
+width:200px;
+box-shadow:1px 1px 2px #C0C0C0 inset;
+}
+   
+  
+   
+@media only screen and (max-width: 600px) {
+    main{
+        grid-template-columns:1.3fr;
+        grid-template-areas: 
+        "photo"
+        "infos"
+        "button"
+        "otherinfos";
+    }
+    .user_profil_marge1{
+        display:none
+    
+    }
+    .user_profil_marge2{
+        display:none
+    
+    }
+  }
