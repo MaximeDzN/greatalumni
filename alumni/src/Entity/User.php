@@ -115,6 +115,11 @@ class User implements UserInterface
      */
     private $courses;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isConfirmed;
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -559,6 +564,18 @@ class User implements UserInterface
             $this->courses->removeElement($course);
             $course->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
 
         return $this;
     }
