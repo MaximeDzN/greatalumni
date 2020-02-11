@@ -29,6 +29,7 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $user->setRoles(['ROLE_USER']);
             $user->setPhoto('images/avatar.png');
+            $user->setIsConfirmed(false);
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('home');

@@ -41,7 +41,7 @@ class SignupType extends AbstractType
                     'Femme' => false,
                 ],
             ])
-            ->add('submit',SubmitType::class);
+            ->add('Envoyer',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

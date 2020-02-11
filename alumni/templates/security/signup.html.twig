@@ -7,7 +7,7 @@
 <main>
 	{{form_start(signupForm)}}
 
-    	{{form_label(signupForm.login,'Nom d\'utilisateur')}}
+    	{{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': 'col-sm-2 col-form-label'}})}}
         {{form_widget(signupForm.login)}}
         {{form_errors(signupForm.login)}}
 
@@ -47,6 +47,10 @@
         {{form_label(signupForm.password.second,'Répêtez le mot de passe')}}
         {{form_widget(signupForm.password.second)}}
         {{form_errors(signupForm.password.second)}}
+
+        {{form_widget(signupForm.Envoyer)}}
+
+
 
         {{form_end(signupForm)}}
 	</main>
