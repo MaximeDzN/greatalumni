@@ -95,6 +95,26 @@ class User implements UserInterface
      */
     private $receiveMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="User")
+     */
+    private $posts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Hobbies", mappedBy="User")
+     */
+    private $hobbies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PostAnswer", mappedBy="User")
+     */
+    private $postAnswers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Course", mappedBy="User")
+     */
+    private $courses;
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -102,6 +122,10 @@ class User implements UserInterface
         $this->scores = new ArrayCollection();
         $this->SendMessages = new ArrayCollection();
         $this->receiveMessages = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->hobbies = new ArrayCollection();
+        $this->postAnswers = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -416,6 +440,124 @@ class User implements UserInterface
             if ($receiveMessage->getUserReceive() === $this) {
                 $receiveMessage->setUserReceive(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Hobbies[]
+     */
+    public function getHobbies(): Collection
+    {
+        return $this->hobbies;
+    }
+
+    public function addHobby(Hobbies $hobby): self
+    {
+        if (!$this->hobbies->contains($hobby)) {
+            $this->hobbies[] = $hobby;
+            $hobby->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHobby(Hobbies $hobby): self
+    {
+        if ($this->hobbies->contains($hobby)) {
+            $this->hobbies->removeElement($hobby);
+            $hobby->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostAnswer[]
+     */
+    public function getPostAnswers(): Collection
+    {
+        return $this->postAnswers;
+    }
+
+    public function addPostAnswer(PostAnswer $postAnswer): self
+    {
+        if (!$this->postAnswers->contains($postAnswer)) {
+            $this->postAnswers[] = $postAnswer;
+            $postAnswer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostAnswer(PostAnswer $postAnswer): self
+    {
+        if ($this->postAnswers->contains($postAnswer)) {
+            $this->postAnswers->removeElement($postAnswer);
+            // set the owning side to null (unless already changed)
+            if ($postAnswer->getUser() === $this) {
+                $postAnswer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+            $course->removeUser($this);
         }
 
         return $this;
