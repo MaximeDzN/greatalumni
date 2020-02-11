@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Alata|Bebas+Neue|Noto+Serif&display=swap" rel="stylesheet">
+
+        <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <div class="container">
+            <nav>
+                <div class="nav_brand">
+                    
+                    <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                </div>
+                <div class="nav_lookup">
+                    <input placeholder="Rechercher sur le site...">
+                    <!-- <i class="fas fa-search"></i> -->
+                </div>
+                <div class="nav_menu">
+                    
+                    <a href=""><span>Feed</span></a>
+                    <a href=""><span>Forum</span></a>
+                    <a href=""><span>Profil</span></a>
+                    <a href=""><span>Déconnexion</span></a>
+
+                    <a href="{{ path('signup')}}"><span>Inscription</span></a>
+                    <a href=""><span>Connexion</span></a>
+                </div>
+            </nav>
+
+            {% block body %}{% endblock %}
+
+            <footer>
+                <span class="logo">The Great Alumni</span>
+                <p>This is a project that we had to make. Viva la coco!</p>
+            </footer>
+        </div>
     </body>
 </html>

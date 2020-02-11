@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %} {# On récupère le template base.html.twig #}
+
+{% block title %}Great Alumni{% endblock %}
+
+{% block body %}
+      <main>
+            <div class="homepage_marge1"></div>
+            <div class="homepage_titre">
+                <h1>Bienvenue sur The Great Alumni</h1>
+                <h2>Le réseau social des anciens</h2>
+                <p>The Great Alumni est un réseau social destiné aux anciens d'une école. Vous pouvez vous inscrire, vous connecter, consulter des news et accéder à de magnifiques forums. Ce site à été développé ave amour par une classe de Bachelor, rien à voir avec l'émission télé de M6.</p>
+            </div>
+            <div class="homepage_form"><h3>Se connecter</h3>
+                <form action="">
+                    <label for="">Adresse Email</label>
+                    <input type="text">
+                    <label for="">Mot de Passe</label>
+                    <input type="password">
+                </form>
+            </div>
+            <div class="homepage_log">Vous n'avez pas encore de compte? Créer un compte</div>
+            <div class="homepage_marge2"></div>
+        </main>
+{% endblock %}
