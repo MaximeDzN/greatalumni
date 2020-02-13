@@ -104,6 +104,7 @@ class NewsController extends AbstractController
             foreach($comments as $c){
                 $comRepo->deleteOne($c->getId());
             }
+            $newsRepo->deleteOne($news->getId());
             return $this->redirectToRoute('news');
         } else {
             return $this->redirectToRoute('app_login');
