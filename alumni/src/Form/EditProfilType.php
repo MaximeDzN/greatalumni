@@ -12,24 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class SignupType extends AbstractType
+class EditProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('login',TextType::class)
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-      
-                'invalid_message' => 'Les mots de passes doivent correspondrent',
-                'required' => true,
-                'constraints' => [
-                    new Length(['min' => 6]),
-                ]
+            ->add('photo', FileType::class,[
+                'data_class' => null,
+                'required' => false
             ])
+            ->add('login',TextType::class)
             ->add('name',TextType::class)
             ->add('nickname',TextType::class)
             ->add('department',TextType::class)
@@ -37,21 +32,17 @@ class SignupType extends AbstractType
             ->add('email',EmailType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
-                    '' => null,
                     'Homme' => true,
                     'Femme' => false,
                 ],
             ])
-            ->add('Valider',SubmitType::class);
+            ->add('Envoyer',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'constraints' =>[
-                new UniqueEntity(['fields' => ['login']])
-            ],
         ]);
     }
 }

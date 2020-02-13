@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main>
+<div>
+<img src="/images/news/{{news.media}}"/>
+
+{{news.title}}
+
+{{news.content}}
+<a href="{{ path('news_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
+</div>
+
+<div>
+<p>Commenter !</p>
+{{form_start(commentForm)}}
+{{form_widget(commentForm)}}
+{{form_end(commentForm)}}
+</div>
+{% for c in comments %}
+<div>
+<p>{{c.content}}</p>
+<p>{{c.date|date("d/m/Y H:i:s")}}</p>
+<p>{{c.author.login}}</p>
+{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
+<a href="{{ path('comment_del',{id: c.id, comment: c})}}"><p>supprimer</p></a>
+{% endif %}
+</div>
+{% endfor %}
+
+</main>
+{% endblock %}

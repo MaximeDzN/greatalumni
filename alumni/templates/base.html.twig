@@ -6,26 +6,45 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/style.css">
-        
+        {% block stylesheets %}
+		<link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Alata|Bebas+Neue|Noto+Serif&display=swap" rel="stylesheet">
-
+		{% endblock %}
         <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
    <body>
 
-    <div class="container">
-        <nav>
-            <div class="nav_brand">
 
-                <a href="{{path('app_logout')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
-            </div>
-            <div class="nav_lookup">
-                <input placeholder="Rechercher sur le site...">
-                <!-- <i class="fas fa-search"></i> -->
-            </div>
-            <div class="nav_menu">
+        <div class="container">
+            <nav>
+                <div class="nav_brand">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+                        <a href="{{path('profil')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% else %}
+                        <a href="{{path('app_login')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% endif %}
+                </div>
+                <div class="nav_lookup">
+                    <input placeholder="Rechercher sur le site...">
+                    <!-- <i class="fas fa-search"></i> -->
+                </div>
+                <div class="nav_menu">
+                
+                    {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href=""><span>Administration</span></a>
+                        {% endif %}
+                    <a href="{{ path('news') }}"><span>Feed</span></a>
+                    <a href=""><span>Forum</span></a>
+                    <a href="{{ path('profil')}}"><span>Profil</span></a>
+                    <a href="{{ path('app_logout') }}"><span>Déconnexion</span></a>
+                    {% else %}
+                    <a href="{{ path('signup')}}"><span>Inscription</span></a>
+                    <a href="{{ path('app_login') }}"><span>Connexion</span></a>
+                    {% endif %}
+                </div>
+            </nav>
 
                 <a href=""><span>Feed</span></a>
                 <a href=""><span>Forum</span></a>

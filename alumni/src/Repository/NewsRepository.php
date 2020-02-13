@@ -19,6 +19,15 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
+    public function deleteOne($news){
+        return $this->createQueryBuilder('n')
+        ->delete()
+        ->where('n.id = :id ')
+        ->setParameter('id',$news)
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return News[] Returns an array of News objects
     //  */

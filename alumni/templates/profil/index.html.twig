@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Great Alumni
+{% endblock %}
+
+{% block body %}
+<main>
+
+
+	{# Formulaire Modification profil (photo et informations) #}
+	{{form_start(editForm)}}
+        <img onerror="this.onerror=null; this.src='/images/avatar/avatar.png'" src="/images/avatar/{{ app.user.photo }}"/>
+        {{form_widget(editForm.photo)}}
+        {{form_errors(editForm.photo)}}
+
+        {{form_label(editForm.login,'Nom d\'utilisateur',{'label_attr': {'class': 'col-sm-2 col-form-label'}})}}
+            {{form_widget(editForm.login)}}
+            {{form_errors(editForm.login)}}
+
+            {{form_label(editForm.email,'Email')}}
+            {{form_widget(editForm.email)}}
+            {{form_errors(editForm.email)}}
+
+            {{form_label(editForm.name,'Nom')}}
+            {{form_widget(editForm.name)}}
+            {{form_errors(editForm.name)}}
+
+            {{form_label(editForm.nickname,'Prénom')}}
+            {{form_widget(editForm.nickname)}}
+            {{form_errors(editForm.nickname)}}
+
+
+            {{form_label(editForm.department,'Département')}}
+            {{form_widget(editForm.department)}}
+            {{form_errors(editForm.department)}}
+
+
+            {{form_label(editForm.promo,'Promotion')}}
+            {{form_widget(editForm.promo)}}
+            {{form_errors(editForm.promo)}}
+
+
+            {{form_label(editForm.gender,'Genre')}}
+            {{form_widget(editForm.gender)}}
+            {{form_errors(editForm.gender)}}
+
+
+
+            {{form_widget(editForm.Envoyer)}}
+        {{form_end(editForm)}}
+
+    {# Formulaire modification mot de passe #}
+    {{form_start(pwdForm)}}
+        {{form_label(pwdForm.oldPassword,'Ancien mot de passe')}}
+        {{form_widget(pwdForm.oldPassword)}}
+        {{form_errors(pwdForm.oldPassword)}}
+
+        {{form_label(pwdForm.password.first,'Nouveau mot de passe')}}
+        {{form_widget(pwdForm.password.first)}}
+        {{form_errors(pwdForm.password.first)}}
+
+        {{form_label(pwdForm.password.second,'Confirmation du nouveau mot de passe')}}
+        {{form_widget(pwdForm.password.second)}}
+        {{form_errors(pwdForm.password.second)}}
+
+    {{form_end(pwdForm)}}
+    </main>
+
+{% endblock %}
