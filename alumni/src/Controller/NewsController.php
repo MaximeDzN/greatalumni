@@ -9,6 +9,7 @@ use App\Entity\Comment;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\NewType;
+use App\Form\NewsEditType;
 use App\Form\CommentType;
 
 use App\Repository\CommentRepository;
@@ -113,6 +114,44 @@ class NewsController extends AbstractController
 
     }
 
+    /**
+     * @Route("/news/newsedit/{id}", name="news_edit")
+     */
+    public function newsedit(EntityManagerInterface $manager, Request $request,News $news )
+    {
+        $user = $this->getUser();
+        $media = $news->getMedia();
+        if($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles()) ){
+        $newsForm = $this->createForm(NewsEditType::class, $news);
+         //on récupère les données entrées.
+         $newsForm->handleRequest($request);
+         //On vérifie le contenu du formulaire
+         if ($newsForm->isSubmitted() && $newsForm->isValid()) {
+            if ($news->getMedia() != null  ){
+            
+                $file = $newsForm->get('media')->getData();      
+                //On créer un nom unique pour l'image   
+                $filename = md5(uniqid()).'.'.$file->guessExtension();
+                //On déplace le fichier vers "avatar_directory"
+                $file->move($this->getParameter('newsImg_directory'),$filename);
+                //On applique la nouvelle photo pour l'utilisateur
+                $news->setMedia($filename);
+            } else {
+                $news->setMedia($media);
+            }
+             $manager->persist($news);
+             $manager->flush();
+             return $this->redirectToRoute('news');
+         }
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('news/edit.html.twig', [
+            'news' => $news,
+            'newsForm' => $newsForm->createView(),
+        ]); 
+    }
+
       /**
      * @Route("/news/comdel/{id}", name="comment_del")
      */
@@ -127,7 +166,6 @@ class NewsController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
        
-
     }
 
 

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block content_body %}
+<main>
+{{form_start(newsForm)}}
+<img src="/images/news/{{ news.media }}"
+
+{{form_widget(newsForm)}}
+{{form_end(newsForm)}}
+
+</main>
+{% endblock %}

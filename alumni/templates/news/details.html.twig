@@ -11,7 +11,9 @@
 {{news.title}}
 
 {{news.content}}
+<a href="{{ path('news_edit',{id: news.id, news: news})}}"><p>modifier</p></a>
 <a href="{{ path('news_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
+
 </div>
 
 <div>
