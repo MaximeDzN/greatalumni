@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NewsController!{% endblock %}
+
+{% block body %}
+<main>
+
+{% for n in allnews %}
+<a href="{{ path('news_details',{id: n.id, news: n}) }}">
+<div>
+    <img src="images/news/{{n.media}}"/>
+    <p>{{n.title}}</p>
+    <p>{{n.content}}</p>
+    <p>{{n.date|date("d/m/Y H:i:s")}}</p>
+</div>
+</a>
+{% endfor %}
+
+{{form_start(newsForm)}}
+{{form_widget(newsForm)}}
+{{form_end(newsForm)}}
+
+
+</main>
+{% endblock %}

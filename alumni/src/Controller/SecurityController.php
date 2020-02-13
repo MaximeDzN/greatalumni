@@ -19,10 +19,13 @@ class SecurityController extends AbstractController
      */
     public function signup(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
+        if ($this->getUser() != null) {
+            return $this->redirectToRoute('profil');
+        }
         //On Créer un nouveau User.
         $user = new User();
         //On créer le formulaire d'inscription prédéfini dans Form/SignupType
-        $signupForm = $this->createForm(SignupType::class,$user);
+        $signupForm = $this->createForm(SignupType::class, $user);
         //on récupère les données entrées.
         $signupForm->handleRequest($request);
         //On vérifie le contenu du formulaire
@@ -30,11 +33,11 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setRoles(['ROLE_USER']);
-            $user->setPhoto('images/avatar.png');
+            $user->setPhoto('avatar.png');
             $user->setIsConfirmed(false);
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/signup.html.twig', [
@@ -49,13 +52,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
+        // On récupère les erreurs liés à la connexion
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+
+        //On récupère le dernier nom de user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('home/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
