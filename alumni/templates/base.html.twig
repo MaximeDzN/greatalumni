@@ -18,22 +18,28 @@
         <div class="container">
             <nav>
                 <div class="nav_brand">
-                    
-                    <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+                        <a href="{{path('profil')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% else %}
+                        <a href="{{path('app_login')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% endif %}
                 </div>
                 <div class="nav_lookup">
                     <input placeholder="Rechercher sur le site...">
                     <!-- <i class="fas fa-search"></i> -->
                 </div>
                 <div class="nav_menu">
+                
+                    {% if app.user %}
                     
                     <a href=""><span>Feed</span></a>
                     <a href=""><span>Forum</span></a>
-                    <a href=""><span>Profil</span></a>
-                    <a href="{{path('app_logout')}}"><span>Déconnexion</span></a>
-
+                    <a href="{{ path('profil')}}"><span>Profil</span></a>
+                    <a href="{{ path('app_logout') }}"><span>Déconnexion</span></a>
+                    {% else %}
                     <a href="{{ path('signup')}}"><span>Inscription</span></a>
-                    <a href=""><span>Connexion</span></a>
+                    <a href="{{ path('app_login') }}"><span>Connexion</span></a>
+                    {% endif %}
                 </div>
             </nav>
 
