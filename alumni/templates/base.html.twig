@@ -13,36 +13,39 @@
 
         <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
-    <body>
+   <body>
 
-        <div class="container">
-            <nav>
-                <div class="nav_brand">
-                    
-                    <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
-                </div>
-                <div class="nav_lookup">
-                    <input placeholder="Rechercher sur le site...">
-                    <!-- <i class="fas fa-search"></i> -->
-                </div>
-                <div class="nav_menu">
-                    
-                    <a href=""><span>Feed</span></a>
-                    <a href=""><span>Forum</span></a>
-                    <a href=""><span>Profil</span></a>
-                    <a href="{{path('app_logout')}}"><span>Déconnexion</span></a>
+    <div class="container">
+        <nav>
+            <div class="nav_brand">
 
-                    <a href="{{ path('signup')}}"><span>Inscription</span></a>
-                    <a href=""><span>Connexion</span></a>
-                </div>
-            </nav>
+                <a href="{{path('app_logout')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+            </div>
+            <div class="nav_lookup">
+                <input placeholder="Rechercher sur le site...">
+                <!-- <i class="fas fa-search"></i> -->
+            </div>
+            <div class="nav_menu">
 
-            {% block body %}{% endblock %}
+                <a href=""><span>Feed</span></a>
+                <a href=""><span>Forum</span></a>
+                <a href=""><span>Profil</span></a>
+                <a href="{{path('app_logout')}}"><span>Déconnexion</span></a>
 
-            <footer>
-                <span class="logo">The Great Alumni</span>
-                <p>This is a project that we had to make. Viva la coco!</p>
-            </footer>
-        </div>
-    </body>
+                <a href="{{ path('signup')}}"><span>Inscription</span></a>
+                <a href=""><span>Connexion</span></a>
+            </div>
+        </nav>
+        <main>
+            <div class="container__margeLeft"> </div>
+            <div class="container__margeRight"> </div>
+            <div class="container__title"> <h1>{% block content_title %}{% endblock %}</h1> </div>
+            <div class="container__content">{% block content_body %}{% endblock %}</div>
+        </main>
+        <footer>
+            <span class="logo">The Great Alumni</span>
+            <p>This is a project that we had to make. Viva la coco!</p>
+        </footer>
+    </div>
+</body>
 </html>

@@ -24,6 +24,7 @@ grid
     --middleblue: #119DA4;
     --lightblue: #BFDBF7;
     --black: #343434;
+    --color-lightgrey: #ccc;
     /** Heights **/
     --navheight: 4rem;
     /** fonts **/
@@ -36,44 +37,29 @@ grid
     font-family: var(--logofont)
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a {
-    font-family: var(--titlefont)
+h1, h2, h3, h4, h5, h6, h4 a {
+    font-family: var(--titlefont);
 }
 
-p,
-span {
-    font-family: var(--textfont)
+p, span, a, select, select option, li, label {
+    font-family: var(--textfont);
+}
+
+a, a:hover, a:visited, a:focus {
+    color: black;
+    text-decoration: none;
 }
 
 body {
     padding: 0;
     margin: 0;
-    background-color: var(--lightblue)
 }
 
 .container {
     display: grid;
 }
 
-textarea:focus,
-input:focus,
-*:focus {
-    outline: none;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-}
-
-
-/***** [2] - Navbar ****/
+/* #region [2] - Navbar ****/
 
 nav {
     height: var(--navheight);
@@ -82,7 +68,6 @@ nav {
     display: flex;
     justify-content: space-around;
     background-color: var(--darkblue);
-    color: white;
     padding: 0rem 1rem;
 }
 
@@ -97,6 +82,7 @@ nav .nav_brand {
 nav .nav_brand a {
     margin: auto 1rem;
     font-size: 1.5rem;
+    color: white!important;
 }
 
 nav .nav_lookup {
@@ -114,8 +100,7 @@ nav .nav_lookup input {
     z-index: 5;
 }
 
-nav .nav_lookup input:active,
-nav .nav_lookup input:focus {
+nav .nav_lookup input:active, nav .nav_lookup input:focus {
     border: solid var(--lightblue) 2px;
 }
 
@@ -144,46 +129,203 @@ nav .nav_menu a {
 nav .nav_menu a span {
     margin: auto auto;
     font-family: var(--titlefont);
+    color: white;
 }
 
 nav .nav_menu a:hover {
     background-color: white;
-    color: var(--darkblue);
 }
+
+nav .nav_menu a:hover span {
+    color: var(--darkblue)!important;
+}
+
+/* #endregion */
+
+/* #region main */
 
 main {
-    height: 100vh;
     margin-top: var(--navheight);
-    ;
+    height: 100vh;
     display: grid;
     grid-template-columns: 0.2fr 2fr 0.2fr;
-    grid-template-rows: 1.3fr 2.5fr 1fr;
-    grid-template-areas: "marge1 titre marge2" "marge1 form marge2" "marge1 log marge2";
+    grid-template-rows: 0.5fr 2.5fr 1fr;
+    grid-template-areas: "marge1 title marge2" "marge1 content marge2" "marge1 content marge2";
 }
 
-main div {
-    padding: 1rem;
-}
-
-.homepage_marge1 {
+.container__margeLeft {
     grid-area: marge1;
 }
 
-.homepage_marge2 {
+.container__margeRight {
     grid-area: marge2;
 }
 
-.homepage_titre {
-    grid-area: titre;
+.container__content {
+    grid-area: content;
+    padding: 1rem;
 }
 
-.homepage_form {
-    grid-area: form;
+.container__title {
+    grid-area: title;
+    display: grid;
+    place-content: center;
+    padding: 1rem;
 }
 
-.homepage_log {
-    grid-area: log;
+@media screen and (max-width: 760px) {
+    .container__margeRight, .container__margeLeft {
+        display: none!important;
+    }
+    main {
+        grid-template-columns: 2fr;
+        grid-template-areas: " title " " content " " content ";
+    }
 }
+
+/* #endregion  */
+
+/* #region boostrap */
+
+.__row, form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.__col {
+    display: inline-block;
+    height: auto;
+    width: 100%;
+}
+
+.__col--half {
+    width: 50%;
+}
+
+.__col--third {
+    width: calc(100% / 3);
+}
+
+@media only screen and (max-width: 1080px) {
+    .__col--third {
+        width: 50%
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .__col--third, .__col--half {
+        width: 100%
+    }
+    ;
+}
+
+/* #endregion */
+
+/* #region input */
+
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+label, input, select {
+    display: block;
+    width: 100%;
+}
+
+.input__container ul {
+    padding: 0rem!important;
+    width: 100%;
+}
+
+select {
+    margin-top: 0.2rem;
+    padding: 0.3em;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.input__container {
+    padding: 1rem;
+    display: grid;
+}
+
+.input__container li {
+    color: red;
+    width: 100%;
+}
+
+input {
+    border-style: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 0.1em var(--color-lightgrey);
+    transition: 0.3s;
+    font-size: 1.2em;
+    margin-top: 0.5rem;
+}
+
+input:focus, input:active {
+    border-bottom: solid 0.1em black;
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--color-lightgrey)
+}
+
+/* #endregion  */
+
+/* #region button */
+
+.input__containerButton {
+    place-content: center;
+}
+
+button {
+    background-color: var(--darkblue);
+    color: white;
+    padding: 1.5em;
+    border: none;
+    border: var(--darkblue) solid 0.2em;
+    box-shadow: 1px 1px 5px var(--color-lightgrey);
+    transition: 0.2s;
+    margin-top: 0.2rem;
+    padding: 0.3em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 15rem;
+}
+
+button:hover {
+    transition: 0.3s;
+    background-color: white;
+    color: var(--darkblue);
+    cursor: pointer;
+}
+
+button:focus {
+    outline: solid var(--middleblue);
+    transition: 0s
+}
+
+button:disabled {
+    opacity: 0.4;
+    color: white;
+    background-color: black;
+    animation: 0.5s;
+    user-select: none;
+    cursor: not-allowed;
+}
+
+/* #endregion */
+
+/* #region footer */
 
 footer {
     height: 5rem;
@@ -193,20 +335,25 @@ footer {
     color: white;
 }
 
-footer span,
-footer p {
+footer span, footer p {
     margin: auto auto
 }
 
-@media only screen and (max-width: 600px) {
-    main {
-        grid-template-columns: 2fr;
-        grid-template-areas: " titre " " form " " log ";
-    }
-    .homepage_marge1 {
-        display: none
-    }
-    .homepage_marge2 {
-        display: none
+/* #endregion */
+
+/* #region index */
+
+.input__signIn {
+    padding-right: 35%;
+    padding-left: 35%;
+    
+    
+}
+@media only screen and (max-width: 1000px) {
+    .input__signIn {
+        padding-right: 0%;
+        padding-left: 0%;
     }
 }
+
+/* #endregion */
