@@ -1,0 +1,226 @@
+/****
+Colors : 
+BFDBF7 : light blue
+119DA4 : light blue-green
+0B6A7D : blu saphire middle
+343434 : blacked
+
+Fonts:
+
+
+
+****/
+:root{
+    /** Colors **/
+    --darkblue: #0B6A7D;
+    --middleblue: #119DA4;
+    --lightblue: #BFDBF7;
+    --black: #343434;
+    /** Heights **/
+    --navheight: 4rem;
+    /** fonts **/
+    --logofont: 'Bebas Neue', cursive;
+    --titlefont: 'Alata', sans-serif;
+    --textfont: 'Noto Serif', serif;
+}
+
+.logo{
+    font-family:var(--logofont)
+}
+
+h1, h2, h3, h4, h5, h6, a{
+    font-family: var(--titlefont)
+}
+
+p, span{
+    font-family:var(--textfont)
+}
+
+body{
+    padding:0;
+    margin:0;
+    background-color:var(--lightblue)
+}
+
+.container{
+    display: grid;
+}
+
+textarea:focus, input:focus, *:focus{
+    outline: none;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+}
+
+/***** [2] - Navbar ****/
+
+nav{
+    height:var(--navheight);
+    width:calc(100% - 2rem);
+    position:fixed;
+    display:flex;
+    justify-content: space-around;
+    background-color:var(--darkblue);
+    color:white;
+    padding:0rem 1rem;
+}
+nav div{
+    display:flex;
+}
+nav .nav_brand{
+    width:35%;
+    
+}
+nav .nav_brand a{
+    margin:auto 1rem;
+    font-size:1.5rem;
+}
+nav .nav_lookup{
+    width:30%;
+    display:flex;
+}
+nav .nav_lookup input{
+    width:60%;
+    height:40%;
+    padding:0.2rem 0.5rem;
+    border: solid white 2px;
+    margin:auto 2em auto auto;
+    border-radius:15px;
+    z-index:5;
+}
+nav .nav_lookup input:active, nav .nav_lookup input:focus{
+    border: solid var(--lightblue) 2px;
+}
+nav .nav_lookup i{
+    z-index:1;
+    margin:auto 0rem;
+    left:-2500px;
+    color:black;
+}
+nav .nav_menu{
+    width:35%;
+    display:flex;
+    justify-content: flex-end;
+}
+nav .nav_menu a{
+    height:100%;
+    padding:0rem 0.5rem;
+    display:block;
+    transition:0.3s;
+    font-size:1.2rem;
+    display:flex;
+}
+nav .nav_menu a span{
+    margin:auto auto;
+    font-family:var(--titlefont);
+}
+nav .nav_menu a:hover{
+    background-color:white;
+    color:var(--darkblue);
+}
+
+body{
+    padding:0;
+    margin:0;
+}
+
+
+
+main{
+    height:100vh;
+    margin-top:var(--navheight);;
+    display:grid;
+    grid-template-columns: 0.2fr 0.5fr 2fr 0.2fr;
+    grid-template-rows:0.5fr 0.1fr 2fr;
+    grid-template-areas: 
+    "marge1 photo infos marge2"
+    "marge1 button button marge2"
+    "marge1 otherinfos otherinfos marge2 ";
+}
+
+legend {
+    color:#DF3F3F;
+    font-weight:bold
+    }
+
+.user_profil_marge1{
+    grid-area: marge1;
+    background-color: red;
+}
+
+.user_profil_photo{
+    grid-area: photo;
+    background-color: purple;
+
+}
+
+.user_profil_infos{
+    grid-area: infos;
+    background-color: lightcoral;
+}
+.user_profil_button{
+    grid-area: button;
+    background-color: lemonchiffon;
+}
+.user_profil_otherinfos{
+    grid-area: otherinfos;
+    background-color: lightseagreen;
+}
+.user_profil_marge2{
+    grid-area: marge2;
+    background-color: pink;
+}
+
+footer{
+    height:5rem;
+    padding:1em;
+    display:flex;
+    background-color:var(--black);
+    color:white;
+}
+
+footer span, footer p{
+    margin:auto auto
+}
+
+label {
+margin-top:10px;
+display:block;
+}
+
+label.inline {
+display:inline;
+margin-right:50px;
+}
+
+input, textarea, select {
+padding:3px;
+border:1px solid #F5C5C5;
+border-radius:5px;
+width:200px;
+box-shadow:1px 1px 2px #C0C0C0 inset;
+}
+   
+  
+   
+@media only screen and (max-width: 600px) {
+    main{
+        grid-template-columns:1.3fr;
+        grid-template-areas: 
+        "photo"
+        "infos"
+        "button"
+        "otherinfos";
+    }
+    .user_profil_marge1{
+        display:none
+    
+    }
+    .user_profil_marge2{
+        display:none
+    
+    }
+  }

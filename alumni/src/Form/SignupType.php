@@ -37,11 +37,12 @@ class SignupType extends AbstractType
             ->add('email',EmailType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
+                    '' => null,
                     'Homme' => true,
                     'Femme' => false,
                 ],
             ])
-            ->add('Envoyer',SubmitType::class);
+            ->add('Valider',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

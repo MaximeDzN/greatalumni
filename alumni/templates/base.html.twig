@@ -13,7 +13,8 @@
 		{% endblock %}
         <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
-    <body>
+   <body>
+
 
         <div class="container">
             <nav>
@@ -45,12 +46,25 @@
                 </div>
             </nav>
 
-            {% block body %}{% endblock %}
+                <a href=""><span>Feed</span></a>
+                <a href=""><span>Forum</span></a>
+                <a href=""><span>Profil</span></a>
+                <a href="{{path('app_logout')}}"><span>Déconnexion</span></a>
 
-            <footer>
-                <span class="logo">The Great Alumni</span>
-                <p>This is a project that we had to make. Viva la coco!</p>
-            </footer>
-        </div>
-    </body>
+                <a href="{{ path('signup')}}"><span>Inscription</span></a>
+                <a href=""><span>Connexion</span></a>
+            </div>
+        </nav>
+        <main>
+            <div class="container__margeLeft"> </div>
+            <div class="container__margeRight"> </div>
+            <div class="container__title"> <h1>{% block content_title %}{% endblock %}</h1> </div>
+            <div class="container__content">{% block content_body %}{% endblock %}</div>
+        </main>
+        <footer>
+            <span class="logo">The Great Alumni</span>
+            <p>This is a project that we had to make. Viva la coco!</p>
+        </footer>
+    </div>
+</body>
 </html>
