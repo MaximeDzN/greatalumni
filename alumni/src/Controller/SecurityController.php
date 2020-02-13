@@ -19,13 +19,13 @@ class SecurityController extends AbstractController
      */
     public function signup(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
-        if ($this->getUser() != null){
-            return $this->redirectToRoute('profil');  
+        if ($this->getUser() != null) {
+            return $this->redirectToRoute('profil');
         }
         //On Créer un nouveau User.
         $user = new User();
         //On créer le formulaire d'inscription prédéfini dans Form/SignupType
-        $signupForm = $this->createForm(SignupType::class,$user);
+        $signupForm = $this->createForm(SignupType::class, $user);
         //on récupère les données entrées.
         $signupForm->handleRequest($request);
         //On vérifie le contenu du formulaire

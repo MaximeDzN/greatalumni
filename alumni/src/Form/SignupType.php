@@ -48,6 +48,9 @@ class SignupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'constraints' =>[
+                new UniqueEntity(['fields' => ['login']])
+            ],
         ]);
     }
 }

@@ -6,11 +6,11 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/style.css">
-        
+        {% block stylesheets %}
+		<link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Alata|Bebas+Neue|Noto+Serif&display=swap" rel="stylesheet">
-
+		{% endblock %}
         <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
     <body>
@@ -31,8 +31,10 @@
                 <div class="nav_menu">
                 
                     {% if app.user %}
-                    
-                    <a href=""><span>Feed</span></a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href=""><span>Administration</span></a>
+                        {% endif %}
+                    <a href="{{ path('news') }}"><span>Feed</span></a>
                     <a href=""><span>Forum</span></a>
                     <a href="{{ path('profil')}}"><span>Profil</span></a>
                     <a href="{{ path('app_logout') }}"><span>Déconnexion</span></a>

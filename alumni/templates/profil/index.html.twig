@@ -9,7 +9,7 @@
 
 	{# Formulaire Modification profil (photo et informations) #}
 	{{form_start(editForm)}}
-        <img onerror="this.onerror=null; this.src='images/avatar/avatar.png'" src="images/avatar/{{ app.user.photo }}"/>
+        <img onerror="this.onerror=null; this.src='/images/avatar/avatar.png'" src="/images/avatar/{{ app.user.photo }}"/>
         {{form_widget(editForm.photo)}}
         {{form_errors(editForm.photo)}}
 
