@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content_title %}
+{% endblock %}
+
+{% block content_body %}
 <main>
 <div>
 <img src="/images/news/{{news.media}}"/>
@@ -8,7 +11,7 @@
 {{news.title}}
 
 {{news.content}}
-<a href="{{ path('comment_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
+<a href="{{ path('news_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
 </div>
 
 <div>
