@@ -26,25 +26,28 @@ class ProfilController extends AbstractController
         }
         $user = $this->getUser();
         // On créer un formulaire de modifcation
+        $photo = $user->getPhoto();
         $editForm = $this->createForm(EditProfilType::class,$user);
         //on récupère les données entrées.
         $editForm->handleRequest($request);
         //On vérifie le contenu du formulaire de modification 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Si l'utilisateur change la photo
-            if ($user->getPhoto() != null ){
+            if ($user->getPhoto() != null  ){
                 //On récupère le fichier
-                $file = $editForm->get('photo')->getData();      
                 //On créer un nom unique pour l'image   
+                $file = $editForm->get('photo')->getData();      
                 $filename = md5(uniqid()).'.'.$file->guessExtension();
                 //On déplace le fichier vers "avatar_directory"
                 $file->move($this->getParameter('avatar_directory'),$filename);
                 //On applique la nouvelle photo pour l'utilisateur
                 $user->setPhoto($filename);
+            } else {
+                $user->setPhoto($photo);
             }
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('profil');  
+            //return $this->redirectToRoute('profil');  
         }
 
 
@@ -70,7 +73,7 @@ class ProfilController extends AbstractController
             
         }
 
-        return $this->render('profil/index.html.twig', [
+       return $this->render('profil/index.html.twig', [
             'editForm' => $editForm->createView(),
             'pwdForm' => $pwdForm->CreateView()
         ]);

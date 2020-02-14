@@ -13,13 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
-class NewType extends AbstractType
+class NewsEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('media', FileType::class,[
-                'data_class' => null
+                'data_class' => null,
+                'required' => false
             ])
             ->add('title', TextType::class)
             ->add('content',TextareaType::class)

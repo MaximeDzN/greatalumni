@@ -11,9 +11,23 @@
 {{news.title}}
 
 {{news.content}}
+<a href="{{ path('news_edit',{id: news.id, news: news})}}"><p>modifier</p></a>
 <a href="{{ path('news_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
-</div>
 
+
+</div>
+{% if scoreForm is defined %}
+{{form_start(scoreForm)}}
+{{form_widget(scoreForm)}}
+{{form_end(scoreForm)}}
+{% else %}
+<p>Vous avez déjà voté</p>
+{% endif %}
+{% if note is not null %}
+<p>{{ note }}</p>
+{% else %}
+<p>Pas encore de note</p>
+{% endif %}
 <div>
 <p>Commenter !</p>
 {{form_start(commentForm)}}
