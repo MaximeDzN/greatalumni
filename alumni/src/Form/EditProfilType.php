@@ -32,8 +32,9 @@ class EditProfilType extends AbstractType
             ->add('email',EmailType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
-                    'Homme' => true,
-                    'Femme' => false,
+                    'Homme' => 1,
+                    'Femme' => 2,
+                    'Autre' => 3
                 ],
             ])
             ->add('Envoyer',SubmitType::class);

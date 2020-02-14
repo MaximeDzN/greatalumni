@@ -23,7 +23,7 @@ class NewType extends AbstractType
             ])
             ->add('title', TextType::class)
             ->add('content',TextareaType::class)
-            ->add('submit',SubmitType::class)
+            ->add('Poster',SubmitType::class)
             ;
     }
 
