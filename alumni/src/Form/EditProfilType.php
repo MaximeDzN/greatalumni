@@ -36,7 +36,7 @@ class EditProfilType extends AbstractType
                     'Femme' => false,
                 ],
             ])
-            ->add('Envoyer',SubmitType::class);
+            ->add('Modifier_le_profil',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
