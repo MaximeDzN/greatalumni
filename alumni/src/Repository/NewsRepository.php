@@ -19,6 +19,10 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
+    public function findAllReverse(){
+        
+    }
+
     public function deleteOne($news){
         return $this->createQueryBuilder('n')
         ->delete()

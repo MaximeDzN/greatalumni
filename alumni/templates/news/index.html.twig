@@ -1,26 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %}
-{% endblock %}
+{% block content_title %}{% endblock %}
 
 {% block content_body %}
-<main>
+    <div class="__row">
+	<div class="__col  __col--half">
+		{% for n in allnews %}
+			<a href="{{ path('news_details',{id: n.id, news: n}) }}">
+				<div>
+					<img src="images/news/{{n.media}}"/>
+					<p>{{n.title}}</p>
+					<p>{{n.content}}</p>
+					<p>{{n.date|date("d/m/Y H:i:s")}}</p>
+				</div>
+			</a>
+		</div>
+        </div>
+	{% endfor %}
 
-{% for n in allnews %}
-<a href="{{ path('news_details',{id: n.id, news: n}) }}">
-<div>
-    <img src="images/news/{{n.media}}"/>
-    <p>{{n.title}}</p>
-    <p>{{n.content}}</p>
-    <p>{{n.date|date("d/m/Y H:i:s")}}</p>
-</div>
-</a>
-{% endfor %}
-
-{{form_start(newsForm)}}
-{{form_widget(newsForm)}}
-{{form_end(newsForm)}}
-
-
-</main>
 {% endblock %}

@@ -37,9 +37,9 @@ class SignupType extends AbstractType
             ->add('email',EmailType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
-                    '' => null,
-                    'Homme' => true,
-                    'Femme' => false,
+                    'Homme' => 1,
+                    'Femme' => 2,
+                    'Autre' => 3
                 ],
             ])
             ->add('Valider',SubmitType::class);

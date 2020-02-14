@@ -7,11 +7,11 @@
 {% block content_body %}
 
 
-	{{form_start(signupForm)}}
+{{form_start(signupForm)}}
 
-	<div class="__col  __col--half">
-		<div class="input__container">
-			{{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': ''}})}}
+<div class="__col  __col--half">
+	<div class="input__container">
+		{{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': ''}})}}
         {{form_widget(signupForm.login)}}
         {{form_errors(signupForm.login)}}
         </div>
