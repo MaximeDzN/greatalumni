@@ -1,69 +1,128 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %}Modification de compte
+{% block content_title %} {{app.user.name}} {{app.user.nickname}}
 {% endblock %}
 
 {% block content_body %}
-<main>
+
+<div class="__row">
+	<div class="__col ">
+		<div
+			class="input__containerButton">
+			{# Formulaire Modification profil (photo et informations) #}
+			{{form_start(editForm)}}
+			<div class="container__img">
+				
+					<img class="profil__photo" onerror="this.onerror=null; this.src='/images/avatar/avatar.png'" src="/images/avatar/{{ app.user.photo }}"/>
+				
+				{{form_widget(editForm.photo)}}
+				{{form_errors(editForm.photo)}}
+			</div>
+		</div>
+	</div>
+</div>
 
 
-	{# Formulaire Modification profil (photo et informations) #}
-	{{form_start(editForm)}}
-        <img onerror="this.onerror=null; this.src='/images/avatar/avatar.png'" src="/images/avatar/{{ app.user.photo }}"/>
-        {{form_widget(editForm.photo)}}
-        {{form_errors(editForm.photo)}}
+<div class="__row">
+	<div class="__col  __col--half">
+<div class="input__container profile__name">
 
-        {{form_label(editForm.login,'Nom d\'utilisateur',{'label_attr': {'class': 'col-sm-2 col-form-label'}})}}
+			{{form_label(editForm.name,' ')}}
+			{{form_widget(editForm.name)}}
+			{{form_errors(editForm.name)}}
+		</div>
+	</div>
+
+	<div class="__col  __col--half">
+		<div class="input__container profile__name">
+			{{form_label(editForm.nickname,' ')}}
+			{{form_widget(editForm.nickname)}}
+			{{form_errors(editForm.nickname)}}
+		</div>
+	</div>
+
+	<div class="__col  __col--half">
+		<div class="input__container ">
+			{{form_label(editForm.login,' ')}}
             {{form_widget(editForm.login)}}
             {{form_errors(editForm.login)}}
-
-            {{form_label(editForm.email,'Email')}}
+        </div>
+    </div>
+    <div class="__col  __col--half">
+		<div class="input__container ">
+            {{form_label(editForm.email,' ')}}
             {{form_widget(editForm.email)}}
             {{form_errors(editForm.email)}}
+        </div>
+    </div>
 
-            {{form_label(editForm.name,'Nom')}}
-            {{form_widget(editForm.name)}}
-            {{form_errors(editForm.name)}}
-
-            {{form_label(editForm.nickname,'Prénom')}}
-            {{form_widget(editForm.nickname)}}
-            {{form_errors(editForm.nickname)}}
-
-
-            {{form_label(editForm.department,'Département')}}
+    <div class="__col  __col--half">
+		<div class="input__container ">
+            {{form_label(editForm.department,' ')}}
             {{form_widget(editForm.department)}}
             {{form_errors(editForm.department)}}
+        </div>
+    </div>
 
-
-            {{form_label(editForm.promo,'Promotion')}}
+    <div class="__col  __col--half">
+		<div class="input__container ">
+            {{form_label(editForm.promo,' ')}}
             {{form_widget(editForm.promo)}}
             {{form_errors(editForm.promo)}}
-
-
-            {{form_label(editForm.gender,'Genre')}}
+         </div>
+    </div>
+    <div class="__col  __col--half">
+		<div class="input__container ">
+            {{form_label(editForm.gender,' ')}}
             {{form_widget(editForm.gender)}}
             {{form_errors(editForm.gender)}}
+        </div>
+    </div>
 
+    <div class="__col  ">
+	    <div class="input__container input__containerButton">
+            {{form_widget(editForm.Modifier_le_profil)}}
 
-
-            {{form_widget(editForm.Envoyer)}}
+        </div>
+    </div>
         {{form_end(editForm)}}
 
+ </div>
+
+<div class="__row">
     {# Formulaire modification mot de passe #}
     {{form_start(pwdForm)}}
+    <div class="__col  __col--half">
+			<div class="input__container">
         {{form_label(pwdForm.oldPassword,'Ancien mot de passe')}}
         {{form_widget(pwdForm.oldPassword)}}
         {{form_errors(pwdForm.oldPassword)}}
-
+        </div>
+        </div>
+<div class="__col  __col--half">
+			<div class="input__container">
         {{form_label(pwdForm.password.first,'Nouveau mot de passe')}}
         {{form_widget(pwdForm.password.first)}}
         {{form_errors(pwdForm.password.first)}}
-
+        </div>
+        </div>
+<div class="__col  __col--half">
+			<div class="input__container">
         {{form_label(pwdForm.password.second,'Confirmation du nouveau mot de passe')}}
         {{form_widget(pwdForm.password.second)}}
         {{form_errors(pwdForm.password.second)}}
-        {{form_widget(pwdForm.Envoyer)}}
+        </div>
+        </div>
+
+        <div class="__col  ">
+			<div class="input__container input__containerButton">
+{{form_widget(pwdForm.Modifier_le_mot_de_passe)}}
+            </div>
+        </div>
+
+
     {{form_end(pwdForm)}}
-    </main>
+            </div>
+
 
 {% endblock %}

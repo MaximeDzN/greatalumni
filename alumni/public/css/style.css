@@ -40,6 +40,9 @@ grid
 h1, h2, h3, h4, h5, h6, h4 a {
     font-family: var(--titlefont);
 }
+h1{
+    font-size: 3rem;
+}
 
 p, span, a, select, select option, li, label {
     font-family: var(--textfont);
@@ -146,7 +149,7 @@ nav .nav_menu a:hover span {
 
 main {
     margin-top: var(--navheight);
-    height: 100vh;
+    height: auto;
     display: grid;
     grid-template-columns: 0.2fr 2fr 0.2fr;
     grid-template-rows: 0.5fr 2.5fr 1fr;
@@ -357,3 +360,31 @@ footer span, footer p {
 }
 
 /* #endregion */
+
+
+.container__img {
+    width: 100%;
+    display: grid;
+    place-content: center!important;
+}
+
+.profil__photo {
+    object-fit: cover;
+    width: 100%;
+    max-width: 20rem;
+    max-height: 20rem;
+    border-radius: 15px ;
+    border: 5px ridge var(--lightblue);
+    box-shadow: 5px 5px 5px  var(--lightblue);
+
+}
+img {
+    object-fit: cover;
+    width: 100%; 
+}
+
+
+.profile__name {
+    font-size: 1.5rem!important;
+    font-weight: bold!important;
+}

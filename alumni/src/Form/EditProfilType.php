@@ -37,7 +37,7 @@ class EditProfilType extends AbstractType
                     'Autre' => 3
                 ],
             ])
-            ->add('Envoyer',SubmitType::class);
+            ->add('Modifier_le_profil',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
