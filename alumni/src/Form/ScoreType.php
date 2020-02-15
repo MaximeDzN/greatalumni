@@ -24,7 +24,7 @@ class ScoreType extends AbstractType
 
                 ],
             ])
-            ->add('envoyer',SubmitType::class)
+            ->add('Voter',SubmitType::class)
         ;
     }
 
