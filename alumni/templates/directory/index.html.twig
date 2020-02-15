@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Annuaire
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="__row">
+		{% for user in users %}
+
+			<a href="{{ path('showInfos',{'id': user.id}) }}">
+				<div class="__col  __col--half">
+					<div class="__row">
+						<div class="__col  __col--half container__photo">
+							<img class="directory__photo" src="/images/avatar/{{ user.photo }}"/>
+						</div>
+						<div class="__col  __col--half">
+							<h3>{{ user.name }}</h3>
+							<h3>{{ user.nickname }}</h3>
+							<h3>{{ user.promo }}</h3>
+						</div>
+
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
