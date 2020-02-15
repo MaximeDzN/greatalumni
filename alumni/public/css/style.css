@@ -37,18 +37,34 @@ grid
     font-family: var(--logofont)
 }
 
-h1, h2, h3, h4, h5, h6, h4 a {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h4 a {
     font-family: var(--titlefont);
 }
-h1{
+
+h1 {
     font-size: 3rem;
 }
 
-p, span, a, select, select option, li, label {
+p,
+span,
+a,
+select,
+select option,
+li,
+label {
     font-family: var(--textfont);
 }
 
-a, a:hover, a:visited, a:focus {
+a,
+a:hover,
+a:visited,
+a:focus {
     color: black;
     text-decoration: none;
 }
@@ -61,6 +77,7 @@ body {
 .container {
     display: grid;
 }
+
 
 /* #region [2] - Navbar ****/
 
@@ -103,7 +120,8 @@ nav .nav_lookup input {
     z-index: 5;
 }
 
-nav .nav_lookup input:active, nav .nav_lookup input:focus {
+nav .nav_lookup input:active,
+nav .nav_lookup input:focus {
     border: solid var(--lightblue) 2px;
 }
 
@@ -143,7 +161,9 @@ nav .nav_menu a:hover span {
     color: var(--darkblue)!important;
 }
 
+
 /* #endregion */
+
 
 /* #region main */
 
@@ -177,7 +197,8 @@ main {
 }
 
 @media screen and (max-width: 760px) {
-    .container__margeRight, .container__margeLeft {
+    .container__margeRight,
+    .container__margeLeft {
         display: none!important;
     }
     main {
@@ -186,11 +207,14 @@ main {
     }
 }
 
+
 /* #endregion  */
+
 
 /* #region boostrap */
 
-.__row, form {
+.__row,
+form {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -217,13 +241,54 @@ main {
 }
 
 @media only screen and (max-width: 760px) {
-    .__col--third, .__col--half {
+    .__col--third,
+    .__col--half {
         width: 100%
     }
     ;
 }
 
+
 /* #endregion */
+
+
+/* #region Article */
+
+.article__container {}
+
+.article__preview__container--content {
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 14em;
+    line-height: 1.6em;
+}
+
+.article__preview__container img {
+    width: 100%;
+    max-width: 30rem;
+    max-height: 30rem;
+    float: left;
+}
+
+.article__container--content {
+    text-align: justify;
+    padding: 1rem;
+}
+
+.article__container--links a {
+    display: inline-block;
+    padding-left: 1rem;
+}
+
+.article__container--links a:hover {
+    text-decoration: underline;
+}
+
+
+/* #endregion */
+
 
 /* #region input */
 
@@ -233,9 +298,16 @@ label {
     width: 100%;
 }
 
-label, input, select {
+label,
+input,
+select {
     display: block;
     width: 100%;
+}
+
+.input__containerVote {
+    padding: 0rem!important;
+    width: 10%;
 }
 
 .input__container ul {
@@ -271,7 +343,8 @@ input {
     margin-top: 0.5rem;
 }
 
-input:focus, input:active {
+input:focus,
+input:active {
     border-bottom: solid 0.1em black;
     outline: none;
 }
@@ -280,7 +353,9 @@ input::placeholder {
     color: var(--color-lightgrey)
 }
 
+
 /* #endregion  */
+
 
 /* #region button */
 
@@ -326,7 +401,9 @@ button:disabled {
     cursor: not-allowed;
 }
 
+
 /* #endregion */
+
 
 /* #region footer */
 
@@ -338,20 +415,22 @@ footer {
     color: white;
 }
 
-footer span, footer p {
+footer span,
+footer p {
     margin: auto auto
 }
 
+
 /* #endregion */
+
 
 /* #region index */
 
 .input__signIn {
     padding-right: 35%;
     padding-left: 35%;
-    
-    
 }
+
 @media only screen and (max-width: 1000px) {
     .input__signIn {
         padding-right: 0%;
@@ -359,8 +438,8 @@ footer span, footer p {
     }
 }
 
-/* #endregion */
 
+/* #endregion */
 
 .container__img {
     width: 100%;
@@ -373,16 +452,15 @@ footer span, footer p {
     width: 100%;
     max-width: 20rem;
     max-height: 20rem;
-    border-radius: 15px ;
+    border-radius: 15px;
     border: 5px ridge var(--lightblue);
-    box-shadow: 5px 5px 5px  var(--lightblue);
-
+    box-shadow: 5px 5px 5px var(--lightblue);
 }
+
 img {
     object-fit: cover;
-    width: 100%; 
+    width: 100%;
 }
-
 
 .profile__name {
     font-size: 1.5rem!important;

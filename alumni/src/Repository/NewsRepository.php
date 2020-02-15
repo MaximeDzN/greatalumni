@@ -20,7 +20,7 @@ class NewsRepository extends ServiceEntityRepository
     }
 
     public function findAllReverse(){
-        
+        return $this->findBy(array(), array('id' => 'DESC'));    
     }
 
     public function deleteOne($news){

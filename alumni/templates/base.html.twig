@@ -33,7 +33,7 @@
                 
                     {% if app.user %}
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href=""><span>Administration</span></a>
+                            <a href="{{ path('admin') }}"><span>Administration</span></a>
                         {% endif %}
                     <a href="{{ path('news') }}"><span>Feed</span></a>
                     <a href=""><span>Forum</span></a>
