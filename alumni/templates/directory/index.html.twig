@@ -5,7 +5,15 @@
 
 {% block content_body %}
 
+
+	{{form_start( formSearch )}}
+
+
+	{{form_end( formSearch )}}
+	
+
 	<div class="__row">
+
 		{% for user in users %}
 
 			<a href="{{ path('showInfos',{'id': user.id}) }}">

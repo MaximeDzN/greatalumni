@@ -4,19 +4,24 @@
 {% endblock %}
 
 {% block content_body %}
+	<a href="{{path('write')}}">
+		<button class="" type="submit">
+			Rédiger un article
+		</button>
+	</a>
 	<div class="__row">
 
 		{% for n in allnews %}
 			<div class="__col">
 				<a href="{{ path('news_details',{id: n.id, news: n}) }}">
 					<div class="article__preview__container">
-                            <img src="images/news/{{n.media}}"/>
-                            <h2>{{n.title}}</h2>
-                            <p>{{n.date|date("d/m/Y H:i")}}</p>
-                            <div class="article__preview__container--content">
-                                <p>{{n.content}}</p>
-                            </div>
-                        </div>
+						<img src="images/news/{{n.media}}"/>
+						<h2>{{n.title}}</h2>
+						<p>{{n.date|date("d/m/Y H:i")}}</p>
+						<div class="article__preview__container--content">
+							<p>{{n.content}}</p>
+						</div>
+					</div>
 				</a>
 			</div>
 
