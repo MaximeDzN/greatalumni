@@ -26,7 +26,7 @@
                     {% endif %}
                 </div>
                 <div class="nav_lookup">
-                    <input placeholder="Rechercher sur le site...">
+                    {# <input href="{{path('search')}}" placeholder="Rechercher sur le site..."> #}
                     <!-- <i class="fas fa-search"></i> -->
                 </div>
                 <div class="nav_menu">
@@ -35,6 +35,7 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('admin') }}"><span>Administration</span></a>
                         {% endif %}
+                    <a href="{{ path('directory') }}"><span>Annuaire</span></a>
                     <a href="{{ path('news') }}"><span>Feed</span></a>
                     <a href=""><span>Forum</span></a>
                     <a href="{{ path('profil')}}"><span>Profil</span></a>
