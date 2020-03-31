@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+{% block content_title %}
+	{{user.name}}
+	{{user.nickname}}
+{% endblock %}
+{% block content_body %}
+	<div class="__row">
+		<div class="__col ">
+			<div
+				class="input__containerButton">
+				{# Formulaire Modification profil (photo et informations) #}
+				<div class="container__img">
+
+					<img class="profil__photo" src="/images/avatar/{{ user.photo }}"/>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="__row">
+		<div class="__col  __col--half">
+			<div class="show__directory profile__name">
+				<h2>
+					{{user.name}}
+				</h2>
+			</div>
+		</div>
+
+
+		<div class="__col  __col--half">
+			<div class="show__directory profile__name">
+				<h2>
+					{{user.nickname}}
+				</h2>
+			</div>
+		</div>
+
+		<div class="__col  __col--half">
+			<div class="show__directory ">
+				<h2>
+					{{user.login}}
+				</h2>
+			</div>
+		</div>
+		<div class="__col  __col--half">
+			<div class="show__directory ">
+				<h2>
+					{{user.email}}</h2>
+			</div>
+		</div>
+
+		<div class="__col  __col--half">
+			<div class="show__directory ">
+				<h2>
+					{{user.department}}
+				</h2>
+			</div>
+		</div>
+
+		<div class="__col  __col--half">
+			<div class="show__directory">
+				<h2>
+					{{user.promo}}
+				</h2>
+			</div>
+		</div>
+		<div class="__col  __col--half ">
+			<div class="show__directory">
+				{% if user.gender == 1  %}
+					<h2>
+						Homme
+					</h2>
+				{% else %}
+					<h2>
+						Femme
+					</h2>
+				{% endif %}
+
+			</div>
+		</div>
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="__col  __col--half ">
+				<div class="show__directory">
+					<a href="">
+						<h2>Administrateur</h2>
+					</a>
+
+				</div>
+			</div>
+		{% endif %}
+
+
+	</div>
+
+</div>{% endblock %}

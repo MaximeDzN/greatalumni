@@ -1,35 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block content_title %}
+	{{news.title}}
 {% endblock %}
 
 {% block content_body %}
-<main>
-<div>
-<img src="/images/news/{{news.media}}"/>
 
-{{news.title}}
+	<div class="article__container--content">
+		<p>{{news.content}}</p>
+	</div>
+	<img src="/images/news/{{news.media}}"/>
+	<div class="article__container--links">
+		
+			{% if  news.author == app.user or  is_granted('ROLE_ADMIN')  %}
+				<a href="{{ path('news_edit',{id: news.id, news: news})}}">
+					<p>modifier</p>
+				</a>
 
-{{news.content}}
-<a href="{{ path('news_del',{id: news.id, news: news})}}"><p>Supprimer</p></a>
-</div>
+				<a href="{{ path('news_del',{id: news.id, news: news})}}">
+					<p>Supprimer</p>
+				</a>
 
-<div>
-<p>Commenter !</p>
-{{form_start(commentForm)}}
-{{form_widget(commentForm)}}
-{{form_end(commentForm)}}
-</div>
-{% for c in comments %}
-<div>
-<p>{{c.content}}</p>
-<p>{{c.date|date("d/m/Y H:i:s")}}</p>
-<p>{{c.author.login}}</p>
-{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
-<a href="{{ path('comment_del',{id: c.id, comment: c})}}"><p>supprimer</p></a>
-{% endif %}
-</div>
-{% endfor %}
+			{% endif %}
+		
+	</div>
+		
 
-</main>
-{% endblock %}
+	{% if scoreForm is defined %}
+		{{form_start(scoreForm)}}
+
+		<div class="__col __col--third">
+
+			<div class="input__container input__containerVote">
+				{{form_widget(scoreForm.value)}}
+			</div>
+			{{form_widget(scoreForm.Voter)}}
+
+			{{form_end(scoreForm)}}
+		{% else %}
+			<p>Vous avez déjà voté</p>
+		{% endif %}
+		{% if note is not null %}
+			<p>{{ note }}</p>
+		{% else %}
+			<p>Pas encore de note</p>
+		{% endif %}
+		<div>
+			{{form_start(commentForm)}}
+			{{form_widget(commentForm)}}
+			{{form_end(commentForm)}}
+		</div>
+		{% for c in comments %}
+			<div>
+				<p>{{c.content}}</p>
+				<p>{{c.date|date("d/m/Y H:i:s")}}</p>
+				<p>{{c.author.login}}</p>
+				{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('comment_del',{id: c.id, comment: c})}}">
+						<p>supprimer</p>
+					</a>
+				{% endif %}
+			</div>
+		{% endfor %}
+
+
+	{% endblock %}

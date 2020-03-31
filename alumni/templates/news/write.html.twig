@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rédiger un article !
+{% endblock %}
+
+{% block content_body %}
+	{{form_start(newsForm)}}
+	<div class="__col  __col--half">
+		<div class="input__container">
+			{{form_label(newsForm.media,'Image')}}
+			{{form_widget(newsForm.media)}}
+			{{form_errors(newsForm.media)}}
+		</div>
+	</div>
+	<div class="__col  __col--half">
+
+		<div class="input__container">
+			{{form_label(newsForm.title,'Titre')}}
+			{{form_widget(newsForm.title)}}
+			{{form_errors(newsForm.title)}}
+		</div>
+	</div>
+	<div class="__col">
+
+		<div class="input__container">
+			{{form_label(newsForm.content,'Contenu')}}
+			{{form_widget(newsForm.content)}}
+			{{form_errors(newsForm.content)}}
+		</div>
+	</div>
+	<div class="input__container input__containerButton">
+
+		{{form_widget(newsForm.Poster)}}
+	</div>
+
+
+	{{form_end(newsForm)}}
+{% endblock %}

@@ -25,7 +25,7 @@ class PasswordEditType extends AbstractType
                 new Length(['min' => 6]),
             ]
         ])
-        ->add('Envoyer',SubmitType::class);
+        ->add('Modifier_le_mot_de_passe',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

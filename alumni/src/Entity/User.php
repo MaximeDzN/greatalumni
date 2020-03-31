@@ -60,8 +60,8 @@ class User implements UserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="boolean")
+   /**
+     * @ORM\Column(type="integer")
      */
     private $gender;
 
@@ -271,12 +271,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGender(): ?bool
+    public function getGender(): ?int
     {
         return $this->gender;
     }
 
-    public function setGender(bool $gender): self
+    public function setGender(int $gender): self
     {
         $this->gender = $gender;
 

@@ -1,26 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %}
+{% block content_title %}Articles
 {% endblock %}
 
 {% block content_body %}
-<main>
+	<a href="{{path('write')}}">
+		<button class="" type="submit">
+			Rédiger un article
+		</button>
+	</a>
+	<div class="__row">
 
-{% for n in allnews %}
-<a href="{{ path('news_details',{id: n.id, news: n}) }}">
-<div>
-    <img src="images/news/{{n.media}}"/>
-    <p>{{n.title}}</p>
-    <p>{{n.content}}</p>
-    <p>{{n.date|date("d/m/Y H:i:s")}}</p>
-</div>
-</a>
-{% endfor %}
+		{% for n in allnews %}
+			<div class="__col">
+				<a href="{{ path('news_details',{id: n.id, news: n}) }}">
+					<div class="article__preview__container">
+						<img src="images/news/{{n.media}}"/>
+						<h2>{{n.title}}</h2>
+						<p>{{n.date|date("d/m/Y H:i")}}</p>
+						<div class="article__preview__container--content">
+							<p>{{n.content}}</p>
+						</div>
+					</div>
+				</a>
+			</div>
 
-{{form_start(newsForm)}}
-{{form_widget(newsForm)}}
-{{form_end(newsForm)}}
-
-
-</main>
+		{% endfor %}
+	</div>
 {% endblock %}
