@@ -11,24 +11,8 @@
 	</div>
 	<img src="/images/news/{{news.media}}"/>
 	<div class="article__container--links">
-
-		{% if  news.author == app.user or  is_granted('ROLE_ADMIN')  %}
-			<a href="{{ path('news_edit',{id: news.id, news: news})}}">
-				<button>modifier</button>
-			</a>
-
-			<a href="{{ path('news_del',{id: news.id, news: news})}}">
-				<button>supprimer</button>
-
-			</a>
-
-		{% endif %}
-
-	</div>
 	<input type="hidden" id="voteState" value="{{voted}}"/>
 	{{form_start(scoreForm,{'attr': {'id': 'score_form'}})}}
-
-	<div class="__col __col--third">
 		<div id="voteDIV">
 			<span id="starA" class="fa fa-star"></span>
 			<span id="starB" class="fa fa-star"></span>
@@ -36,30 +20,43 @@
 			<span id="starD" class="fa fa-star"></span>
 			<span id="starE" class="fa fa-star"></span>
 		</div>
-	</div>
 	{{form_end(scoreForm)}}
 	{% if note is not null %}
 		<input type="hidden" id="voteValue" value="{{note}}"/>
 	{% else %}
 		<input type="hidden" id="voteValue" value=""/>
 	{% endif %}
+		{% if  news.author == app.user or  is_granted('ROLE_ADMIN')  %}
+			<a href="{{ path('news_edit',{id: news.id, news: news})}}">
+				<button>modifier</button>
+			</a>
+			<a href="{{ path('news_del',{id: news.id, news: news})}}">
+				<button>supprimer</button>
+
+			</a>
+		{% endif %}
+	</div>
+	
+
+	<div class="__col">
+		<div class="comment__section__container">
 
 	{{form_start(commentForm)}}
-	<div class="__col  __col--half">
+	<div class="__col">
 		<div class="input__container">
 
 			{{form_label(commentForm.content,'Laisser un commentaire')}}
-			{{form_widget(commentForm.content)}}
+			{{form_widget(commentForm.content,{'attr':{'class':'textarea__comment'}})}}
+			{{form_errors(commentForm.content)}}
 		</div>
 	</div>
-	<div class="__col  __col--half"></div>
-	<div class="input__container input__containerButton">
-
-		{{form_widget(commentForm.submit,{'label': 'Commenter'})}}
-	</div>
-	{{form_end(commentForm)}}
 	<div class="__col">
-		<div class="comment__section__container">
+		<div class="input__container">
+		{{form_widget(commentForm.submit,{'label': 'Commenter','attr': {'class': 'button__comment'}})}}
+		</div>
+	</div>
+
+	{{form_end(commentForm)}}
 			{% for c in comments %}
 				<div class="__col __col--half comment__container">
 					<div class="__row">
@@ -79,6 +76,10 @@
 							{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
 								<a class="suppress__com" href="{{ path('comment_del',{id: c.id, comment: c})}}">
 									<p>supprimer</p>
+								</a>
+								{% else %}
+								<a class="signaler__com" href="">
+									<p>signaler</p>
 								</a>
 							{% endif %}
 						</div>

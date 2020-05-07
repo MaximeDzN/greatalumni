@@ -258,6 +258,8 @@ form {
 
 .article__container {}
 
+.article__preview__container {}
+
 .article__preview__container--content {
     display: block;
     text-overflow: ellipsis;
@@ -282,6 +284,7 @@ form {
 .article__container--links {
     margin-top: 1em;
     margin-bottom: 1em;
+    text-align: right;
 }
 
 .article__container--links a {
@@ -304,12 +307,13 @@ form {
 /* #region Comment */
 
 .comment__section__container {
-    background-color: var(--color-lightgrey);
+    background-color: var(--middleblue);
     padding: 1em 1em 1em 1em;
 }
 
 .comment__container {
     background-color: white;
+    margin-top: 0.1rem;
 }
 
 .comment__container p {
@@ -325,6 +329,11 @@ form {
 
 .suppress__com {
     text-align: center;
+}
+
+.textarea__comment {
+    height: 8rem;
+    resize: none;
 }
 
 

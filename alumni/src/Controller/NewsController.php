@@ -117,7 +117,7 @@ class NewsController extends AbstractController
     public function newsDetails(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, ScoreRepository $scoRepo, News $news)
     {
         $user = $this->getUser();
-        $comments = $news->getComments();
+        $comments = $comRepo->findAllReverse();
         $notes = $news->getScores();
         $voted = false;
         $note = null;
