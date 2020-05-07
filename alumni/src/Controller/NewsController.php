@@ -166,6 +166,8 @@ class NewsController extends AbstractController
                 'commentForm' => $commentForm->createView(),
                 'comments' => $comments,
                 'note' => $note,
+                'scoreForm' => $scoreForm->createView(),
+                'voted' => $voted
             ]);
         } else {
             return $this->render('news/details.html.twig', [
@@ -173,7 +175,8 @@ class NewsController extends AbstractController
                 'commentForm' => $commentForm->createView(),
                 'comments' => $comments,
                 'note' => $note,
-                'scoreForm' => $scoreForm->createView()
+                'scoreForm' => $scoreForm->createView(),
+                'voted' => $voted
             ]);
         }
     }

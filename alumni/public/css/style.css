@@ -279,13 +279,52 @@ form {
     padding: 1rem;
 }
 
+.article__container--links {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 .article__container--links a {
     display: inline-block;
     padding-left: 1rem;
 }
 
 .article__container--links a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+}
+
+.checked {
+    color: orange;
+}
+
+
+/* #endregion */
+
+
+/* #region Comment */
+
+.comment__section__container {
+    background-color: var(--color-lightgrey);
+    padding: 1em 1em 1em 1em;
+}
+
+.comment__container {
+    background-color: white;
+}
+
+.comment__container p {
+    padding-left: 1em;
+}
+
+.com__pic {
+    height: 5em;
+    width: 5em;
+    max-height: 5em;
+    max-width: 5em;
+}
+
+.suppress__com {
+    text-align: center;
 }
 
 
@@ -332,6 +371,10 @@ select {
 .input__container li {
     color: red;
     width: 100%;
+}
+
+.input__containerTextarea {
+    height: 40em;
 }
 
 input {
@@ -438,17 +481,17 @@ footer p {
         padding-right: 0%;
         padding-left: 0%;
     }
-    .directory__photo{
+    .directory__photo {
         object-fit: cover;
         width: 100%;
-        height: 100%;        
+        height: 100%;
         max-width: 30rem;
         max-height: 30rem;
         display: grid;
-    place-content: center!important;
-        
+        place-content: center!important;
     }
-    .__row, form {
+    .__row,
+    form {
         width: 100%;
         display: grid;
         flex-wrap: wrap;
@@ -472,17 +515,14 @@ footer p {
     border-radius: 15px;
     border: 5px ridge var(--lightblue);
     box-shadow: 5px 5px 5px var(--lightblue);
-    
 }
 
-.directory__photo{
+.directory__photo {
     object-fit: cover;
     width: 100%;
     height: 100%;
     padding-right: 1rem;
-    
 }
-
 
 img {
     object-fit: cover;
@@ -493,13 +533,14 @@ img {
     font-size: 1.5rem!important;
     font-weight: bold!important;
 }
-.container__photo{
+
+.container__photo {
     padding-right: 1rem;
     width: 15rem;
 }
-.show__directory{
+
+.show__directory {
     width: 50%;
     display: grid;
     place-content: center;
-    
 }

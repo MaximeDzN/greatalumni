@@ -22,9 +22,9 @@
 	</div>
 	<div class="__col">
 
-		<div class="input__container">
+		<div class="input__container input__containerTextarea">
 			{{form_label(newsForm.content,'Contenu')}}
-			{{form_widget(newsForm.content)}}
+			{{form_widget(newsForm.content,{'attr':{'class':'input__containerTextarea'}})}}
 			{{form_errors(newsForm.content)}}
 		</div>
 	</div>

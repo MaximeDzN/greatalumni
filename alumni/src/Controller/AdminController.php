@@ -10,6 +10,7 @@ use App\Entity\News;
 
 use App\Repository\CommentRepository;
 use App\Repository\NewsRepository;
+use App\Repository\ScoreRepository;
 
 class AdminController extends AbstractController
 {
@@ -30,16 +31,20 @@ class AdminController extends AbstractController
        /**
      * @Route("/admin/news_del/{id}", name="news_del")
      */
-    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo,CommentRepository $comRepo, News $news )
+    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo,CommentRepository $comRepo,ScoreRepository $scoreRepo, News $news )
     {
         $user = $this->getUser();
         //On regarde si l'utilisateur courant est l'auteur ou un administrateur
         if($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles()) ){
             //Si oui on récupère tous les commentaires de l'article
             $comments = $news->getComments();
+            $scores = $news->getScores();
             foreach($comments as $c){
                 //On Supprime tous les commentaires de l'article
                 $comRepo->deleteOne($c->getId());
+            }
+            foreach($scores as $s){
+                $scoreRepo->deleteOne($s->getId());
             }
             //On supprime l'article
             $newsRepo->deleteOne($news->getId());

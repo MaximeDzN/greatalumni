@@ -1,15 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %} Mofication d'un article
+{% block content_title %}
+	Modification d'un article
 {% endblock %}
 
 {% block content_body %}
-<main>
-{{form_start(newsForm)}}
-<img src="/images/news/{{ news.media }}"
+	<img class="directory__photo" src="/images/news/{{ news.media }}"/>
 
-{{form_widget(newsForm)}}
-{{form_end(newsForm)}}
+	{{form_start(newsForm)}}
+	<div class="__col  __col--half">
+		<div class="input__container">
+			{{form_label(newsForm.media,'Image')}}
+			{{form_widget(newsForm.media)}}
+			{{form_errors(newsForm.media)}}
+		</div>
+	</div>
+	<div class="__col  __col--half">
 
-</main>
+		<div class="input__container">
+			{{form_label(newsForm.title,'Titre')}}
+			{{form_widget(newsForm.title)}}
+			{{form_errors(newsForm.title)}}
+		</div>
+	</div>
+	<div class="__col">
+
+		<div class="input__container">
+			{{form_label(newsForm.content,'Contenu')}}
+			{{form_widget(newsForm.content,{'attr':{'class':'input__containerTextarea'}})}}
+			{{form_errors(newsForm.content)}}
+		</div>
+	</div>
+	<div class="input__container input__containerButton">
+
+		{{form_widget(newsForm.submit,{'label':'Poster'})}}
+	</div>
+
+
+	{{form_end(newsForm)}}
+
 {% endblock %}
