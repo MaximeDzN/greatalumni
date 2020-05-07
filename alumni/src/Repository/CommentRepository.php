@@ -28,6 +28,11 @@ class CommentRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function findAllReverse(){
+        return $this->findBy(array(), array('id' => 'DESC'));    
+    }
+
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
