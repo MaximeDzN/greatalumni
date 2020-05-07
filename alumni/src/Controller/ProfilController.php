@@ -16,7 +16,7 @@ use App\Form\PasswordEditType;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profil")
+     * @Route("/profil", name="profil")
      */
     public function ProfilEdit(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
