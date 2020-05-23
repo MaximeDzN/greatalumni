@@ -19,6 +19,10 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findAllReverse(){
+        return $this->findBy(array(), array('id' => 'DESC'));    
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

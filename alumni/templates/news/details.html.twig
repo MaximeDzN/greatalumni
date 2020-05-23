@@ -37,56 +37,55 @@
 		{% endif %}
 	</div>
 	
+	<div class="__row">
+		<div class="comment__section __col">
+			<div class="comment__section__form">
+				{{form_start(commentForm)}}
+					<div class="__col input__container">
+						{{form_label(commentForm.content,'Laisser un commentaire:')}}
+						{{form_widget(commentForm.content,{'attr':{'class':'textarea__comment'}})}}
+						{{form_errors(commentForm.content)}}
+						{{form_widget(commentForm.submit,{'label': 'Commenter','attr': {'class': 'button__comment'}})}}
+					</div>
+				{{form_end(commentForm)}}
+			</div>
+			<div class="comment__section__list">
+				{% for c in comments %}
+					<div class="comment__section__list_unity __row">
+						<div class="__col __col--third comment__section__list_unity_profil">
+							{% if c.author.photo is null %}
+								<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
+							{% else %}
+								<div><img class="" src="{{asset('images/avatar/'~c.author.photo)}}"/></div>
+							{% endif %}
+								<span class="comment__section__list__unity__profil__name">{{c.author.login}}</span>
+								<span class="comment__section__list__unity__profil__date">{{c.date|date("d/m/Y H:i:s")}}</span>
+						</div>
+						<div class="__col __col--twoThird comment__section__list_unity_content">
+							<p>{{c.content}}</p>
+							<div>
+								{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="{{ path('comment_del',{id: c.id, comment: c})}}">
+										<span>Supprimer</span>
+									</a>
+									{% else %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 
 	<div class="__col">
 		<div class="comment__section__container">
 
-	{{form_start(commentForm)}}
-	<div class="__col">
-		<div class="input__container">
 
-			{{form_label(commentForm.content,'Laisser un commentaire')}}
-			{{form_widget(commentForm.content,{'attr':{'class':'textarea__comment'}})}}
-			{{form_errors(commentForm.content)}}
-		</div>
-	</div>
-	<div class="__col">
-		<div class="input__container">
-		{{form_widget(commentForm.submit,{'label': 'Commenter','attr': {'class': 'button__comment'}})}}
-		</div>
-	</div>
-
-	{{form_end(commentForm)}}
-			{% for c in comments %}
-				<div class="__col __col--half comment__container">
-					<div class="__row">
-						<div class="__col __col--third">
-							{% if c.author.photo is null %}
-							<img style='vertical-align:middle;' class="com__pic" src="{{asset('images/avatar/avatar.png')}}"/>
-							{% else %}
-							<img style='vertical-align:middle;' class="com__pic" src="{{asset('images/avatar/'~c.author.photo)}}"/>
-							{% endif %}
-							<p style='display:inline;'><b>{{c.author.login}}</b></p>
-						</div>
-						<div class="__col __col--third">
-
-							<p class=>{{c.date|date("d/m/Y H:i:s")}}</p>
-						</div>
-						<div class="__col __col--third">
-							{% if c.author == app.user or is_granted('ROLE_ADMIN') %}
-								<a class="suppress__com" href="{{ path('comment_del',{id: c.id, comment: c})}}">
-									<p>supprimer</p>
-								</a>
-								{% else %}
-								<a class="signaler__com" href="">
-									<p>signaler</p>
-								</a>
-							{% endif %}
-						</div>
-						<p>{{c.content}}</p>
-					</div>
-				</div>
-			{% endfor %}
+			
 		</div>
 	</div>
 	{% block javascript %}

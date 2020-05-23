@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Forum X - Discussion Z
+{% endblock %}
+
+{% block content_body %}
+<ul>
+		{% for n in postAnswer %}
+        <li>{{n.content}} <span>{{n.date|date("d/m/Y H:i:s")}}</span></li>
+        {% endfor %}
+</ul>
+{% endblock %}

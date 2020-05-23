@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+
+        Forum X
+
+{% endblock %}
+
+{% block content_body %}
+<ul>
+		{% for n in post %}
+<!--        <li><a href="{{ path('forumThread',{category: n.id, id: n.id, forum: n}) }}">{{n.title}}</a></li> -->
+            <li><a href="">{{n.title}} - {{n.content}} - {{n.id}} - {{n.post_type_id}} - {{n.date|date("d/m/Y H:i:s")}}</a></li>
+        {% endfor %}
+</ul>
+{% endblock %}
