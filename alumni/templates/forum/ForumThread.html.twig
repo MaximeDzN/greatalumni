@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Forum Emploi - Discussion x
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="__row" style="width:inherit">
+		<div class="comment__section __col">
+
+			<div class="comment__section__list">
+		        {% for n in postAnswer %}   
+					<div class="comment__section__list_unity __row">
+						<div class="__col __col--third comment__section__list_unity_profil">
+							{# {% if c.author.photo is null %}
+								<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
+							{% else %}
+								<div><img class="" src="{{asset('images/avatar/'~c.author.photo)}}"/></div>
+							{% endif %} #}
+								{# <span class="comment__section__list__unity__profil__name">{{c.author.login}}</span> #}
+								<span class="comment__section__list__unity__profil__date">{{n.date|date("d/m/Y H:i:s")}}</span>
+						</div>
+						<div class="__col __col--twoThird comment__section__list_unity_content">
+							<p>{{n.content}}</p>
+							<div>
+								{# {% if c.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="{{ path('comment_del',{id: c.id, comment: c})}}">
+										<span>Supprimer</span>
+									</a>
+									{% else %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %} #}
+							</div>
+						</div>
+					</div>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
