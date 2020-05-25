@@ -5,8 +5,8 @@
 
 {% block content_body %}
 <ul>
-		{% for n in postType %}
-        <li><a href="{{ path('forumCategory',{category: n.id, forum: n}) }}">{{n.title}}</a></li>
+		{% for forumCategory in postType %}
+        <li><a href="{{ path('forumCategory',{category: forumCategory.title, forum: forumCategory}) }}">{{forumCategory.title}}</a></li>
         {% endfor %}
 </ul>
 {% endblock %}

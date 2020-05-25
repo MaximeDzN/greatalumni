@@ -43,6 +43,7 @@ class ForumController extends AbstractController
     {
 
         $allPost = $PostRepo->findAllReverse();
+        $user = $this->getUser();
         
         return $this->render('forum/forumCategory.html.twig', [
             'post' => $allPost

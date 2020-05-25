@@ -2,15 +2,14 @@
 
 {% block content_title %}
 
-        Forum X
+        Forum Emploi
 
 {% endblock %}
 
 {% block content_body %}
 <ul>
-		{% for n in post %}
-<!--        <li><a href="{{ path('forumThread',{category: n.id, id: n.id, forum: n}) }}">{{n.title}}</a></li> -->
-            <li><a href="">{{n.title}} - {{n.content}} - {{n.id}} - {{n.post_type_id}} - {{n.date|date("d/m/Y H:i:s")}}</a></li>
+	{% for forum in post %}
+                <li><a href="{{ path('forumThread',{category: forum.posttype.title, id: forum.id, forum: forum}) }}">{{forum.title}}</a></li>
         {% endfor %}
 </ul>
 {% endblock %}
