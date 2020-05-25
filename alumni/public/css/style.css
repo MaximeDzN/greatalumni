@@ -122,11 +122,6 @@ nav .nav_lookup input {
     z-index: 1020;
 }
 
-nav .nav_lookup input:active,
-nav .nav_lookup input:focus {
-    border: solid var(--lightblue) 2px;
-}
-
 /* nav .nav_lookup i {
     z-index: 1;
     margin: auto 0rem;
@@ -220,7 +215,9 @@ main {
     display: grid;
     grid-template-columns: 0.2fr 2fr 0.2fr;
     grid-template-rows: 0.3fr 2.5fr 1fr;
-    grid-template-areas: "marge1 title marge2" "marge1 content marge2" "marge1 content marge2";
+    grid-template-areas:"marge1 title marge2" 
+                        "marge1 content marge2" 
+                        "marge1 content marge2";
 }
 
 .container__margeLeft {
