@@ -1,30 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %}Articles
+{% block content_title %}Fil d'Actualité
 {% endblock %}
 
 {% block content_body %}
+	<div class="__row">
 	<a href="{{path('write')}}">
 		<button class="" type="submit">
 			Rédiger un article
 		</button>
 	</a>
-	<div class="__row">
-
+	
+	<div class="">
 		{% for n in allnews %}
-			<div class="__col">
-				<a href="{{ path('news_details',{id: n.id, news: n}) }}">
-					<div class="article__preview__container">
-						<img src="images/news/{{n.media}}"/>
-						<h2>{{n.title}}</h2>
-						<p>{{n.date|date("d/m/Y H:i")}}</p>
-						<div class="article__preview__container--content">
-							<p>{{n.content}}</p>
-						</div>
+		<section class="newsfeed__item">
+			<a class="__row" href="{{ path('news_details',{id: n.id, news: n}) }}">
+				<div class="newsfeed__item__img __col __col--third">
+					<img class="" src="images/news/{{n.media}}">
+				</div>
+				<div class="__col __col--twoThird">
+				<div class="newsfeed__item__txt">
+					<div class="newsfeed__item__txt__infos">
+						<span>
+							{{n.date|date("d/m/Y H:i")}}
+						</span>
 					</div>
-				</a>
-			</div>
-
+					<div  class="">
+						<h2>{{n.title}}</h2>
+					</div>
+					<div  class="">
+						<p>{{ n.content|length > 400 ? n.content|slice(0, 400) ~ ' [...]' : n.content  }}</p>
+					</div>
+				</div>
+				</div>
+			</a>
+		</section>
 		{% endfor %}
+	</div>
 	</div>
 {% endblock %}

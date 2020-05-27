@@ -23,21 +23,31 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for($i = 1; $i<=10 ; $i++)
-        {
+       
             $user = new User();
-            $user->setLogin("SUPERADMIN $i");
+            $user->setLogin("SUPERADMIN");
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPassword($this->passwordEncoder->encodePassword($user,'SUPERADMIN'));
-            $user->setEmail("support$i@greatalumni.fr");
+            $user->setEmail("support@greatalumni.fr");
             $user->setGender(0);
             $user->setName('ADMIN');
             $user->setNickname('ADMIN');
-            $user->setPromo("$i");
+            $user->setPromo("2019");
             $user->setDepartment('greatalumni admin');
             $user->setIsConfirmed(0);
             $manager->persist($user);
-        }
+            $user2 = new User();
+            $user2->setLogin("user");
+            $user2->setRoles(['ROLE_USER']);
+            $user2->setPassword($this->passwordEncoder->encodePassword($user,'user'));
+            $user2->setEmail("support@greatalumni.fr");
+            $user2->setGender(0);
+            $user2->setName('USER');
+            $user2->setNickname('USER');
+            $user2->setPromo("2019");
+            $user2->setDepartment('greatalumni user');
+            $user2->setIsConfirmed(0);
+            $manager->persist($user2);
         $manager->flush();
 
     }

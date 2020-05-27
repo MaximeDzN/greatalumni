@@ -117,7 +117,7 @@ class NewsController extends AbstractController
     public function newsDetails(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, ScoreRepository $scoRepo, News $news)
     {
         $user = $this->getUser();
-        $comments = $news->getComments();
+        $comments = $comRepo->findAllReverse();
         $notes = $news->getScores();
         $voted = false;
         $note = null;
@@ -166,6 +166,8 @@ class NewsController extends AbstractController
                 'commentForm' => $commentForm->createView(),
                 'comments' => $comments,
                 'note' => $note,
+                'scoreForm' => $scoreForm->createView(),
+                'voted' => $voted
             ]);
         } else {
             return $this->render('news/details.html.twig', [
@@ -173,7 +175,8 @@ class NewsController extends AbstractController
                 'commentForm' => $commentForm->createView(),
                 'comments' => $comments,
                 'note' => $note,
-                'scoreForm' => $scoreForm->createView()
+                'scoreForm' => $scoreForm->createView(),
+                'voted' => $voted
             ]);
         }
     }
