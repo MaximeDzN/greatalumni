@@ -27,7 +27,7 @@ class MessageRepository extends ServiceEntityRepository
             'SELECT uB
             FROM App\Entity\User uA, App\Entity\User uB, App\Entity\Message m
             WHERE uA.id = m.UserSend
-            AND uB.id = m.UserReceive
+            
             AND uA.id = :userid'
         )->setParameter('userid', $user);
 
@@ -42,7 +42,7 @@ class MessageRepository extends ServiceEntityRepository
         'select uA
         FROM App\Entity\User uA, App\Entity\User uB, App\Entity\Message m
         where uA.id = m.UserSend
-        and uB.id = m.UserReceive
+       
         and uB.id = :userid'
         )->setParameter('userid', $user);
         return $query->getResult();
@@ -51,7 +51,7 @@ class MessageRepository extends ServiceEntityRepository
 
     public function chatMessageSend($userA, $userB){
         return $this->createQueryBuilder('m')
-        ->where('m.UserReceive = :idreceive')
+        #->where('m.UserReceive = :idreceive')
         ->andwhere('m.UserSend = :idsend')
         ->setParameter('idreceive', $userA)
         ->setParameter('idsend', $userB)
@@ -62,7 +62,7 @@ class MessageRepository extends ServiceEntityRepository
 
     public function chatMessageReceive($userA, $userB){
         return $this->createQueryBuilder('m')
-        ->where('m.UserReceive = :idreceive')
+        #->where('m.UserReceive = :idreceive')
         ->andwhere('m.UserSend = :idsend')
         ->setParameter('idreceive', $userB)
         ->setParameter('idsend', $userA)

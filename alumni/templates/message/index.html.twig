@@ -14,14 +14,5 @@
 		</tr>
 	{% endfor %}
 	
-
-	{% for m in chatUserReceiver %}
-	<tr>
-	<td>
-		<a href="{{path('writeMessage',{user : m, id : m.id })}}">{{ m.login }}</a>
-		</td>
-		</tr>
-	{% endfor %}
-	
 	</table>
 {% endblock %}
