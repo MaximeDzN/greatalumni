@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ecrire un message !
+{% endblock %}
+
+{% block content_body %}
+    <table>
+    {% for m in chatMessage %}
+    <tr>
+    <td>
+    {{ m.content }}
+    </tr>
+    </td>
+    {% endfor %}
+    </table>
+	{{form_start(messageForm)}}
+    	{{form_end(messageForm)}}
+{% endblock %}

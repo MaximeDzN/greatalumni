@@ -20,7 +20,7 @@
             <nav>
                 <div class="nav_brand">
                     {% if is_granted('IS_AUTHENTICATED_FULLY')%}
-                        <a href="{{path('profil')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                        <a href="{{ path('profil')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
                     {% else %}
                         <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
                     {% endif %}
@@ -35,21 +35,13 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('admin') }}"><span>Administration</span></a>
                         {% endif %}
-<<<<<<< HEAD
-                    <a href="{{ path('directory') }}"><span>Annuaire</span></a>
-                    <a href="{{ path('news') }}"><span>Feed</span></a>
-                    <a href=""><span>Forum</span></a>
-                     { <a href="{{ path('message') }}"><span>Messagerie</span></a>
-                    <a href="{{ path('profil')}}"><span>Profil</span></a>
-                    <a href="{{ path('app_logout') }}"><span>Déconnexion</span></a>
-=======
+                        
                     <a class="nav_menu_icon tooltip_hoverer" href="{{ path('profil') }}"><small class="tooltip_content">Profil</small><span><i class="fas fa-user"></i></span></a>
                     <a class="nav_menu_icon tooltip_hoverer" href="{{ path('directory') }}"><small class="tooltip_content tooltip_content--large">Annuaire</small><span><i class="fas fa-book"></i></span></a>
                     <a class="nav_menu_icon tooltip_hoverer" href="{{ path('news') }}"><small class="tooltip_content">Feed</small><span style="user-select: none;  ">N</span></a>
-                    <a class="nav_menu_icon tooltip_hoverer" href=""><small class="tooltip_content tooltip_content--large">Message</small><span><i class="far fa-envelope"></i></span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('message') }}"><small class="tooltip_content tooltip_content--large">Message</small><span><i class="far fa-envelope"></i></span></a>
                     <a class="nav_menu_icon tooltip_hoverer" href="{{ path('forum') }}"><small class="tooltip_content">Forum</small><span><i class="fas fa-handshake"></i></span></a>
                     <a class="nav_menu_icon tooltip_hoverer" href="{{ path('app_logout') }}"><small class="tooltip_content">Log Out</small><span><i class="fas fa-sign-out-alt"></i></span></a>
->>>>>>> 4879a638c4d5e0496112101f643cd44bfb9b6ccd
                     {% else %}
                         <a href="{{ path('app_login') }}"><span>Connexion</span></a>
                         <a href="{{ path('signup')}}"><span>Inscription</span></a>

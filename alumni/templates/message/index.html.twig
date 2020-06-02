@@ -4,13 +4,24 @@
 {% endblock %}
 
 {% block content_body %}
-	<a href="{{path('message')}}">
-		<button class="" type="submit">
-			Rediger un message 
-		</button>
-	</a>
-	<div class="__row">
+<table>
 
+		{% for m in chatUserSender %}
+	<tr>
+	<td>
+		<a href="{{path('writeMessage',{user : m, id : m.id })}}">{{ m.login }}</a>
+		</td>
+		</tr>
+	{% endfor %}
 	
-	</div>
+
+	{% for m in chatUserReceiver %}
+	<tr>
+	<td>
+		<a href="{{path('writeMessage',{user : m, id : m.id })}}">{{ m.login }}</a>
+		</td>
+		</tr>
+	{% endfor %}
+	
+	</table>
 {% endblock %}
