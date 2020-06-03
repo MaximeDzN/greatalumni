@@ -68,8 +68,8 @@
 									<a class="" href="{{ path('comment_del',{id: c.id, comment: c})}}">
 										<span>Supprimer</span>
 									</a>
-									{% else %}
-									<a class="" href="">
+									{% elseif c.isReported == 0 %}
+									<a class="" href="{{ path('comment_report',{id: c.id, comment: c, news: news})}}">
 										<span>Signaler</span>
 									</a>
 								{% endif %}

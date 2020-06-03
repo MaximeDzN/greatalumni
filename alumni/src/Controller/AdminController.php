@@ -7,52 +7,44 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\News;
+use App\Entity\Comment;
 
 use App\Repository\CommentRepository;
 use App\Repository\NewsRepository;
-use App\Repository\ScoreRepository;
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(EntityManagerInterface $manager, Request $request)
+    public function index(EntityManagerInterface $manager, Request $request,CommentRepository $repoCom )
     {
      
+        $reportedComment = $repoCom->findBy(['IsReported' => true]);
+      
+
        
          return $this->render('admin/index.html.twig', [
-            
+            'reportedComment' => $reportedComment
         ]); 
     }
 
-     
-
-       /**
-     * @Route("/admin/news_del/{id}", name="news_del")
+     /**
+     * @Route("/admin/comdel/{id}", name="admin_comment_del")
      */
-    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo,CommentRepository $comRepo,ScoreRepository $scoreRepo, News $news )
+    public function commentDel(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, Comment $comment)
     {
         $user = $this->getUser();
-        //On regarde si l'utilisateur courant est l'auteur ou un administrateur
-        if($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles()) ){
-            //Si oui on récupère tous les commentaires de l'article
-            $comments = $news->getComments();
-            $scores = $news->getScores();
-            foreach($comments as $c){
-                //On Supprime tous les commentaires de l'article
-                $comRepo->deleteOne($c->getId());
-            }
-            foreach($scores as $s){
-                $scoreRepo->deleteOne($s->getId());
-            }
-            //On supprime l'article
-            $newsRepo->deleteOne($news->getId());
-            return $this->redirectToRoute('news');
+        //On regarde qui est l'auteur du commentaire ou si l'utilisateur est administrateur
+        if ($user == $comment->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
+            $news = $comment->getNews();
+            //On supprime le commentaire
+            $comRepo->deleteOne($comment->getId());
+            //On redirige sur l'article.
+            return $this->redirectToRoute('admin');
         } else {
             return $this->redirectToRoute('app_login');
         }
-       
-
     }
+
 }

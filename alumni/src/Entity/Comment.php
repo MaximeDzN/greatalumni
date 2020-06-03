@@ -38,6 +38,11 @@ class Comment
      */
     private $News;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsReported;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Comment
     public function setNews(?News $News): self
     {
         $this->News = $News;
+
+        return $this;
+    }
+
+    public function getIsReported(): ?bool
+    {
+        return $this->IsReported;
+    }
+
+    public function setIsReported(bool $IsReported): self
+    {
+        $this->IsReported = $IsReported;
 
         return $this;
     }

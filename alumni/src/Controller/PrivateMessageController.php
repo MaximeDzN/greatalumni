@@ -25,16 +25,9 @@ class PrivateMessageController extends AbstractController
     public function indexMessage(MessageRepository $repoM)
      
      {
-        if ($this->getUser() == null){
-            return $this->redirectToRoute('app_login');  
-        }
-
-
-        $chatUserSender = $repoM->findChattedSender($this->getUser()->getId());
-
+    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
     return $this->render('message/index.html.twig', [
-      'chatUserSender' => $chatUserSender,
-      'chatUserReceiver' => $chatUserReceiver 
+
     ]);
      }
 

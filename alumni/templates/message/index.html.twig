@@ -6,13 +6,6 @@
 {% block content_body %}
 <table>
 
-		{% for m in chatUserSender %}
-	<tr>
-	<td>
-		<a href="{{path('writeMessage',{user : m, id : m.id })}}">{{ m.login }}</a>
-		</td>
-		</tr>
-	{% endfor %}
-	
-	</table>
+
+</table>
 {% endblock %}
