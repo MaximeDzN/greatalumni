@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ecrire un message !
+{% endblock %}
+
+{% block content_body %}
+{% for n in test %}
+{{n.participantA.login}}
+{% endfor %}
+    {{form_start(messageForm)}}
+    {{form_end(messageForm)}}
+{% endblock %}
