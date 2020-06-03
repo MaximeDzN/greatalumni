@@ -23,6 +23,17 @@
 			Rediger un message 
 		</button>
 	</a>
+	 {% if app.user %}
+			{% if is_granted('ROLE_ADMIN') %}
+
+	<a href="{{path('update_role',{user : user, id : user.id })}}">
+		<button class="" type="submit">
+			Modifier le rôle	
+		</button>
+	</a>
+			{% endif %}
+	{% endif %}
+
 
 	<div class="__row">
 		<div class="__col  __col--half">
@@ -71,6 +82,7 @@
 				</h2>
 			</div>
 		</div>
+		
 		<div class="__col  __col--half ">
 			<div class="show__directory">
 				{% if user.gender == 1  %}
@@ -85,18 +97,66 @@
 
 			</div>
 		</div>
-		{% if is_granted('ROLE_ADMIN') %}
+		{# Pour l'affichageo	Le cursus scolaire #}
 			<div class="__col  __col--half ">
-				<div class="show__directory">
-					<a href="">
-						<h2>Administrateur</h2>
-					</a>
+			<div class="show__directory">
+			<h5>Le cursus scolaire</h5>
+				<table>
 
+				{% for item in user.roles %}
+					
+						 <tr>
+						 <td>{{ item }}</td>
+						 </tr><br>		
+						 			
+				{% endfor %}
+			</table>
+			</div>
+		</div>
+		{# Pour l'affichage o	Le parcours professionnel #}
+			<div class="__col  __col--half ">
+			<div class="show__directory">
+			<h5>Le parcours professionnel</h5>
+			<table>
+
+				{% for item in user.roles %}
+					
+						 	 <tr>
+						 <td>{{ item }}</td>
+						 </tr><br>
+					
+				{% endfor %}
+			</table>
+			</div>
+		</div>
+	{# Pour l'affichage hobbies #}
+		<div class="__col  __col--half ">
+			<div class="show__directory">
+			<h5>hobbies</h5>
+			<table>
+
+				{% for item in user.roles %}
+					
+						 <tr>
+						 <td>{{ item }}</td>
+						 </tr><br>
+					
+				{% endfor %}
+			</table>	
+			</div>
+		</div>
+		 <div class="__col  __col--half ">
+				<div class="show__directory">
+					
+						{% if user.roles[0] == "ROLE_ADMIN"  %}
+					<h2>
+						Administrateur
+					</h2>
+				
+				{% endif %}
+					
 				</div>
 			</div>
-		{% endif %}
-
-
 	</div>
 
 </div>{% endblock %}

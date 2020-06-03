@@ -125,6 +125,16 @@ class User implements UserInterface
      */
     private $chats;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $expression;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $reset_token;
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -613,6 +623,30 @@ class User implements UserInterface
                 $chat->setParticipantA(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getExpression(): ?string
+    {
+        return $this->expression;
+    }
+
+    public function setExpression(?string $expression): self
+    {
+        $this->expression = $expression;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    public function setResetToken(?string $reset_token): self
+    {
+        $this->reset_token = $reset_token;
 
         return $this;
     }
