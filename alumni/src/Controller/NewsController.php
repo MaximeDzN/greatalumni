@@ -29,6 +29,8 @@ class NewsController extends AbstractController
      */
     public function index(NewsRepository $newsRepo)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $allNews = $newsRepo->findAllReverse();
 
         return $this->render('news/index.html.twig', [
@@ -41,8 +43,7 @@ class NewsController extends AbstractController
      */
     public function write(EntityManagerInterface $manager, Request $request)
     {
-
-
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         //On Créer un nouveau User.
         $news = new News();
@@ -76,6 +77,7 @@ class NewsController extends AbstractController
      */
     public function newsedit(EntityManagerInterface $manager, Request $request, News $news)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $media = $news->getMedia();
         if ($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
@@ -109,6 +111,34 @@ class NewsController extends AbstractController
         ]);
     }
 
+           /**
+     * @Route("/news/news_del/{id}", name="news_del")
+     */
+    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo,CommentRepository $comRepo,ScoreRepository $scoreRepo, News $news )
+    {
+        $user = $this->getUser();
+        //On regarde si l'utilisateur courant est l'auteur ou un administrateur
+        if($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles()) ){
+            //Si oui on récupère tous les commentaires de l'article
+            $comments = $news->getComments();
+            $scores = $news->getScores();
+            foreach($comments as $c){
+                //On Supprime tous les commentaires de l'article
+                $comRepo->deleteOne($c->getId());
+            }
+            foreach($scores as $s){
+                $scoreRepo->deleteOne($s->getId());
+            }
+            //On supprime l'article
+            $newsRepo->deleteOne($news->getId());
+            return $this->redirectToRoute('news');
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+       
+
+    }
+
 
     /**
      * @Route("/news/{id}", name="news_details")
@@ -116,6 +146,7 @@ class NewsController extends AbstractController
 
     public function newsDetails(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, ScoreRepository $scoRepo, News $news)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $comments = $comRepo->findAllReverse();
         $notes = $news->getScores();
@@ -153,7 +184,7 @@ class NewsController extends AbstractController
             $comment->setDate(new \DateTime('now'));
             $comment->setAuthor($user);
             $comment->setNews($news);
-
+            $comment->setIsReported(0);
             $manager->persist($comment);
             $manager->flush();
             return $this->redirect($request->getUri());
@@ -198,4 +229,19 @@ class NewsController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
     }
+
+     /**
+     * @Route("/news/reportcom/{id}", name="comment_report")
+     */
+
+    public function commentReport(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, Comment $comment){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $news = $comment->getNews();
+        $comment->setIsReported(1);
+        $manager->persist($comment);
+        $manager->flush();
+        return $this->redirectToRoute('news_details', ['id' => $news->getId(), 'news' => $news]);
+    }
+
+
 }

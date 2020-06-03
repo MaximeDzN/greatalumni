@@ -29,6 +29,7 @@ class ForumController extends AbstractController
     */
     public function GetForum(PostTypeRepository $PostTypeRepo)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $allPostType = $PostTypeRepo->findAll();
 
         return $this->render('forum/forum.html.twig', [

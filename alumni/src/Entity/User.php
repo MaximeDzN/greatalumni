@@ -120,6 +120,11 @@ class User implements UserInterface
      */
     private $isConfirmed;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chat", mappedBy="participantA", orphanRemoval=true)
+     */
+    private $chats;
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -131,6 +136,7 @@ class User implements UserInterface
         $this->hobbies = new ArrayCollection();
         $this->postAnswers = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->chats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -576,6 +582,37 @@ class User implements UserInterface
     public function setIsConfirmed(bool $isConfirmed): self
     {
         $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setParticipantA($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->contains($chat)) {
+            $this->chats->removeElement($chat);
+            // set the owning side to null (unless already changed)
+            if ($chat->getParticipantA() === $this) {
+                $chat->setParticipantA(null);
+            }
+        }
 
         return $this;
     }

@@ -21,9 +21,7 @@ class ProfilController extends AbstractController
     public function ProfilEdit(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
 
-        if ($this->getUser() == null){
-            return $this->redirectToRoute('app_login');  
-        }
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         // On créer un formulaire de modifcation
         $photo = $user->getPhoto();

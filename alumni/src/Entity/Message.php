@@ -33,10 +33,10 @@ class Message
     private $UserSend;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="receiveMessages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ChatMessage", inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserReceive;
+    private $chatMessage;
 
     public function getId(): ?int
     {
@@ -79,14 +79,14 @@ class Message
         return $this;
     }
 
-    public function getUserReceive(): ?User
+    public function getChatMessage(): ?ChatMessage
     {
-        return $this->UserReceive;
+        return $this->chatMessage;
     }
 
-    public function setUserReceive(?User $UserReceive): self
+    public function setChatMessage(?ChatMessage $chatMessage): self
     {
-        $this->UserReceive = $UserReceive;
+        $this->chatMessage = $chatMessage;
 
         return $this;
     }
