@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content_title %}
-Compléter vos informations
+	Complétez vos informations
 {% endblock %}
 
 {% block content_body %}
@@ -9,20 +9,14 @@ Compléter vos informations
 
 {{form_start(signupForm)}}
 
-        <div class="__col  __col--half">
+<div class="__col  __col--half">
 	<div class="input__container">
-        {{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': ''}})}}
-        {{form_widget(signupForm.login)}}
-        {{form_errors(signupForm.login)}}
+		{{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': ''}})}}
+                {{form_widget(signupForm.login)}}
+                {{form_errors(signupForm.login)}}
         </div>
         
-        <div class="__col  __col--half">
-        <div class="input__container">
-        {{form_label(signupForm.email,'Email')}}
-        {{form_widget(signupForm.email)}}
-        {{form_errors(signupForm.email)}}
-        </div>
-        </div>
+   
         
         <div class="__col  __col--half">
         <div class="input__container">
@@ -227,5 +221,3 @@ Compléter vos informations
 
 {{form_end(signupForm)}}
 {% endblock %}
- 
-       

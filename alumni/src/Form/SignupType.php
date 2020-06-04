@@ -25,7 +25,7 @@ class SignupType extends AbstractType
             ->add('login',TextType::class,[
                 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[a-zA-Z0-9\-\_]+$/',
+                        'pattern' => '/^[a-zA-Z0-9\-\_\.]+$/',
                         'message' => 'Votre pseudo ne peut contenir que les caractères suivant : [a-Z] [1-9] _ ou - .'
                     ])
                 ]
@@ -45,7 +45,6 @@ class SignupType extends AbstractType
             ->add('expression',TextType::class)
             //->add('hobbies',TextType::class)
            // ->add('professionnalCareer',TextType::class)
-            ->add('email',EmailType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
                     'Homme' => 1,
@@ -60,11 +59,12 @@ class SignupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'method'=> 'post',
-            'csrf_protection'=> false,
             'constraints' =>[
                 new UniqueEntity(['fields' => ['login'],'message' => 'Le login demandé est déjà utilisé'])
             ],
+            'method'=> 'post',
+            'csrf_protection'=> false,
+        
         ]);
     }
 }

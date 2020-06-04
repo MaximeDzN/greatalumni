@@ -43,7 +43,7 @@ class SecurityController extends AbstractController
 
             
             $user->setRegistrationToken($token);
-            $user->setEmail($donnees['email']);
+            $user->setEmail($donnees->getEmail());
             $user->setRoles(['ROLE_USER']);
             $user->setPhoto('avatar.png');
             $user->setIsConfirmed(false);
@@ -94,11 +94,10 @@ class SecurityController extends AbstractController
             $this->addFlash('danger', 'Token Inconnu');
             return $this->redirectToRoute('admin');
         }   
-        
+        $signupForm->handleRequest($request);
         // Si le formulaire est envoyé en méthode post
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && $signupForm->isSubmitted() && $signupForm->isValid()) {
             //on récupère les données entrées.
-            $signupForm->handleRequest($request);
             $hobbies =  $request->request->get('hobbies');
             $career = $request->request->get('career');
             $school_curriculum = $request->request->get('school_curriculum');
