@@ -25,7 +25,49 @@ class DirectoryController extends AbstractController
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
         $form->handleRequest($request);
-      
+
+       if(!($request->query->get('property_search') == null))
+       {
+          
+           $name = $request->query->get('property_search')['Name'];
+           $lastname = $request->query->get('property_search')['Lastname'];
+           $promo = $request->query->get('property_search')['promo'];
+           
+            if ($name!= "" && $lastname == "" && $promo =="") 
+            {
+                $users = $repo->findBy(['name'=>$name]);
+            }
+            else if ($name== "" && $lastname != "" && $promo =="") 
+            {
+                $users = $repo->findBy(['nickname'=>$lastname]);
+            }
+            else if ($name== "" && $lastname == "" && $promo !="") 
+            {
+                $users = $repo->findBy(['promo'=>$promo]);
+            }
+            else if  ($name!= "" && $lastname != "" && $promo !="") 
+            {
+                $users = $repo->findBy(['name'=>$name,'nickname'=>$lastname,'promo'=>$promo]);
+            }
+            else  if (($name!= "" && $lastname != "" && $promo =="")) 
+            {
+                $users = $repo->findBy(['name'=>$name,'nickname'=>$lastname]);
+            }
+            else if (($name!= "" && $lastname == "" && $promo !="")) 
+            {
+                $users = $repo->findBy(['name'=>$name,'promo'=>$promo]);            
+            }
+            else if (($name== "" && $lastname != "" && $promo !=""))
+            {
+                $users = $repo->findBy(['nickname'=>$lastname,'promo'=>$promo]);
+            }
+            else 
+            {
+                $users = $repo->findAll();
+            }
+
+       }  
+
         return $this->render('directory/index.html.twig', [
             'controller_name' => 'DirectoryController',
             'users' => $users,

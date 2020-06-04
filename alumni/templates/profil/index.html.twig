@@ -75,6 +75,27 @@
 		</div>
 		<div class="__col  __col--half">
 			<div class="input__container ">
+				{{form_label(editForm.expression,' ')}}
+				{{form_widget(editForm.expression)}}
+				{{form_errors(editForm.expression)}}
+			</div>
+		</div>
+		{# <div class="__col  __col--half">
+			<div class="input__container ">
+				{{form_label(editForm.hobbies,' ')}}
+				{{form_widget(editForm.hobbies)}}
+				{{form_errors(editForm.hobbies)}}
+			</div>
+		</div>
+		<div class="__col  __col--half">
+			<div class="input__container ">
+				{{form_label(editForm.professionnalCareer,' ')}}
+				{{form_widget(editForm.professionnalCareer)}}
+				{{form_errors(editForm.professionnalCareer)}}
+			</div>
+		</div> #}
+		<div class="__col  __col--half">
+			<div class="input__container ">
 				{{form_label(editForm.gender,' ')}}
 				{{form_widget(editForm.gender)}}
 				{{form_errors(editForm.gender)}}
