@@ -15,16 +15,23 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class SignupType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('login',TextType::class)
+            ->add('login',TextType::class,[
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9\-\_]+$/',
+                        'message' => 'Votre pseudo ne peut contenir que les caractères suivant : [a-Z] [1-9] _ ou - .'
+                    ])
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-      
                 'invalid_message' => 'Les mots de passes doivent correspondrent',
                 'required' => true,
                 'constraints' => [
@@ -56,7 +63,7 @@ class SignupType extends AbstractType
             'method'=> 'post',
             'csrf_protection'=> false,
             'constraints' =>[
-                new UniqueEntity(['fields' => ['login']])
+                new UniqueEntity(['fields' => ['login'],'message' => 'Le login demandé est déjà utilisé'])
             ],
         ]);
     }

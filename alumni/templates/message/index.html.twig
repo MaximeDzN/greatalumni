@@ -4,8 +4,31 @@
 {% endblock %}
 
 {% block content_body %}
-<table>
-
-
-</table>
+	<div class="__row">
+		<div class="chat__section __col">
+			<div class="chat__section__list __col">
+				{% for c in chatList %}
+					<div class="message__section__list_unity __row">
+						<div class="__col __col--third message__section__list__unity__profil">
+							{% if c.ParticipantA.id == app.user.id %}
+								{% if c.ParticipantB.photo is null %}
+									<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
+								{% else %}
+									<div><img class="" src="{{asset('images/avatar/'~c.ParticipantB.photo)}}"/></div>
+								{% endif %}
+								<a href="{{path('writeMessage',{user : c.ParticipantB, id : c.ParticipantB.id })}}">{{ c.ParticipantB.login }}</a>
+							{% else %}
+								{% if c.ParticipantA.photo is null %}
+									<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
+								{% else %}
+									<div><img class="" src="{{asset('images/avatar/'~c.ParticipantA.photo)}}"/></div>
+								{% endif %}
+								<a href="{{path('writeMessage',{user : c.ParticipantA, id : c.ParticipantA.id })}}">{{ c.ParticipantA.login }}</a>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

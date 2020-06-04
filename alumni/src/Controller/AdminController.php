@@ -19,11 +19,9 @@ class AdminController extends AbstractController
      */
     public function index(EntityManagerInterface $manager, Request $request,CommentRepository $repoCom )
     {
-     
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $reportedComment = $repoCom->findBy(['IsReported' => true]);
       
-
-       
          return $this->render('admin/index.html.twig', [
             'reportedComment' => $reportedComment
         ]); 

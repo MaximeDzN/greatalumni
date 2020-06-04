@@ -189,6 +189,12 @@ nav .nav_menu a:hover span {
     width:5rem!important;
   }
 
+  .tooltip_content--xlarge{
+    margin-left: -4rem!important;
+    width: 8rem!important;
+  }
+
+
   .tooltip_hoverer .tooltip_content::after {
     content: " ";
     position: absolute;
@@ -420,6 +426,37 @@ form {
     border-left:rgb(238, 238, 238);
     overflow:auto;
 }
+
+/* #region Message */
+
+.message__section{
+}
+
+.message__section__list{
+}
+
+.message__section__list_unity{
+
+}
+
+.message__section__list_unity_profil{
+
+}
+
+.message__section__list_unity_profil div{
+    height: 5rem;
+    object-fit:cover;
+    object-position: 50% 50%;
+}
+
+.message__section__list_unity_profil img{
+    height: inherit;
+    width:50%;
+}
+
+
+
+/* #endregion */ 
 
 /* Configuration de la scrollbar dans le paragraphe */
 .comment__section__list_unity_content p::-webkit-scrollbar{

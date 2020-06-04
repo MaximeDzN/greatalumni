@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Regex;
+
 
 class EditProfilType extends AbstractType
 {
@@ -24,7 +27,14 @@ class EditProfilType extends AbstractType
                 'data_class' => null,
                 'required' => false
             ])
-            ->add('login',TextType::class)
+            ->add('login',TextType::class,[
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9\-\_]+$/',
+                        'message' => 'Votre pseudo ne peut contenir que les caractères suivant : [a-Z] [1-9] _ ou - .'
+                    ])
+                ]
+            ])
             ->add('name',TextType::class)
             ->add('nickname',TextType::class)
             ->add('department',TextType::class)
@@ -47,6 +57,9 @@ class EditProfilType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'constraints' =>[
+                new UniqueEntity(['fields' => ['login'],'message' => 'Le login demandé est déjà utilisé' ])
+            ],
         ]);
     }
 }

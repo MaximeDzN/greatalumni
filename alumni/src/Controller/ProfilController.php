@@ -59,9 +59,13 @@ class ProfilController extends AbstractController
                 //Si Oui, on regarde si la nouvelle proposition de mot de passe correspond à l'ancien mot de passe
                 if ($pwdForm['oldPassword']->getData() == $pwdForm['password']->getData()){
                     //Si Oui, on autorise pas la modification
-                return $this->redirectToRoute('home');  
+                return $this->redirectToRoute('profil');  
                } else {
                 //Si Non, on autorise la modification
+                $user->setPassword($encoder->encodePassword($user, $pwdForm['password']->getData()));
+                $manager->persist($user);
+                $manager->flush();
+                return $this->redirectToRoute('profil');  
                }
             } else {
                 //Si Non on autorise pas la modification
