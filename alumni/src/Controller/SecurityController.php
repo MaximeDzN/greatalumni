@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
         // On génère un token
         $token = $tokenGenerator->generateToken();
 
-        // On essaie d'écrire le token en base de données
+            
             $user->setRegistrationToken($token);
             $user->setEmail($donnees['email']);
             $user->setRoles(['ROLE_USER']);
@@ -105,6 +105,8 @@ class SecurityController extends AbstractController
             
             // On supprime le token
             $user->setRegistrationToken(null);
+            $hash = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
             $user->setSchoolCurriculum(array_unique($school_curriculum));
             $user->setHobbie(array_unique($hobbies));
             $user->setCareer(array_unique($career));
