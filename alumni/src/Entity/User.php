@@ -140,6 +140,21 @@ class User implements UserInterface
      */
     private $registration_token;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $hobbie = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $career = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $school_curriculum = [];
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -664,6 +679,42 @@ class User implements UserInterface
     public function setRegistrationToken(?string $registration_token): self
     {
         $this->registration_token = $registration_token;
+
+        return $this;
+    }
+
+    public function getHobbie(): ?array
+    {
+        return $this->hobbie;
+    }
+
+    public function setHobbie(?array $hobbie): self
+    {
+        $this->hobbie = $hobbie;
+
+        return $this;
+    }
+
+    public function getCareer(): ?array
+    {
+        return $this->career;
+    }
+
+    public function setCareer(?array $career): self
+    {
+        $this->career = $career;
+
+        return $this;
+    }
+
+    public function getSchoolCurriculum(): ?array
+    {
+        return $this->school_curriculum;
+    }
+
+    public function setSchoolCurriculum(?array $school_curriculum): self
+    {
+        $this->school_curriculum = $school_curriculum;
 
         return $this;
     }

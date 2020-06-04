@@ -22,32 +22,7 @@ class SecurityController extends AbstractController
      * @Route("/signup", name="signup")
      */
     public function signup(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator)
-    {/*
-        //envoie les infos a la bdd 
-        // if ($this->getUser() != null) {
-        //     return $this->redirectToRoute('profil');
-        // }
-        //On Créer un nouveau User.
-        $user = new User();
-        //On créer le formulaire d'inscription prédéfini dans Form/SignupType
-        $signupForm = $this->createForm(SignupType::class, $user);
-        //on récupère les données entrées.
-        $signupForm->handleRequest($request);
-        //On vérifie le contenu du formulaire
-        if ($signupForm->isSubmitted() && $signupForm->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
-            $user->setRoles(['ROLE_USER']);
-            $user->setPhoto('avatar.png');
-            $user->setIsConfirmed(false);
-            $manager->persist($user);
-            $manager->flush();
-            return $this->redirectToRoute('admin');
-        }
-
-        return $this->render('security/signup.html.twig', [
-            'signupForm' => $signupForm->createView(),
-        ]);*/
+    {
     //On Créer un nouveau User.
     $user = new User();
     // On initialise le formulaire
@@ -123,10 +98,15 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             //on récupère les données entrées.
             $signupForm->handleRequest($request);
+            $hobbies =  $request->request->get('hobbies');
+            $career = $request->request->get('career');
+            $school_curriculum = $request->request->get('school_curriculum');
             
             // On supprime le token
             $user->setRegistrationToken(null);
-            
+            $user->setSchoolCurriculum(array_unique($school_curriculum));
+            $user->setHobbie(array_unique($hobbies));
+            $user->setCareer(array_unique($career));
             $user->setIsConfirmed(true);
 
             // On stocke

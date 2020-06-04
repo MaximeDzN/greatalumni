@@ -54,6 +54,134 @@ Compléter vos informations
         {{form_errors(signupForm.promo)}}
         </div>
         </div>
+        
+                <div class="__col  __col--half">
+        <div class="input__container">
+        <h3>Passions</h3>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  ></script>
+		
+	
+	<script>
+	$(document).ready(function() {
+        var max_fields      = 10; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        
+        var x = 1; //initlal text box count
+                
+                
+        $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                
+                        //text box increment
+                $(wrapper).append('<div><input type="text" name="hobbies[] placeholder="Passion""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                x++; 
+                }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        
+                        e.preventDefault(); 
+                        $(this).parent('div').remove(); 
+                        x--;
+        })
+        });
+	
+	</script>
+	<body>
+     <div class="input_fields_wrap">
+    <button class="add_field_button">Ajouter une passion</button>
+    <div><input type="text" name="hobbies[]" placeholder="Passion" ></div>
+	
+     </div>
+</body>
+</div>
+        </div>
+         <div class="__col  __col--half">
+        <div class="input__container">
+        <h3>Ecole/formations</h3>
+        <script>
+	$(document).ready(function() {
+        var max_fields      = 10; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap2"); //Fields wrapper
+        var add_button      = $(".add_field_button2"); //Add button ID
+        
+        var x = 1; //initlal text box count
+                
+                
+        $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                
+                        //text box increment
+                $(wrapper).append('<div><input type="text" name="school_curriculum[] placeholder="Ecole ou formation""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                x++; 
+                }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        
+                        e.preventDefault(); 
+                        $(this).parent('div').remove(); 
+                        x--;
+        })
+        });
+	
+	</script>
+	<body>
+     <div class="input_fields_wrap2">
+    <button class="add_field_button2">Ajouter une école ou une formation</button>
+    <div><input type="text" name="school_curriculum[]" placeholder="Ecole ou formation"></div>
+	
+     </div>
+</body>
+</div>
+        </div>
+
+
+               <div class="__col  __col--half">
+        <div class="input__container">
+        <h3>Entreprises/Stages</h3>
+        <script>
+	$(document).ready(function() {
+        var max_fields      = 10; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap1"); //Fields wrapper
+        var add_button      = $(".add_field_button1"); //Add button ID
+        
+        var x = 1; //initlal text box count
+                
+                
+        $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                
+                        //text box increment
+                $(wrapper).append('<div><input type="text" name="career[] placeholder="Entreprises ou un Stage""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                x++; 
+                }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        
+                        e.preventDefault(); 
+                        $(this).parent('div').remove(); 
+                        x--;
+        })
+        });
+	
+	</script>
+	<body>
+     <div class="input_fields_wrap1">
+    <button class="add_field_button1">Ajouter une Entreprises ou un Stage</button>
+    <div><input type="text" name="career[]" placeholder="Entreprises ou un Stage"></div>
+	
+     </div>
+</body>
+</div>
+        </div>
+
 
         <div class="__col  __col--half">
         <div class="input__container">
