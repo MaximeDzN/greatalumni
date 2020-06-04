@@ -40,6 +40,9 @@ class EditProfilType extends AbstractType
             ->add('department',TextType::class)
             ->add('promo',TextType::class)
             ->add('email',EmailType::class)
+            ->add('expression',TextType::class)
+            //->add('hobbies',TextType::class)
+            //->add('professionnalCareer',TextType::class)
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
                     'Homme' => 1,

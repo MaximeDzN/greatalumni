@@ -70,9 +70,7 @@ class ProfilController extends AbstractController
             } else {
                 //Si Non on autorise pas la modification
                 return $this->redirectToRoute('profil');  
-            }
-
-            
+            }            
         }
 
        return $this->render('profil/index.html.twig', [
