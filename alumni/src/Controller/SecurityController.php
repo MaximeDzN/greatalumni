@@ -75,7 +75,7 @@ class SecurityController extends AbstractController
     /**
  * @Route("/oubli-pass", name="app_forgotten_password")
  */
-public function oubliPass(Request $request, UserRepository $users, TokenGeneratorInterface $tokenGenerator
+public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator
 ): Response
 {
     //, \Swift_Mailer $mailer
@@ -120,17 +120,17 @@ public function oubliPass(Request $request, UserRepository $users, TokenGenerato
         $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
         // On génère l'e-mail
-       /* $message = (new \Swift_Mailer('Mot de passe oublié'))
-            ->setFrom('votre@adresse.fr')
-            ->setTo($user->getEmail())
-            ->setBody(
-                "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site Nouvelle-Techno.fr. Veuillez cliquer sur le lien suivant : " . $url,
-                'text/html'
-            )
-        ;*/
+        $message = (new \Swift_Message('Mot de passe oublié'))
+        ->setFrom('votre@adresse.fr')
+        ->setTo($user->getEmail())
+        ->setBody(
+            "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site GreatAlumni. Veuillez cliquer sur le lien suivant : " . $url,
+            'text/html'
+        )
+    ;
 
         // On envoie l'e-mail
-       //$mailer->send($message);
+       $mailer->send($message);
 
         // On crée le message flash de confirmation
         $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
@@ -141,6 +141,54 @@ public function oubliPass(Request $request, UserRepository $users, TokenGenerato
 
     // On envoie le formulaire à la vue
     return $this->render('security/forgotten_password.html.twig',['emailForm' => $form->createView()]);
+}
+
+/**
+ * @Route("/reset_pass/{token}", name="app_reset_password")
+ */
+public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+{
+    // On cherche un utilisateur avec le token donné
+    $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
+    // Si l'utilisateur n'existe pas
+    if ($user == null) {
+        // On affiche une erreur
+        $this->addFlash('danger', 'Token Inconnu');
+        return $this->redirectToRoute('admin');
+        echo("test");
+    }
+    
+    echo("t");
+    
+    // Si le formulaire est envoyé en méthode post
+    if ($request->isMethod('POST')) {
+        dump($user);
+        echo("2");
+        // On supprime le token
+        $user->setResetToken(null);
+
+        
+        // On chiffre le mot de passe
+        $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+
+        // On stocke
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // On crée le message flash
+        $this->addFlash('message', 'Mot de passe mis à jour');
+
+        // On redirige vers la page de connexion
+        return $this->redirectToRoute('admin');
+    }else {
+        
+       
+        // Si on n'a pas reçu les données, on affiche le formulaire
+        return $this->render('security/reset_password.html.twig', ['token' => $token]);
+
+    }
+
 }
 
 }
