@@ -82,6 +82,7 @@ class DirectoryController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(user::class);
         $user =$repo ->find($id);
+        
         return $this->render('directory/showInfos.html.twig', [            
             'user' => $user
         ]);
