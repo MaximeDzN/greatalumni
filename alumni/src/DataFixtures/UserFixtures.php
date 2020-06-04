@@ -33,6 +33,7 @@ class UserFixtures extends Fixture
             $user->setName('ADMIN');
             $user->setNickname('ADMIN');
             $user->setPromo("2019");
+            $user->setPhoto('avatar.png');
             $user->setDepartment('greatalumni admin');
             $user->setIsConfirmed(0);
             $manager->persist($user);
@@ -45,6 +46,7 @@ class UserFixtures extends Fixture
             $user2->setName('USER');
             $user2->setNickname('USER');
             $user2->setPromo("2019");
+            $user2->setPhoto('avatar.png');
             $user2->setDepartment('greatalumni user');
             $user2->setIsConfirmed(0);
             $manager->persist($user2);

@@ -1307,3 +1307,7 @@ vendor/twig/twig/src/TokenParser/WithTokenParser.php
 vendor/twig/twig/src/Util/DeprecationCollector.php
 vendor/twig/twig/src/Util/TemplateDirIterator.php
 vendor/composer/installed.json
+alumni/.env
+alumni/public/images/news/4977cbdc54e25370ce491abfe6b77b85.png
+alumni/public/images/news/c2339744a5b9f205de08e3b6be003956.png
+alumni/.env

@@ -12,6 +12,7 @@ use App\Entity\User;
 use App\Form\SignupType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+
 class SecurityController extends AbstractController
 {
     /**
@@ -52,6 +53,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('news');
+        }
         // On récupère les erreurs liés à la connexion
         $error = $authenticationUtils->getLastAuthenticationError();
 
