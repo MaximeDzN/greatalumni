@@ -41,7 +41,7 @@ class UserFixtures extends Fixture
             $user2->setLogin("user");
             $user2->setRoles(['ROLE_USER']);
             $user2->setPassword($this->passwordEncoder->encodePassword($user,'user'));
-            $user2->setEmail("support@greatalumni.fr");
+            $user2->setEmail("user@greatalumni.fr");
             $user2->setGender(0);
             $user2->setName('USER');
             $user2->setNickname('USER');
