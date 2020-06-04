@@ -19,29 +19,26 @@ class ChatRepository extends ServiceEntityRepository
         parent::__construct($registry, Chat::class);
     }
 
-
-
-
-
-    public function isCreated($userA,$userB){
-    $entityManager = $this->getEntityManager();
-
-    $query = $entityManager->createQuery(
-        ' SELECT c.id
-        FROM App\Entity\Chat c
-        WHERE (c.participantA = :useridA
-        AND c.participantB = :useridB)
-        or (c.participantB = :useridA AND c.participantA = :useridB)'
-    )->setParameter('useridA', $userA)
-    ->setParameter('useridB', $userB);
-
-    // returns an array of Product objects
-    if ($query->getOneOrNullResult()){
-        return true;
-    } else { 
-        return false;
+    public function chatList($id){
+        return $this->createQueryBuilder('p')
+        ->where('p.participantA = :id ')
+        ->orWhere('p.participantB = :id')
+        ->setParameter('id',$id)
+        ->getQuery()
+        ->getResult();
     }
 
+    public function chatContent($chat){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager
+            ->createQuery(
+        'SELECT m.content,m.sendDate, u.id from App\Entity\Message m, App\Entity\ChatMessage cm, App\Entity\Chat c, App\Entity\User u
+        where c.id = :chatid and c.id = cm.Chat
+        and m.chatMessage = cm.id
+        and u.id = m.UserSend')
+        ->setParameter('chatid', $chat);
+
+        return $query->getResult();
     }
 
 
