@@ -53,6 +53,8 @@ class SignupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'method'=> 'post',
+            'csrf_protection'=> false,
             'constraints' =>[
                 new UniqueEntity(['fields' => ['login']])
             ],

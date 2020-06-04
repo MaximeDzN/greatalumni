@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Form\SignupType;
+use App\Form\RegistrationType;
 use App\Form\ResetPassType;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -20,8 +21,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/signup", name="signup")
      */
-    public function signup(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
-    {
+    public function signup(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator)
+    {/*
         //envoie les infos a la bdd 
         // if ($this->getUser() != null) {
         //     return $this->redirectToRoute('profil');
@@ -46,7 +47,108 @@ class SecurityController extends AbstractController
 
         return $this->render('security/signup.html.twig', [
             'signupForm' => $signupForm->createView(),
-        ]);
+        ]);*/
+    //On Créer un nouveau User.
+    $user = new User();
+    // On initialise le formulaire
+    $form = $this->createForm(RegistrationType::class);
+
+    // On traite le formulaire
+    $form->handleRequest($request);
+
+    // Si le formulaire est valide
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        // On récupère les données
+        $donnees = $form->getData();           
+
+        // On génère un token
+        $token = $tokenGenerator->generateToken();
+
+        // On essaie d'écrire le token en base de données
+            $user->setRegistrationToken($token);
+            $user->setEmail($donnees['email']);
+            $user->setRoles(['ROLE_USER']);
+            $user->setPhoto('avatar.png');
+            $user->setIsConfirmed(false);
+            $manager->persist($user);
+            $manager->flush();
+        
+        // On génère l'URL de réinitialisation de mot de passe
+        $url = $this->generateUrl('app_full_infos', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+        // On génère l'e-mail
+        $message = (new \Swift_Message('Inscription à GreatAlumni'))
+        ->setFrom('GeatAlumni@gmail.com')
+        ->setTo($user->getEmail())
+        ->setBody(
+            "Bonjour,<br><br>Votre compte viens d'etre créé pour le site GreatAlumni. Veuillez cliquer sur le lien suivant pour complété vos informations: " . $url,
+            'text/html'
+        );
+
+        // On envoie l'e-mail
+       $mailer->send($message);
+
+        // On crée le message flash de confirmation
+        $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
+            
+
+        // On redirige vers la page de admin
+     //  return $this->redirectToRoute('admin');
+    }
+
+    // On envoie le formulaire à la vue
+    return $this->render('security/registration.html.twig',['emailForm' => $form->createView()]);
+    }
+
+    
+    /**
+     * @Route("/full_infos/{token}", name="app_full_infos")
+     */
+    public function fullInfos(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        // On cherche un utilisateur avec le token donné
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['registration_token' => $token]);
+
+        $signupForm = $this->createForm(SignupType::class, $user);
+
+        // Si l'utilisateur n'existe pas
+        if ($user == null) {
+            // On affiche une erreur
+            $this->addFlash('danger', 'Token Inconnu');
+            return $this->redirectToRoute('admin');
+        }   
+        
+        // Si le formulaire est envoyé en méthode post
+        if ($request->isMethod('POST')) {
+            //on récupère les données entrées.
+            $signupForm->handleRequest($request);
+            
+            // On supprime le token
+            $user->setRegistrationToken(null);
+            
+            $user->setIsConfirmed(true);
+
+            // On stocke
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // On crée le message flash
+            $this->addFlash('message', 'Vos information ont mis à jour');
+
+            // On redirige vers la page de connexion
+        return $this->redirectToRoute('app_login');
+        
+        }else {       
+        
+            // Si on n'a pas reçu les données, on affiche le formulaire
+            return $this->render('security/fullInfos.html.twig', [
+                'signupForm' => $signupForm->createView(),
+            ]);
+
+        }
+
     }
 
     // pour la connexion 
@@ -72,13 +174,12 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
-    /**
+/**
  * @Route("/oubli-pass", name="app_forgotten_password")
  */
-public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator
-): Response
+public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator): Response
 {
-    //, \Swift_Mailer $mailer
+  
     // On initialise le formulaire
     $form = $this->createForm(ResetPassType::class);
 
@@ -98,7 +199,7 @@ public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer
             // On envoie une alerte disant que l'adresse e-mail est inconnue
             $this->addFlash('danger', 'Cette adresse e-mail est inconnue');
             
-            // On retourne sur la page de connexion
+            // On retourne sur la page de admin
             return $this->redirectToRoute('admin');
         }
 
@@ -121,10 +222,11 @@ public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer
 
         // On génère l'e-mail
         $message = (new \Swift_Message('Mot de passe oublié'))
-        ->setFrom('votre@adresse.fr')
+        ->setFrom('GeatAlumni@gmail.com')
         ->setTo($user->getEmail())
         ->setBody(
-            "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site GreatAlumni. Veuillez cliquer sur le lien suivant : " . $url,
+            "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée
+             pour le site GreatAlumni. Veuillez cliquer sur le lien suivant : " . $url,
             'text/html'
         )
     ;
@@ -135,8 +237,8 @@ public function oubliPass(Request $request, UserRepository $users, \Swift_Mailer
         // On crée le message flash de confirmation
         $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
 
-        // On redirige vers la page de login
-     //   return $this->redirectToRoute('admin');
+        // On redirige vers la page de admin
+     //  return $this->redirectToRoute('admin');
     }
 
     // On envoie le formulaire à la vue
@@ -155,18 +257,13 @@ public function resetPassword(Request $request, string $token, UserPasswordEncod
         // On affiche une erreur
         $this->addFlash('danger', 'Token Inconnu');
         return $this->redirectToRoute('admin');
-        echo("test");
-    }
-    
-    echo("t");
+    }   
     
     // Si le formulaire est envoyé en méthode post
     if ($request->isMethod('POST')) {
-        dump($user);
-        echo("2");
+        
         // On supprime le token
         $user->setResetToken(null);
-
         
         // On chiffre le mot de passe
         $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
@@ -180,9 +277,8 @@ public function resetPassword(Request $request, string $token, UserPasswordEncod
         $this->addFlash('message', 'Mot de passe mis à jour');
 
         // On redirige vers la page de connexion
-        return $this->redirectToRoute('admin');
-    }else {
-        
+        return $this->redirectToRoute('app_login');
+    }else {       
        
         // Si on n'a pas reçu les données, on affiche le formulaire
         return $this->render('security/reset_password.html.twig', ['token' => $token]);
