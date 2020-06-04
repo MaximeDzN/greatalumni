@@ -29,7 +29,8 @@ class ProfilController extends AbstractController
         //on récupère les données entrées.
         $editForm->handleRequest($request);
         //On vérifie le contenu du formulaire de modification 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid())
+         {
             // Si l'utilisateur change la photo
             if ($user->getPhoto() != null  ){
                 //On récupère le fichier
@@ -40,15 +41,19 @@ class ProfilController extends AbstractController
                 $file->move($this->getParameter('avatar_directory'),$filename);
                 //On applique la nouvelle photo pour l'utilisateur
                 $user->setPhoto($filename);
-            } else {
+            } 
+            else 
+            {
                 $user->setPhoto($photo);
             }
-            $school_curriculum = $request->request->get('school_curriculum');
-             $user->setSchoolCurriculum(array_unique($school_curriculum));
-            $career = $request->request->get('career');
-            $user->setCareer(array_unique($career));
-            $hobbies =  $request->request->get('hobbies');
-            $user->setHobbie(array_unique($hobbies));
+
+            // $school_curriculum = $request->request->get('school_curriculum');
+            // $user->setSchoolCurriculum(array_unique($school_curriculum));
+            // $career = $request->request->get('career');
+            // $user->setCareer(array_unique($career));
+            // $hobbies =  $request->request->get('hobbies');
+            // $user->setHobbie(array_unique($hobbies));
+            dump($request);
             $manager->persist($user);
             $manager->flush();
             //return $this->redirectToRoute('profil');  
@@ -59,6 +64,7 @@ class ProfilController extends AbstractController
         $pwdForm = $this->createForm(PasswordEditType::class);
 
         $pwdForm->handleRequest($request);
+
         if ($pwdForm->isSubmitted() && $pwdForm->isValid()) {
             //On regarde si le mot de passe pour autoriser la modification est le même que celui du user
             if ($encoder->isPasswordValid($user, $pwdForm['oldPassword']->getData())){

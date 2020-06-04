@@ -93,52 +93,50 @@
 
 
 	{# Pour l'affichage hobbies #}
-	<div class="__col  __col--half ">
-		<div class="input__container ">
-			<h3>Passions</h3>
-			<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-			<script>
-			$(document).ready(function() {
-			var max_fields      = 10; //maximum input boxes allowed
-			var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-			var add_button      = $(".add_field_button"); //Add button ID
-
-			var x = 1; //initlal text box count
-
-
-			$(add_button).click(function(e){ //on add input button click
+	
+        <div class="__col  __col--half">
+        <div class="input__container">
+        <h3>Passions</h3>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		
+	
+	<script>
+	$(document).ready(function() {
+        var max_fields      = 10; //maximum input boxes allowed
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        
+        var x = 1; //initlal text box count
+                
+                
+        $(add_button).click(function(e){ //on add input button click
 			e.preventDefault();
 			if(x < max_fields){ //max input box allowed
-
-			//text box increment
-			$(wrapper).append('<div><input type="text" name="hobbies[] placeholder="Passion""/><a href="#" class="remove_field">Supprimer</a></div>'); //add input box
+			
+					//text box increment
+			$(wrapper).append('<div><input type="text" name="hobbies[]"><a href="#" class="remove_field">Supprimer</a></div>'); //add input box
 			x++; 
 			}
-			});
-
-			$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        
 			e.preventDefault(); 
 			$(this).parent('div').remove(); 
 			x--;
-			})
-			});
-
-			</script>
-
-			<button class="add_field_button">Ajouter une passion</button>
-			<div class="input_fields_wrap">
-				{% for item in user.hobbie %}	
-				<div>
-					<input type="text" name="hobbies[]" placeholder="Passion" value="{{ item }}" >
-					<a href="#" class="remove_field">Supprimer</a>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-		</div>
+        })
+        });
 	
-
+	</script>
+	<body>
+     <div class="input_fields_wrap">
+    <button class="add_field_button">Ajouter une passion</button>
+    <div><input type="text" name="hobbies[]" placeholder="Passion" ></div>
+	
+     </div>
+</body>
+</div>
+        </div>
 
 
 	{# Pour l'affichage Ecole/formations #}
