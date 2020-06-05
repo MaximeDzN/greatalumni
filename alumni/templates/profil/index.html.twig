@@ -128,12 +128,12 @@
 
 			<button class="add_field_button">Ajouter une passion</button>
 			<div class="input_fields_wrap">
-				{% for item in user.hobbie %}	
+			
 				<div>
-					<input type="text" name="hobbies[]" placeholder="Passion" value="{{ item }}" >
-					<a href="#" class="remove_field">Supprimer</a>
+					<input type="text" name="hobbies[]" placeholder="Passion" >
+				
 				</div>
-				{% endfor %}
+		
 			</div>
 		</div>
 		</div>
@@ -177,12 +177,12 @@
 			<body>
 				<div class="input_fields_wrap2">
 					<button class="add_field_button2">Ajouter une école</button>
-					{% for item in user.schoolCurriculum %}	
+				
 						<div>
-							<input type="text" name="school_curriculum[]" placeholder="Ecole ou formation" value="{{ item }}">
-							<a href="#" class="remove_field">Supprimer</a>
+							<input type="text" name="school_curriculum[]" placeholder="Ecole ou formation">
+						
 						</div>
-					{% endfor %}
+		
 				</div>
 			</body>
 		</div>
@@ -224,12 +224,12 @@
 			<body>
 				<div class="input_fields_wrap1">
 					<button class="add_field_button1">Ajouter une Entreprise</button>
-					{% for item in user.career %}	
+						
 					<div>
-						<input type="text" name="career[]" placeholder="Entreprises ou un Stage" value="{{ item }}">
-						<a href="#" class="remove_field">Supprimer</a>
+						<input type="text" name="career[]" placeholder="Entreprises ou un Stage">
+				
 					</div>
-					{% endfor %}
+				
 
 				</div>
 			</body>
