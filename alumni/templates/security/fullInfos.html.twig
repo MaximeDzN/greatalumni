@@ -70,7 +70,7 @@
                 if(x < max_fields){ //max input box allowed
                 
                         //text box increment
-                $(wrapper).append('<div><input type="text" name="hobbies[] placeholder="Passion""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><input type="text" name="hobbies[] placeholder="Passion""/><a href="#" class="remove_field">Supprimer</a></div>'); //add input box
                 x++; 
                 }
         });
@@ -110,7 +110,7 @@
                 if(x < max_fields){ //max input box allowed
                 
                         //text box increment
-                $(wrapper).append('<div><input type="text" name="school_curriculum[] placeholder="Ecole ou formation""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><input type="text" name="school_curriculum[] placeholder="Ecole ou formation""/><a href="#" class="remove_field">Supprimer</a></div>'); //add input box
                 x++; 
                 }
         });
@@ -152,7 +152,7 @@
                 if(x < max_fields){ //max input box allowed
                 
                         //text box increment
-                $(wrapper).append('<div><input type="text" name="career[] placeholder="Entreprises ou un Stage""/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><input type="text" name="career[] placeholder="Entreprises ou un Stage""/><a href="#" class="remove_field">Supprimer</a></div>'); //add input box
                 x++; 
                 }
         });
@@ -184,22 +184,7 @@
         {{form_errors(signupForm.expression)}}
         </div>
         </div>
-{# 
-        <div class="__col  __col--half">
-        <div class="input__container">
-        {{form_label(signupForm.hobbies,'Passions')}}
-        {{form_widget(signupForm.hobbies)}}
-        {{form_errors(signupForm.hobbies)}}
-        </div>
 
-        
-        <div class="__col  __col--half">
-        <div class="input__container">
-        {{form_label(signupForm.professionnalCareer,'Cariere professionelle')}}
-        {{form_widget(signupForm.professionnalCareer)}}
-        {{form_errors(signupForm.professionnalCareer)}}
-        </div>
-        </div> #}
 
 
 

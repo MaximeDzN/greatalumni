@@ -43,6 +43,12 @@ class ProfilController extends AbstractController
             } else {
                 $user->setPhoto($photo);
             }
+            $school_curriculum = $request->request->get('school_curriculum');
+             $user->setSchoolCurriculum(array_unique($school_curriculum));
+            $career = $request->request->get('career');
+            $user->setCareer(array_unique($career));
+            $hobbies =  $request->request->get('hobbies');
+            $user->setHobbie(array_unique($hobbies));
             $manager->persist($user);
             $manager->flush();
             //return $this->redirectToRoute('profil');  
@@ -75,7 +81,8 @@ class ProfilController extends AbstractController
 
        return $this->render('profil/index.html.twig', [
             'editForm' => $editForm->createView(),
-            'pwdForm' => $pwdForm->CreateView()
+            'pwdForm' => $pwdForm->CreateView(),
+            'user' => $user
         ]);
     }
 }
