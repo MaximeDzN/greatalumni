@@ -30,7 +30,7 @@ class EditProfilType extends AbstractType
             ->add('login',TextType::class,[
                 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[a-zA-Z0-9\-\_]+$/',
+                        'pattern' => '/^[a-zA-Z0-9\-\_\.]+$/',
                         'message' => 'Votre pseudo ne peut contenir que les caractères suivant : [a-Z] [1-9] _ ou - .'
                     ])
                 ]
