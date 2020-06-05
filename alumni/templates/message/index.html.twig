@@ -8,22 +8,39 @@
 		<div class="chat__section __col">
 			<div class="chat__section__list __col">
 				{% for c in chatList %}
-					<div class="message__section__list_unity __row">
-						<div class="__col __col--third message__section__list__unity__profil">
+					<div class="message__section__list__unity__row">
+						<div class="__col message__section__list__unity__profil">
 							{% if c.ParticipantA.id == app.user.id %}
-								{% if c.ParticipantB.photo is null %}
-									<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
-								{% else %}
-									<div><img class="" src="{{asset('images/avatar/'~c.ParticipantB.photo)}}"/></div>
-								{% endif %}
-								<a href="{{path('writeMessage',{user : c.ParticipantB, id : c.ParticipantB.id })}}">{{ c.ParticipantB.login }}</a>
+								{# Cas où l'utilisateur est le participantA #}
+
+								<a href="{{path('writeMessage',{user : c.ParticipantB, id : c.ParticipantB.id })}}">
+									<div>
+										{% if c.ParticipantB.photo is null %}
+											<img class="" src="{{asset('images/avatar/avatar.png')}}"/>
+										{% else %}
+											<img class="" src="{{asset('images/avatar/' ~ c.ParticipantB.photo)}}"/>
+										{% endif %}
+
+										<span class="message__section__list__unity__profil__name">{{ c.ParticipantB.login }}</span>
+									</div>
+								</a>
+
+
 							{% else %}
-								{% if c.ParticipantA.photo is null %}
-									<div><img class="" src="{{asset('images/avatar/avatar.png')}}"/></div>
-								{% else %}
-									<div><img class="" src="{{asset('images/avatar/'~c.ParticipantA.photo)}}"/></div>
-								{% endif %}
-								<a href="{{path('writeMessage',{user : c.ParticipantA, id : c.ParticipantA.id })}}">{{ c.ParticipantA.login }}</a>
+								{# Cas où l'utilisateur est le participantB #}
+
+								<a href="{{path('writeMessage',{user : c.ParticipantA, id : c.ParticipantA.id })}}">
+									<div>
+										{% if c.ParticipantA.photo is null %}
+											<img class="" src="{{asset('images/avatar/avatar.png')}}"/>
+										{% else %}
+											<img class="" src="{{asset('images/avatar/' ~ c.ParticipantA.photo)}}"/>
+										{% endif %}
+
+										<span class="message__section__list__unity__profil__name">{{ c.ParticipantA.login }}</span>
+									</div>
+								</a>
+
 							{% endif %}
 						</div>
 					</div>

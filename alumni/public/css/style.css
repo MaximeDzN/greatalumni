@@ -430,29 +430,43 @@ form {
 /* #region Message */
 
 .message__section{
+
 }
 
 .message__section__list{
+    margin-top:1rem;
 }
 
-.message__section__list_unity{
-
+.message__section__list__unity{
+    border-top: 0.1rem solid var(--middleblue);
+    border-bottom: 0.1rem solid var(--middleblue);
+    padding-top:1rem;
+    padding-bottom:1rem;
 }
 
-.message__section__list_unity_profil{
-
+.message__section__list_unity__profil{
+    overflow:hidden;
+    text-align:center;
 }
 
-.message__section__list_unity_profil div{
+.message__section__list__unity__profil div{
     height: 5rem;
     object-fit:cover;
     object-position: 50% 50%;
 }
 
-.message__section__list_unity_profil img{
-    height: inherit;
-    width:50%;
+.message__section__list__unity__profil img{
+    height: 3em;
+    width:3em;
+    border-radius: 100%;
 }
+
+.message__section__list__unity__profil__name{
+    font-weight:bold;
+    display:block;
+    height:1.4rem;
+}
+
 
 
 
