@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}{{ postType.title }}
+{% endblock %}
+
+{% block content_body %}
+
+<div class="table-container">
+	<table class="table">
+		<thead class="table-head table-thead--dark-blue">
+			<tr>
+				<th>Titre</th>
+				<th>Auteur</th>
+				<th>Description</th>
+				<th>Réponses</th>
+				<th>Date de publication</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for post in posts %}
+				<tr>
+					<td>
+						<a href="{{ path('forum.showPost', {slug: post.slug, id: post.id} ) }}" class="table-link">{{ post.title }}</a>
+					</td>
+					<td class="table__post-img">
+						<a href="#" class="table-link">{{ post.author.username }}</a>
+						{% if post.author.photo %}
+							<img class="forum__img"
+						 src="/images/avatar/{{ post.author.photo }}">
+                        {% else %}
+						<img class="forum__img" src="/images/avatar/avatar.png">
+                        {% endif %}
+						
+					</td>
+					<td>{{ post.content }}</td>
+					<td>
+						<span class="badge badge-light badge-pill">{{ post.postAnswers | length }}</span>
+					</td>
+					<td>{{ post.Date|date("d/m/Y H:i:s") }}</td>
+					<td>
+						<a href="{{ path('editPost', {slug: post.slug, id: post.id}) }}" class="far fa-edit"></a>
+						<form method="post" action="{{ path('supprimerpost', {id: post.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
+							<input type="hidden" name="_method" value="DELETE">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+							<button type="submit" class="button-default">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</button>
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="input__container input__containerButton">
+	<a href="{{ path('newpost') }}" class="button-link">Ajouter un Sujet</a>
+</div>
+
+    {#  <div class="d-flex justify-content-center">
+         {{ knp_pagination_render(pagination) }}
+     </div> #}
+{% endblock %}

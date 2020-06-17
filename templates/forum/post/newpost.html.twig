@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}création d'un nouveau post {% endblock %}
+
+{% block content_body %}
+    <h2>Nouveau sujet</h2>
+    {{ form_start(form) }}
+        <div class="__row">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="__row">
+            {{ form_row(form.PostType) }}
+        </div>
+        <div class="__row">
+            {{ form_row(form.Content) }}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
