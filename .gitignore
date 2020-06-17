@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 alumni/public/images/news/1d81c623ddbc642724b6b1089b61a766.jpeg
 alumni/.env
 alumni/public/images/avatar/38af76b5acf0b9c01360abe4015dd90c.jpeg
@@ -1308,3 +1309,25 @@ vendor/twig/twig/src/Util/DeprecationCollector.php
 vendor/twig/twig/src/Util/TemplateDirIterator.php
 vendor/composer/installed.json
 alumni/.env
+=======
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+>>>>>>> 49113d8... création du forum

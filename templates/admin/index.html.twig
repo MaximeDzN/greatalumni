@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+  Administration
+{% endblock %}
+
+{% block content_body %}
+
+<div class="__col  ">
+<div class="input__container input__containerButton">
+<Button >
+ <a href="{{path('signup')}}"><span>Inscription d'un membre</span></a>
+</div>
+</div>
+<div class="__col  ">
+<div class="input__container input__containerButton">
+<Button >
+ <a href="{{path('app_forgotten_password')}}"><span>Réinitialisation d'un mot de passe</span></a>
+</div>
+</div>
+
+  <div class="__row">
+    <div class="__col">
+      <div class="comment__section__list">
+        <h2>
+          Commentaires signalés
+        </h2>
+        {% if (reportedComment|length) > 0 %}
+          {% for c in reportedComment %}
+            <div class="comment__section__list_unity __row">
+              <div class="__col __col--third comment__section__list_unity_profil">
+                {% if c.author.photo is null %}
+                  <div>
+                    <img class=""
+                      src="{{ asset('images/avatar/avatar.png') }}" />
+                  </div>
+                {% else %}
+                  <div>
+                    <img class=""
+                      src="{{ asset('images/avatar/' ~ c.author.photo) }}" />
+                  </div>
+                {% endif %}
+                <span class="comment__section__list__unity__profil__name">
+                  {{ c.author.login }}
+                </span>
+                <span class="comment__section__list__unity__profil__date">
+                  {{ c.date|date('d/m/Y H:i:s') }}
+                </span>
+              </div>
+              <div class="__col __col--twoThird comment__section__list_unity_content">
+                <p>
+                  {{ c.content }}
+                </p>
+                <div>
+                  {% if c.author == app.user or is_granted('ROLE_ADMIN') %}
+                    <a class=""
+                      href="{{
+                      path(
+                        'admin_comment_del',
+                        {
+                          id: c.id,
+                          comment: c
+                        }
+                      )
+                      }}">
+                      <span>Supprimer</span>
+                    </a>
+                  {% endif %}
+                  <a class=""
+                    href="{{
+                    path(
+                      'news_details',
+                      {
+                        id: c.news.id,
+                        news: c.news
+                      }
+                    )
+                    }}">
+                    <span>{{ c.news.title }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <span>Aucun commentaire signalé.</span>
+        {% endif %}
+      </div>
+      <div class="post__section__list">
+        <h2>
+          Post signalés
+        </h2>
+      </div>
+    </div>
+  </div>
+{% endblock %}

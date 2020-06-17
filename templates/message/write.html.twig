@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ecrire un message !
+{% endblock %}
+
+{% block content_body %}
+    <h2>{{user.login}}</h2>
+	{% if content is defined %}
+	<table>
+		{% for n in content %}
+        {% if n.id == app.user.id %}
+			<tr>
+            <td></td>
+				<td>
+					{{n.content}}
+                    {{n.sendDate|date("H:i:s")}}
+				</td>
+			</tr>
+        {% else %}
+        	<tr>
+           
+				<td style="color:red;">
+					{{n.content}}
+                    {{n.sendDate|date("H:i:s")}}
+				</td>
+                 <td></td>
+			</tr>
+        {% endif %}
+		{% endfor %}
+	</table>
+	{% endif %}
+	{{form_start(messageForm)}}
+	{{form_end(messageForm)}}
+{% endblock %}

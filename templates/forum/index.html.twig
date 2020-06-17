@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Forum
+{% endblock %}
+
+{% block content_body %}
+
+<table class="table">
+	<thead class="table-thead table-thead--dark-blue">
+		<tr>
+			<th>Catégories</th>
+			<th>Description</th>
+			<th>nombre de sujets</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for postType in postTypes %}
+			<tr>
+				<td>
+					<a href="{{path('show',{slug: postType.slug, id: postType.id})}}" class="table-link">{{postType.title}}
+					</a>
+				</td>
+				<td>{{postType.description}}</td>
+				<td>
+					<span class="badge badge-light badge-pill">{{ postType.posts | length }}</span>
+				</td>
+				<td>
+					<form method="post" action="{{ path('supprimerCat', { id: postType.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postType.id) }}">
+						<button type="submit" class="button-default">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="input__container input__containerButton">
+	<a href="{{ path('newposttype') }}" class="button-link">créer une catégorie</a>
+	<div>
+
+
+{% endblock %}
+
