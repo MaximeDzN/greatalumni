@@ -174,6 +174,7 @@ class ForumController extends AbstractController
      */
     public function editPost(Post $post, Request $request)
     {
+        $user = $this->getUser();
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
