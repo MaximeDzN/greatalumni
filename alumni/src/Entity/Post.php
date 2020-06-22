@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+/* use Cocur\Slugify\Slugify; */
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -24,7 +26,7 @@ class Post
     private $Date;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191)
      */
     private $title;
 
@@ -37,7 +39,10 @@ class Post
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $User;
+    private $author;
+
+   
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PostType", inversedBy="posts")
@@ -46,10 +51,19 @@ class Post
     private $PostType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PostAnswer", mappedBy="Post")
+     * @ORM\OneToMany(targetEntity="App\Entity\PostAnswer", mappedBy="Post", orphanRemoval=true)
      */
     private $postAnswers;
 
+    
+    /**
+     * @var string
+     *@ORM\Column(type="string", length=191)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
+
+    
     public function __construct()
     {
         $this->postAnswers = new ArrayCollection();
@@ -96,14 +110,14 @@ class Post
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->User;
+        return $this->author;
     }
 
-    public function setUser(?User $User): self
+    public function setAuthor(?User $author): self
     {
-        $this->User = $User;
+        $this->author = $author;
 
         return $this;
     }
@@ -149,5 +163,23 @@ class Post
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $slug
+     * @return Post
+     */
+    public function setSlug(string $slug): Post
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }

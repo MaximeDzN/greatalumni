@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
@@ -56,7 +56,7 @@ class User implements UserInterface
     private $promo;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true,nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true) 
      */
     private $email;
 

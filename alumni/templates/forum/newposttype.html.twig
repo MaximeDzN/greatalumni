@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}création d'une nouvelle catégorie {% endblock %}
+
+{% block content_body %}
+    <h2>Nouvelle catégorie</h2>
+
+    {{ form_start(formpostType) }}
+    <div class="__row">
+        {{ form_row(formpostType.title) }}
+        
+    </div>
+    <div class="__row">
+        {{ form_row(formpostType.description) }}
+    </div>
+    <button type="submit" id="newTopicButton">
+        <i class="fas fa-plus"></i> Créer
+    </button>
+    {{ form_end(formpostType) }}
+{% endblock %}

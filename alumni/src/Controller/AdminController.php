@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\News;
-use App\Entity\Comment;
+use App\Entity\Comment; 
 
 use App\Repository\CommentRepository;
 use App\Repository\NewsRepository;

@@ -44,15 +44,14 @@ class ProfilController extends AbstractController
                 $user->setPhoto($photo);
             }
             $school_curriculum = $request->request->get('school_curriculum');
+             $user->setSchoolCurriculum(array_unique($school_curriculum));
             $career = $request->request->get('career');
-            $hobbies =  $request->request->get('hobbies');
-            var_dump($school_curriculum);
-            $user->setSchoolCurriculum(array_unique($school_curriculum));
             $user->setCareer(array_unique($career));
+            $hobbies =  $request->request->get('hobbies');
             $user->setHobbie(array_unique($hobbies));
             $manager->persist($user);
             $manager->flush();
-            
+            //return $this->redirectToRoute('profil');  
         }
 
 

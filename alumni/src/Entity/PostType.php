@@ -4,10 +4,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostTypeRepository")
+ * @ORM\Table(name="post_type")
+ * @UniqueEntity(fields={"title"}, message="Une catégorie existe déjà avec ce nom.")
  */
 class PostType
 {
@@ -18,20 +23,27 @@ class PostType
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+    /** 
+     * @ORM\Column(type="string", length=191)
      */
-    private $Title;
+    private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191)
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="PostType")
+    /** 
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="PostType", orphanRemoval=true)
      */
     private $posts;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=191)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -45,12 +57,12 @@ class PostType
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(string $Title): self
+    public function setTitle(string $title): self
     {
-        $this->Title = $Title;
+        $this->title = $title;
 
         return $this;
     }
@@ -96,5 +108,24 @@ class PostType
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+
+   
+    public function setSlug(string $slug): PostType
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }
