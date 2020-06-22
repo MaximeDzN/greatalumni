@@ -60,6 +60,8 @@ class EditProfilType extends AbstractType
             'constraints' =>[
                 new UniqueEntity(['fields' => ['login'],'message' => 'Le login demandé est déjà utilisé' ])
             ],
+            'method'=> 'post',
+            'csrf_protection'=> false,
         ]);
     }
 }

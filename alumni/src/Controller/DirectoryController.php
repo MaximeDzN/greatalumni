@@ -20,7 +20,7 @@ class DirectoryController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(User::class);
 
-        $users = $repo->findAll();
+        $users =$repo->findBy(['isConfirmed'=>'1']);
 
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
@@ -63,7 +63,7 @@ class DirectoryController extends AbstractController
             }
             else 
             {
-                $users = $repo->findAll();
+                $users =$repo->findBy(['isConfirmed'=>'1']);;
             }
 
        }  

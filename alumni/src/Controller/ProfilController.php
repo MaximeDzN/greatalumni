@@ -25,28 +25,24 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
         // On créer un formulaire de modifcation
         $photo = $user->getPhoto();
-        $editForm = $this->createForm(EditProfilType::class,$user);
+        $editForm = $this->createForm(EditProfilType::class, $user);
         //on récupère les données entrées.
         $editForm->handleRequest($request);
         //On vérifie le contenu du formulaire de modification 
-        if ($editForm->isSubmitted() && $editForm->isValid())
-         {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Si l'utilisateur change la photo
-            if ($user->getPhoto() != null  ){
+            if ($user->getPhoto() != null) {
                 //On récupère le fichier
                 //On créer un nom unique pour l'image   
-                $file = $editForm->get('photo')->getData();      
-                $filename = md5(uniqid()).'.'.$file->guessExtension();
+                $file = $editForm->get('photo')->getData();
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
                 //On déplace le fichier vers "avatar_directory"
-                $file->move($this->getParameter('avatar_directory'),$filename);
+                $file->move($this->getParameter('avatar_directory'), $filename);
                 //On applique la nouvelle photo pour l'utilisateur
                 $user->setPhoto($filename);
-            } 
-            else 
-            {
+            } else {
                 $user->setPhoto($photo);
             }
-<<<<<<< HEAD
 
             // $school_curriculum = $request->request->get('school_curriculum');
             // $user->setSchoolCurriculum(array_unique($school_curriculum));
@@ -55,18 +51,8 @@ class ProfilController extends AbstractController
             // $hobbies =  $request->request->get('hobbies');
             // $user->setHobbie(array_unique($hobbies));
             dump($request);
-=======
-            $school_curriculum = $request->request->get('school_curriculum');
-            $career = $request->request->get('career');
-            $hobbies =  $request->request->get('hobbies');
-            var_dump($school_curriculum);
-            $user->setSchoolCurriculum(array_unique($school_curriculum));
-            $user->setCareer(array_unique($career));
-            $user->setHobbie(array_unique($hobbies));
->>>>>>> 7d2b2e9391e43f046b242945a68ef5fb754ad743
             $manager->persist($user);
             $manager->flush();
-            
         }
 
 
@@ -77,25 +63,25 @@ class ProfilController extends AbstractController
 
         if ($pwdForm->isSubmitted() && $pwdForm->isValid()) {
             //On regarde si le mot de passe pour autoriser la modification est le même que celui du user
-            if ($encoder->isPasswordValid($user, $pwdForm['oldPassword']->getData())){
+            if ($encoder->isPasswordValid($user, $pwdForm['oldPassword']->getData())) {
                 //Si Oui, on regarde si la nouvelle proposition de mot de passe correspond à l'ancien mot de passe
-                if ($pwdForm['oldPassword']->getData() == $pwdForm['password']->getData()){
+                if ($pwdForm['oldPassword']->getData() == $pwdForm['password']->getData()) {
                     //Si Oui, on autorise pas la modification
-                return $this->redirectToRoute('profil');  
-               } else {
-                //Si Non, on autorise la modification
-                $user->setPassword($encoder->encodePassword($user, $pwdForm['password']->getData()));
-                $manager->persist($user);
-                $manager->flush();
-                return $this->redirectToRoute('profil');  
-               }
+                    return $this->redirectToRoute('profil');
+                } else {
+                    //Si Non, on autorise la modification
+                    $user->setPassword($encoder->encodePassword($user, $pwdForm['password']->getData()));
+                    $manager->persist($user);
+                    $manager->flush();
+                    return $this->redirectToRoute('profil');
+                }
             } else {
                 //Si Non on autorise pas la modification
-                return $this->redirectToRoute('profil');  
-            }            
+                return $this->redirectToRoute('profil');
+            }
         }
 
-       return $this->render('profil/index.html.twig', [
+        return $this->render('profil/index.html.twig', [
             'editForm' => $editForm->createView(),
             'pwdForm' => $pwdForm->CreateView(),
             'user' => $user

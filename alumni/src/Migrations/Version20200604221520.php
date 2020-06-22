@@ -21,6 +21,7 @@ final class Version20200604221520 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->addSql('DROP TABLE report');
 
         $this->addSql('ALTER TABLE news CHANGE media media VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE user CHANGE login login VARCHAR(180) DEFAULT NULL, CHANGE roles roles JSON NOT NULL, CHANGE password password VARCHAR(255) DEFAULT NULL, CHANGE name name VARCHAR(255) DEFAULT NULL, CHANGE nickname nickname VARCHAR(255) DEFAULT NULL, CHANGE department department VARCHAR(255) DEFAULT NULL, CHANGE promo promo VARCHAR(255) DEFAULT NULL, CHANGE email email VARCHAR(255) DEFAULT NULL, CHANGE gender gender INT DEFAULT NULL, CHANGE photo photo VARCHAR(255) DEFAULT NULL, CHANGE expression expression VARCHAR(255) DEFAULT NULL, CHANGE reset_token reset_token VARCHAR(50) DEFAULT NULL, CHANGE registration_token registration_token VARCHAR(50) DEFAULT NULL, CHANGE hobbie hobbie JSON DEFAULT NULL, CHANGE career career JSON DEFAULT NULL, CHANGE school_curriculum school_curriculum JSON DEFAULT NULL');
