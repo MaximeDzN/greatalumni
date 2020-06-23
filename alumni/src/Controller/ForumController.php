@@ -44,7 +44,7 @@ class ForumController extends AbstractController
      */
     public function index()
     {
-
+        //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $repo = $this->getDoctrine()->getRepository(PostType::class);
         $postTypes = $repo->findAll();
@@ -54,7 +54,7 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/forum/newposttype", name="newposttype")
+     * @Route("/forum/newpost", name="newposttype")
      */
     public function newposttype(Request $request)
     {
@@ -85,6 +85,7 @@ class ForumController extends AbstractController
      */
     public function show($id, PaginatorInterface $paginator, Request $request, postType $postType, PostRepository $repoPost)
     {
+        //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $posts = $paginator->paginate(
             $postType->getPosts(),
@@ -102,6 +103,7 @@ class ForumController extends AbstractController
      */
     public function supprimerCat(Request $request, PostType $postType)
     {
+        //Vérification que ce soit bien un admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete' . $postType->getId(), $request->get('_token'))) {
             $this->entityManager->remove($postType);
@@ -119,6 +121,8 @@ class ForumController extends AbstractController
      */
     public function newpost(Request $request)
     {
+        //Vérification que la personne est connecté
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $photo = $user->getPhoto();
@@ -150,12 +154,13 @@ class ForumController extends AbstractController
      */
     public function showPost(Post $post,  Request $request)
     {
+        //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-        $photo = $user->getPhoto();
-        $postAnswer = new PostAnswer();
 
+        $postAnswer = new PostAnswer();
         $postAnswer->setPost($post);
+        
         $form = $this->createForm(PostAnswerType::class, $postAnswer);
         $form->handleRequest($request);
 
@@ -163,8 +168,7 @@ class ForumController extends AbstractController
 
             $postAnswer->setDate(new \DateTime('now'));
             $postAnswer->setAuthor($user);
-            //$user->setPhoto($photo);
-
+            
             $this->entityManager->persist($postAnswer);
             $this->entityManager->flush();
             return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
@@ -178,6 +182,7 @@ class ForumController extends AbstractController
      */
     public function editPost(Post $post, Request $request,$id)
     {
+        //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
@@ -203,9 +208,12 @@ class ForumController extends AbstractController
      */
     public function supprimer(Request $request, Post $post)
     {
+        //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //recuperation de l'utilisateur
         $user = $this->getUser();
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
+
             if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->get('_token'))) {
                 $this->entityManager->remove($post);
                 $this->entityManager->flush();
