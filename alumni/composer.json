@@ -5,7 +5,12 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "cocur/slugify": "^4.0",
+        "fzaninotto/faker": "^1.9",
+        "gedmo/doctrine-extensions": "^2.4",
+        "knplabs/knp-paginator-bundle": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
+        "stof/doctrine-extensions-bundle": "^1.4",
         "symfony/asset": "5.0.*",
         "symfony/console": "5.0.*",
         "symfony/dotenv": "5.0.*",
@@ -28,6 +33,7 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
+        "symfony/web-server-bundle": "4.4.8",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
@@ -36,6 +42,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*"
+        
     },
     "config": {
         "preferred-install": {
@@ -79,7 +86,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.0.*"
         }
     }

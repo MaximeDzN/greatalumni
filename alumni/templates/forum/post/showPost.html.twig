@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content_body %}
+    <div class="forum__subject">
+        <div class="forum__user-infos">
+            <a href="#" class="forum__author-name">{{ post.author.username }}</a>
+            <div class="forum__img-container">
+                {% if post.author.photo %}
+							<img class="forum__subject-img"
+						 src="/images/avatar/{{ post.author.photo }}">
+                {% else %}
+						<img class="forum__subject-img" src="/images/avatar/avatar.png">
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="forum__subject-content">
+            <div class="forum__content">{{ post.content }}</div>
+            <div class="forum__date">édité le
+                {{ post.date|date("d/m/Y H:i:s") }}</div>
+        </div>
+    </div>
+
+
+    {% for postAnswer in post.postAnswers %}
+        <div class="forum__subject">
+            <div class="forum__user-infos">
+                <a href="#" class="forum__author-name">{{ postAnswer.author.username }}</a>
+                <div class="forum__img-container">
+                    {% if postAnswer.author.photo %}
+							<img class="forum__subject-img"
+						 src="/images/avatar/{{ postAntswer.author.photo }}">
+                {% else %}
+						<img class="forum__subject-img" src="/images/avatar/avatar.png">
+                {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="forum__subject-content">
+                <div class="forum__content">{{ postAnswer.content }}</div>
+                <div class="forum__date">édité le
+                    {{ post.date|date("d/m/Y H:i:s") }}</div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {{ form_start(form) }}
+    <div class="__col">
+        {{ form_widget(form) }}
+    </div>
+    <button type="submit" class="mt-10">
+        <i class="fas fa-reply"></i>
+        Répondre
+    </button>
+    {{ form_end(form) }}
+
+{% endblock %}
