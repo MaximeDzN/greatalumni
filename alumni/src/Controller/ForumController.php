@@ -160,7 +160,7 @@ class ForumController extends AbstractController
 
         $postAnswer = new PostAnswer();
         $postAnswer->setPost($post);
-        
+
         $form = $this->createForm(PostAnswerType::class, $postAnswer);
         $form->handleRequest($request);
 
