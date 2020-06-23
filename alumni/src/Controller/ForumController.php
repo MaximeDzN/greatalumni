@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\Entity\PostType;
 use App\Entity\Post;
 use App\Entity\PostAnswer;
-Use App\Entity\User;
+use App\Entity\User;
 
 use App\Form\NewPostType;
 use App\Form\PostAnswerType;
@@ -44,6 +44,7 @@ class ForumController extends AbstractController
      */
     public function index()
     {
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $repo = $this->getDoctrine()->getRepository(PostType::class);
         $postTypes = $repo->findAll();
@@ -57,12 +58,14 @@ class ForumController extends AbstractController
      */
     public function newposttype(Request $request)
     {
+        //Vérification que ce soit bien un admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $postType = new PostType();
         $formpostType = $this->createForm(PosttypeType::class, $postType);
         $formpostType->handleRequest($request);
-        if($formpostType->isSubmitted() && $formpostType->isValid())
-        {
+
+        if ($formpostType->isSubmitted() && $formpostType->isValid()) {
             $this->entityManager->persist($postType);
             $this->entityManager->flush();
             return $this->redirectToRoute('forum', [
@@ -78,9 +81,9 @@ class ForumController extends AbstractController
 
 
     /**
-     * @Route("/{slug}-{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
+     * @Route("/{slug}/{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
      */
-    public function show($id,PaginatorInterface $paginator,Request $request,postType $postType, PostRepository $repoPost)
+    public function show($id, PaginatorInterface $paginator, Request $request, postType $postType, PostRepository $repoPost)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $posts = $paginator->paginate(
@@ -88,7 +91,7 @@ class ForumController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
-            return $this->render('forum/show.html.twig', [
+        return $this->render('forum/show.html.twig', [
             'postType' => $postType,
             'posts' => $posts
         ]);
@@ -100,7 +103,7 @@ class ForumController extends AbstractController
     public function supprimerCat(Request $request, PostType $postType)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        if($this->isCsrfTokenValid('delete' . $postType->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $postType->getId(), $request->get('_token'))) {
             $this->entityManager->remove($postType);
             $this->entityManager->flush();
         }
@@ -120,30 +123,30 @@ class ForumController extends AbstractController
         $user = $this->getUser();
         $photo = $user->getPhoto();
         $post = new Post();
-       
+
 
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setDate(new \DateTime('now'));
-           
+
             $post->setAuthor($user);
             $user->setPhoto($photo);
-           
+
             $this->entityManager->persist($post);
             $this->entityManager->flush();
 
-      
+
             return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
         }
         return $this->render('forum/post/newpost.html.twig', [
             'post' => $post,
             'form' => $form->createView()
-            ]);
+        ]);
     }
 
     /**
-     * @Route("/forum/post/{slug}.{id}", name="forum.showPost", methods={"GET", "POST"})
+     * @Route("/forum/post/{slug}/{id}", name="forum.showPost", methods={"GET", "POST"})
      */
     public function showPost(Post $post,  Request $request)
     {
@@ -151,16 +154,17 @@ class ForumController extends AbstractController
         $user = $this->getUser();
         $photo = $user->getPhoto();
         $postAnswer = new PostAnswer();
-        
+
         $postAnswer->setPost($post);
         $form = $this->createForm(PostAnswerType::class, $postAnswer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $postAnswer->setDate(new \DateTime('now'));
             $postAnswer->setAuthor($user);
-            $user->setPhoto($photo);
-           
+            //$user->setPhoto($photo);
+
             $this->entityManager->persist($postAnswer);
             $this->entityManager->flush();
             return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
@@ -170,20 +174,20 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/forum/post/'slug}-{id}", name="editPost", methods="GET|POST")
+     * @Route("/forum/post/{slug}/{id}", name="editPost", methods="GET|POST")
      */
-    public function editPost(Post $post, Request $request)
+    public function editPost(Post $post, Request $request,$id)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
+
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $this->entityManager->flush();
-        
-            return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
-        }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->entityManager->flush();
+
+                return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
+            }
         } else {
             return $this->redirectToRoute('app_login');
         }
@@ -202,14 +206,13 @@ class ForumController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
-        if($this->isCsrfTokenValid('delete' . $post->getId(), $request->get('_token'))) {
-            $this->entityManager->remove($post);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('forum');
+            if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->get('_token'))) {
+                $this->entityManager->remove($post);
+                $this->entityManager->flush();
+                return $this->redirectToRoute('forum');
+            }
+        } else {
+            return $this->redirectToRoute('app_login');
         }
-    } else {
-        return $this->redirectToRoute('app_login');
-    }  
     }
-
 }
