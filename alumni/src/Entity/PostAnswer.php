@@ -39,6 +39,11 @@ class PostAnswer
      */
     private $Post;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isReported;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +106,18 @@ class PostAnswer
     public function setPost(?Post $Post): self
     {
         $this->Post = $Post;
+
+        return $this;
+    }
+
+    public function getIsReported(): ?bool
+    {
+        return $this->isReported;
+    }
+
+    public function setIsReported(bool $isReported): self
+    {
+        $this->isReported = $isReported;
 
         return $this;
     }

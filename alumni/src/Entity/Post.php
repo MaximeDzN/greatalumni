@@ -63,6 +63,11 @@ class Post
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isReported;
+
     
     public function __construct()
     {
@@ -181,5 +186,17 @@ class Post
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function getIsReported(): ?bool
+    {
+        return $this->isReported;
+    }
+
+    public function setIsReported(bool $isReported): self
+    {
+        $this->isReported = $isReported;
+
+        return $this;
     }
 }
