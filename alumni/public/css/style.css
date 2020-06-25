@@ -119,12 +119,9 @@ nav .nav_lookup input:focus {
     border: solid var(--lightblue) 2px;
 }
 
-<<<<<<< Updated upstream
 nav .nav_lookup i {
-=======
 
 /* nav .nav_lookup i {
->>>>>>> Stashed changes
     z-index: 1;
     margin: auto 0rem;
     left: -2500px;
@@ -156,8 +153,6 @@ nav .nav_menu a:hover {
     color: var(--darkblue);
 }
 
-<<<<<<< Updated upstream
-=======
 nav .nav_menu a:hover span {
     color: var(--darkblue)!important;
 }
@@ -221,17 +216,14 @@ nav .nav_menu a:hover span {
 
 /* #region main */
 
->>>>>>> Stashed changes
 main {
     height: 100vh;
     margin-top: var(--navheight);
     ;
     display: grid;
     grid-template-columns: 0.2fr 2fr 0.2fr;
-<<<<<<< Updated upstream
     grid-template-rows: 1.3fr 2.5fr 1fr;
     grid-template-areas: "marge1 titre marge2" "marge1 form marge2" "marge1 log marge2";
-=======
     grid-template-rows: 0.3fr 2.5fr 1fr;
     grid-template-areas: "marge1 title marge2" "marge1 content marge2" "marge1 content marge2";
 }
@@ -608,7 +600,6 @@ select {
 .input__container ul {
     padding: 0rem!important;
     width: 100%;
->>>>>>> Stashed changes
 }
 
 main div {
