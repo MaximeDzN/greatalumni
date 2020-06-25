@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block content_title %}Messagerie
+{% endblock %}
+
+{% block content_body %}
+	<section class="section-chat">
+		{% if content is defined %}
+			<div class="scroll">
+				<table style="height:402px; width:402px;">
+					<thead class="table_chat_head">
+						<tr>
+							<th>
+								<a href=" {{path('message')}} ">
+									<i class="fas fa-arrow-left chat_navigation_back" style="color: #119DA4;"></i>
+								</a>
+								Vous discutez avec
+								<a class="section_subtitble" href="{{ path('showInfos',{'id': user.id}) }}">
+									{{user.name}}
+									{{user.nickname}}
+								</a>
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<div>
+							<tr></tr>
+							<tr></tr>
+							{% for n in content %}
+								{% if n.id == app.user.id %}
+									<tr class="chat_message_sender">
+										<td colspan="2">
+											<img class="chat_photo" src="/images/avatar/{{ user.photo }}"/>
+											{{n.content}}
+											{{n.sendDate|date("H:i:s")}}
+										</td>
+									</tr>
+									<tr></tr>
+									<tr></tr>
+								{% else %}
+									<tr class="chat_message_receiver">
+										<td>
+											<img class="chat_photo" src="/images/avatar/{{ user.photo }}"/>
+											{{n.content}}
+											{{n.sendDate|date("H:i:s")}}
+										</td>
+										<td></td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+
+		{{form_start(messageForm)}}
+
+		<tfoot>
+
+			<div class="__row">
+				<div class="__col--half textarea_message">
+					{{form_row(messageForm.content)}}
+				</div>
+				{{form_rest(messageForm)}}
+			</div>
+			{{form_end(messageForm)}}
+
+		</tfoot>
+
+	</section>
+{% endblock %}

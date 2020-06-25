@@ -824,6 +824,7 @@
         },
         {
             "name": "doctrine/migrations",
+<<<<<<< Updated upstream
             "version": "2.2.1",
             "source": {
                 "type": "git",
@@ -834,6 +835,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/migrations/zipball/a3987131febeb0e9acb3c47ab0df0af004588934",
                 "reference": "a3987131febeb0e9acb3c47ab0df0af004588934",
+=======
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/migrations.git",
+                "reference": "69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882",
+                "reference": "69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -902,7 +915,25 @@
                 "migrations",
                 "php"
             ],
+<<<<<<< Updated upstream
             "time": "2019-12-04T06:09:14+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fmigrations",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-21T08:55:42+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "doctrine/orm",
@@ -1150,6 +1181,7 @@
         },
         {
             "name": "egulias/email-validator",
+<<<<<<< Updated upstream
             "version": "2.1.15",
             "source": {
                 "type": "git",
@@ -1160,6 +1192,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/e834eea5306d85d67de5a05db5882911d5b29357",
                 "reference": "e834eea5306d85d67de5a05db5882911d5b29357",
+=======
+            "version": "2.1.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egulias/EmailValidator.git",
+                "reference": "cfa3d44471c7f5bfb684ac2b0da7114283d78441"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/cfa3d44471c7f5bfb684ac2b0da7114283d78441",
+                "reference": "cfa3d44471c7f5bfb684ac2b0da7114283d78441",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1183,7 +1227,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Egulias\\EmailValidator\\": "EmailValidator"
+                    "Egulias\\EmailValidator\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1204,7 +1248,11 @@
                 "validation",
                 "validator"
             ],
+<<<<<<< Updated upstream
             "time": "2020-01-20T21:40:59+00:00"
+=======
+            "time": "2020-06-16T20:11:17+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1510,35 +1558,35 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.5.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "1d32342b8c1eb27353c8887c366147b4c2da673c"
+                "reference": "94c9d42a466c57f91390cdd49c81313264f49d85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/1d32342b8c1eb27353c8887c366147b4c2da673c",
-                "reference": "1d32342b8c1eb27353c8887c366147b4c2da673c",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/94c9d42a466c57f91390cdd49c81313264f49d85",
+                "reference": "94c9d42a466c57f91390cdd49c81313264f49d85",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0.0",
-                "php": "^7.3.0"
+                "composer-plugin-api": "^1.1.0 || ^2.0",
+                "php": "^7.4.0"
             },
             "require-dev": {
-                "composer/composer": "^1.8.6",
-                "doctrine/coding-standard": "^6.0.0",
-                "ext-zip": "*",
-                "infection/infection": "^0.13.4",
-                "phpunit/phpunit": "^8.2.5",
-                "vimeo/psalm": "^3.4.9"
+                "composer/composer": "^1.9.3 || ^2.0@dev",
+                "doctrine/coding-standard": "^7.0.2",
+                "ext-zip": "^1.15.0",
+                "infection/infection": "^0.15.3",
+                "phpunit/phpunit": "^9.1.1",
+                "vimeo/psalm": "^3.9.3"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "PackageVersions\\Installer",
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-master": "1.99.x-dev"
                 }
             },
             "autoload": {
@@ -1557,10 +1605,21 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2019-07-17T15:49:50+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/Ocramius",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ocramius/package-versions",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-22T14:15:44+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
+<<<<<<< Updated upstream
             "version": "2.6.0",
             "source": {
                 "type": "git",
@@ -1571,13 +1630,31 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/406ca12cabfb43e3b11c994bcbeea8e358c65af9",
                 "reference": "406ca12cabfb43e3b11c994bcbeea8e358c65af9",
+=======
+            "version": "2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/ProxyManager.git",
+                "reference": "ac1dd414fd114cfc0da9930e0ab46063c2f5e62a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/ac1dd414fd114cfc0da9930e0ab46063c2f5e62a",
+                "reference": "ac1dd414fd114cfc0da9930e0ab46063c2f5e62a",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-code": "^3.4.1",
+<<<<<<< Updated upstream
                 "ocramius/package-versions": "^1.5.1",
                 "php": "7.4.*",
                 "webimpress/safe-writer": "^2.0"
+=======
+                "ocramius/package-versions": "^1.8.0",
+                "php": "~7.4.1",
+                "webimpress/safe-writer": "^2.0.1"
+>>>>>>> Stashed changes
             },
             "conflict": {
                 "doctrine/annotations": "<1.6.1",
@@ -1587,6 +1664,7 @@
             "require-dev": {
                 "doctrine/coding-standard": "^6.0.0",
                 "ext-phar": "*",
+<<<<<<< Updated upstream
                 "infection/infection": "^0.15.0",
                 "nikic/php-parser": "^4.3.0",
                 "phpbench/phpbench": "^0.16.10",
@@ -1595,6 +1673,15 @@
                 "squizlabs/php_codesniffer": "^3.5.3",
                 "symfony/console": "^4.4.2",
                 "vimeo/psalm": "3.7.0"
+=======
+                "infection/infection": "^0.16.2",
+                "nikic/php-parser": "^4.4.0",
+                "phpbench/phpbench": "^0.17.0",
+                "phpunit/phpunit": "^9.1.1",
+                "slevomat/coding-standard": "^5.0.4",
+                "squizlabs/php_codesniffer": "^3.5.4",
+                "vimeo/psalm": "^3.11.1"
+>>>>>>> Stashed changes
             },
             "suggest": {
                 "laminas/laminas-json": "To have the JsonRpc adapter (Remote Object feature)",
@@ -1633,7 +1720,21 @@
                 "proxy pattern",
                 "service proxies"
             ],
+<<<<<<< Updated upstream
             "time": "2020-01-07T08:10:36+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/Ocramius",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ocramius/proxy-manager",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-13T14:42:16+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1741,6 +1842,7 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
+<<<<<<< Updated upstream
             "version": "1.0.1",
             "source": {
                 "type": "git",
@@ -1751,6 +1853,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
                 "reference": "2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
+=======
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/TypeResolver.git",
+                "reference": "30441f2752e493c639526b215ed81d54f369d693"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/30441f2752e493c639526b215ed81d54f369d693",
+                "reference": "30441f2752e493c639526b215ed81d54f369d693",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1765,7 +1879,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-1.x": "1.x-dev"
                 }
             },
             "autoload": {
@@ -1784,7 +1898,11 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
+<<<<<<< Updated upstream
             "time": "2019-08-22T18:11:29+00:00"
+=======
+            "time": "2020-06-19T20:22:09+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "psr/cache",
@@ -2995,6 +3113,7 @@
         },
         {
             "name": "symfony/flex",
+<<<<<<< Updated upstream
             "version": "v1.6.0",
             "source": {
                 "type": "git",
@@ -3005,6 +3124,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/flex/zipball/952f45d1c5077e658cb16a61d11603bee873f968",
                 "reference": "952f45d1c5077e658cb16a61d11603bee873f968",
+=======
+            "version": "v1.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/flex.git",
+                "reference": "7df5a72c7664baab629ec33de7890e9e3996b51b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/7df5a72c7664baab629ec33de7890e9e3996b51b",
+                "reference": "7df5a72c7664baab629ec33de7890e9e3996b51b",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -3040,7 +3171,25 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
+<<<<<<< Updated upstream
             "time": "2019-12-13T18:05:11+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-16T23:10:41+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/form",
@@ -4064,6 +4213,7 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
+<<<<<<< Updated upstream
             "version": "v1.13.1",
             "source": {
                 "type": "git",
@@ -4074,6 +4224,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/45c566a1ca16273f7ea6b930e013462e00e14502",
                 "reference": "45c566a1ca16273f7ea6b930e013462e00e14502",
+=======
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
+                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/6e4dbcf5e81eba86e36731f94fe56b1726835846",
+                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4085,7 +4247,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -4120,6 +4290,7 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T13:56:44+00:00"
         },
         {
@@ -4134,6 +4305,36 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/b3dffd68afa61ca70f2327f2dd9bbeb6aa53d70b",
                 "reference": "b3dffd68afa61ca70f2327f2dd9bbeb6aa53d70b",
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-icu",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-icu.git",
+                "reference": "7b5e03aeb88cc8b4b2b136e34b0fc0830e86cd4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/7b5e03aeb88cc8b4b2b136e34b0fc0830e86cd4d",
+                "reference": "7b5e03aeb88cc8b4b2b136e34b0fc0830e86cd4d",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4146,7 +4347,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -4178,6 +4387,7 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T13:56:44+00:00"
         },
         {
@@ -4192,6 +4402,36 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/6f9c239e61e1b0c9229a28ff89a812dc449c3d46",
                 "reference": "6f9c239e61e1b0c9229a28ff89a812dc449c3d46",
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-idn",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-idn.git",
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a57f8161502549a742a63c09f0a604997bf47027",
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4205,7 +4445,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -4240,6 +4488,7 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T13:56:44+00:00"
         },
         {
@@ -4254,6 +4503,35 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/cfe6ad557c15f3797f667e9518ce759aa04ae4f3",
                 "reference": "cfe6ad557c15f3797f667e9518ce759aa04ae4f3",
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-normalizer",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+                "reference": "40309d1700e8f72447bb9e7b54af756eeea35620"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/40309d1700e8f72447bb9e7b54af756eeea35620",
+                "reference": "40309d1700e8f72447bb9e7b54af756eeea35620",
                 "shasum": ""
             },
             "require": {
@@ -4265,7 +4543,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -4303,6 +4585,93 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-14T14:40:37+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
+>>>>>>> Stashed changes
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+<<<<<<< Updated upstream
+                    "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's Normalizer class and related functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "intl",
+                "normalizer",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T13:56:44+00:00"
         },
         {
@@ -4317,6 +4686,36 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
                 "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php73",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php73.git",
+                "reference": "fa0837fe02d617d31fbb25f990655861bb27bd1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/fa0837fe02d617d31fbb25f990655861bb27bd1a",
+                "reference": "fa0837fe02d617d31fbb25f990655861bb27bd1a",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4328,7 +4727,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -4362,6 +4769,7 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T14:18:11+00:00"
         },
         {
@@ -4376,6 +4784,36 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/4b0e2222c55a25b4541305a053013d5647d3a25f",
                 "reference": "4b0e2222c55a25b4541305a053013d5647d3a25f",
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php80",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "4a5b6bba3259902e386eb80dd1956181ee90b5b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/4a5b6bba3259902e386eb80dd1956181ee90b5b2",
+                "reference": "4a5b6bba3259902e386eb80dd1956181ee90b5b2",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4384,7 +4822,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "1.13-dev"
+=======
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -4420,7 +4866,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< Updated upstream
             "time": "2019-11-27T16:25:15+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-06T08:46:27+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/process",
@@ -6130,7 +6594,65 @@
         },
         {
             "name": "webimpress/safe-writer",
+<<<<<<< Updated upstream
             "version": "2.0.0",
+=======
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webimpress/safe-writer.git",
+                "reference": "d6e879960febb307c112538997316371f1e95b12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webimpress/safe-writer/zipball/d6e879960febb307c112538997316371f1e95b12",
+                "reference": "d6e879960febb307c112538997316371f1e95b12",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.2 || ^9.0.1",
+                "webimpress/coding-standard": "^1.1.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev",
+                    "dev-develop": "2.1.x-dev",
+                    "dev-release-1.0": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webimpress\\SafeWriter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Tool to write files safely, to avoid race conditions",
+            "keywords": [
+                "concurrent write",
+                "file writer",
+                "race condition",
+                "safe writer",
+                "webimpress"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/michalbundyra",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-03-21T15:49:08+00:00"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.9.0",
+>>>>>>> Stashed changes
             "source": {
                 "type": "git",
                 "url": "https://github.com/webimpress/safe-writer.git",
