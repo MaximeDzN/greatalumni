@@ -246,7 +246,6 @@ main {
     grid-area: content;
     padding: 1rem;
     display: grid;
-    place-content: center;
 }
 
 .container__title {

@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content_title %}
-    {{ post.title }}
+	{{ post.title }}
 {% endblock %}
 
 {% block content_body %}
+
     <div class="forum__subject">
         <div class="forum__user-infos">
             <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">{{ post.author.username }}</a>
@@ -16,15 +17,27 @@
 						<img class="forum__subject-img" src="/images/avatar/avatar.png">
                 {% endif %}
             </div>
+		</div>
 
-        </div>
-
-        <div class="forum__subject-content">
-            <div class="forum__content">{{ post.content }}</div>
-            <div class="forum__date">édité le
-                {{ post.date|date("d/m/Y H:i:s") }}</div>
-        </div>
-    </div>
+		<div class="forum__subject-content">
+			<div class="forum__content">{{ post.content }}</div>
+			<div class="forum__date">édité le
+				{{ post.date|date("d/m/Y H:i:s") }}</div>
+			{% if is_granted('ROLE_ADMIN') or app.user == post.author  %}
+				<form method="post" action="{{ path('supprimerpost', {id: post.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+					<button type="submit" class="button-default">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</form>
+			{% else %}
+				<div class="forum__admin">
+					<a href="{{ path('post_report',{id: post.id, post: post}) }}">signaler</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 
 
     {% for postAnswer in post.postAnswers %}
@@ -38,27 +51,40 @@
                             <img class="forum__subject-img" src="/images/avatar/avatar.png">
                     {% endif %}
 
-                </div>
 
-            </div>
+			</div>
 
-            <div class="forum__subject-content">
-                <div class="forum__content">{{ postAnswer.content }}</div>
-                <div class="forum__date">édité le
-                    {{ post.date|date("d/m/Y H:i:s") }}</div>
-            </div>
-        </div>
+			<div class="forum__subject-content">
+				<div class="forum__content">{{ postAnswer.content }}</div>
+				<div class="forum__date">édité le
+					{{ post.date|date("d/m/Y H:i:s") }}</div>   
+				{% if is_granted('ROLE_ADMIN') or app.user == postAnswer.author  %}
+                    <form method="post" action="{{ path('supprimerpostanswer', {id: postAnswer.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postAnswer.id) }}">
+					<button type="submit" class="button-default">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</form>
+					{% else %}
+						<div class="forum__admin">
+							<a href="{{ path('postAnswer_report',{id: postAnswer.id, post: postAnswer}) }}">signaler</a>
+						</div>
+				{% endif %}
+			</div>
 
-    {% endfor %}
+		</div>
 
-    {{ form_start(form) }}
-    <div class="__col">
-        {{ form_widget(form) }}
-    </div>
-    <button type="submit" class="mt-10">
-        <i class="fas fa-reply"></i>
-        Répondre
-    </button>
-    {{ form_end(form) }}
+	{% endfor %}
+
+	{{ form_start(form) }}
+	<div class="__col">
+		{{ form_widget(form) }}
+	</div>
+	<button type="submit" class="mt-10">
+		<i class="fas fa-reply"></i>
+		Répondre
+	</button>
+	{{ form_end(form) }}
 
 {% endblock %}
