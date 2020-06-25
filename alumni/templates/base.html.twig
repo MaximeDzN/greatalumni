@@ -6,43 +6,60 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/style.css">
-        
+        {% block stylesheets %}
+		<link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Alata|Bebas+Neue|Noto+Serif&display=swap" rel="stylesheet">
-
+		{% endblock %}
         <!-- <meta http-equiv="refresh" content="5" /> -->
     </head>
-    <body>
+   <body>
+
 
         <div class="container">
             <nav>
                 <div class="nav_brand">
-                    
-                    <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+                        <a href="{{ path('profil')}}" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% else %}
+                        <a href="" class="logo"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;The Great Alumni</a>
+                    {% endif %}
                 </div>
                 <div class="nav_lookup">
-                    <input placeholder="Rechercher sur le site...">
+                    {# <input href="{{path('search')}}" placeholder="Rechercher sur le site..."> #}
                     <!-- <i class="fas fa-search"></i> -->
                 </div>
                 <div class="nav_menu">
-                    
-                    <a href=""><span>Feed</span></a>
-                    <a href=""><span>Forum</span></a>
-                    <a href=""><span>Profil</span></a>
-                    <a href="{{path('app_logout')}}"><span>Déconnexion</span></a>
+                
+                    {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav_menu_icon tooltip_hoverer" href="{{ path('admin') }}"><small class="tooltip_content tooltip_content--xlarge">Administration</small><span><i class="fas fa-user-shield"></i></span></a>
+                        {% endif %}
+                        
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('profil') }}"><small class="tooltip_content">Profil</small><span><i class="fas fa-user"></i></span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('directory') }}"><small class="tooltip_content tooltip_content--large">Annuaire</small><span><i class="fas fa-book"></i></span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('news') }}"><small class="tooltip_content">Feed</small><span style="user-select: none;  ">N</span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('message') }}"><small class="tooltip_content tooltip_content--large">Message</small><span><i class="far fa-envelope"></i></span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('forum') }}"><small class="tooltip_content">Forum</small><span><i class="fas fa-handshake"></i></span></a>
+                    <a class="nav_menu_icon tooltip_hoverer" href="{{ path('app_logout') }}"><small class="tooltip_content">Quitter</small><span><i class="fas fa-sign-out-alt"></i></span></a>
+                    {# {% else %}
+                        <a href="{{ path('app_login') }}"><span>Connexion</span></a>
+                        <a href="{{ path('signup')}}"><span>Inscription</span></a> #}
+                    {% endif %}
 
-                    <a href="{{ path('signup')}}"><span>Inscription</span></a>
-                    <a href=""><span>Connexion</span></a>
+
                 </div>
             </nav>
-
-            {% block body %}{% endblock %}
-
-            <footer>
-                <span class="logo">The Great Alumni</span>
-                <p>This is a project that we had to make. Viva la coco!</p>
-            </footer>
-        </div>
-    </body>
+        <main>
+            <div class="container__margeLeft"> </div>
+            <div class="container__margeRight"> </div>
+            <div class="container__title"> <h1>{% block content_title %}{% endblock %}</h1> </div>
+            <div class="container__content">{% block content_body %}{% endblock %}</div>
+        </main>
+        <footer>
+            <span class="logo">The Great Alumni</span>
+            <p>This is a project that we had to make.</p>
+        </footer>
+    </div>
+</body>
 </html>

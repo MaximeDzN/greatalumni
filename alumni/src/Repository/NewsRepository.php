@@ -19,6 +19,19 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
+    public function findAllReverse(){
+        return $this->findBy(array(), array('id' => 'DESC'));    
+    }
+
+    public function deleteOne($news){
+        return $this->createQueryBuilder('n')
+        ->delete()
+        ->where('n.id = :id ')
+        ->setParameter('id',$news)
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return News[] Returns an array of News objects
     //  */

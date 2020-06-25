@@ -30,13 +30,19 @@ class PostAnswer
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="postAnswers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $User;
+    private $author;
 
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="postAnswers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Post;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isReported;
 
     public function getId(): ?int
     {
@@ -67,17 +73,30 @@ class PostAnswer
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->User;
+        return $this->author;
     }
 
-    public function setUser(?User $User): self
+    public function setAuthor(?User $author): self
     {
-        $this->User = $User;
+        $this->author = $author;
 
         return $this;
     }
+
+    /* public function getMedia(): ?string
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?string $media): self
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+ */
 
     public function getPost(): ?Post
     {
@@ -87,6 +106,18 @@ class PostAnswer
     public function setPost(?Post $Post): self
     {
         $this->Post = $Post;
+
+        return $this;
+    }
+
+    public function getIsReported(): ?bool
+    {
+        return $this->isReported;
+    }
+
+    public function setIsReported(bool $isReported): self
+    {
+        $this->isReported = $isReported;
 
         return $this;
     }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Forum
+{% endblock %}
+
+{% block content_body %}
+<ul>
+		{% for forumCategory in postType %}
+        <li><a href="{{ path('forumCategory',{category: forumCategory.title, forum: forumCategory}) }}">{{forumCategory.title}}</a></li>
+        {% endfor %}
+</ul>
+{% endblock %}

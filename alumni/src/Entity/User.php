@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
@@ -20,7 +20,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true,nullable=true)
      */
     private $login;
 
@@ -31,37 +31,37 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $nickname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $department;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $promo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true) 
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="boolean")
+   /**
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $gender;
 
@@ -120,6 +120,41 @@ class User implements UserInterface
      */
     private $isConfirmed;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chat", mappedBy="participantA", orphanRemoval=true)
+     */
+    private $chats;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $expression;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $reset_token;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $registration_token;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $hobbie = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $career = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $school_curriculum = [];
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
@@ -131,6 +166,7 @@ class User implements UserInterface
         $this->hobbies = new ArrayCollection();
         $this->postAnswers = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->chats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -271,19 +307,19 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGender(): ?bool
+    public function getGender(): ?int
     {
         return $this->gender;
     }
 
-    public function setGender(bool $gender): self
+    public function setGender(int $gender): self
     {
         $this->gender = $gender;
 
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto()
     {
         return $this->photo;
     }
@@ -576,6 +612,109 @@ class User implements UserInterface
     public function setIsConfirmed(bool $isConfirmed): self
     {
         $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setParticipantA($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->contains($chat)) {
+            $this->chats->removeElement($chat);
+            // set the owning side to null (unless already changed)
+            if ($chat->getParticipantA() === $this) {
+                $chat->setParticipantA(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getExpression(): ?string
+    {
+        return $this->expression;
+    }
+
+    public function setExpression(?string $expression): self
+    {
+        $this->expression = $expression;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    public function setResetToken(?string $reset_token): self
+    {
+        $this->reset_token = $reset_token;
+
+        return $this;
+    }
+
+    public function getRegistrationToken(): ?string
+    {
+        return $this->registration_token;
+    }
+
+    public function setRegistrationToken(?string $registration_token): self
+    {
+        $this->registration_token = $registration_token;
+
+        return $this;
+    }
+
+    public function getHobbie(): ?array
+    {
+        return $this->hobbie;
+    }
+
+    public function setHobbie(?array $hobbie): self
+    {
+        $this->hobbie = $hobbie;
+
+        return $this;
+    }
+
+    public function getCareer(): ?array
+    {
+        return $this->career;
+    }
+
+    public function setCareer(?array $career): self
+    {
+        $this->career = $career;
+
+        return $this;
+    }
+
+    public function getSchoolCurriculum(): ?array
+    {
+        return $this->school_curriculum;
+    }
+
+    public function setSchoolCurriculum(?array $school_curriculum): self
+    {
+        $this->school_curriculum = $school_curriculum;
 
         return $this;
     }

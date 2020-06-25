@@ -7,10 +7,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Score|null find($id, $lockMode = null, $lockVersion = null)
- * @method Score|null findOneBy(array $criteria, array $orderBy = null)
- * @method Score[]    findAll()
- * @method Score[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Comment[]    findAll()
+ * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ScoreRepository extends ServiceEntityRepository
 {
@@ -19,16 +19,35 @@ class ScoreRepository extends ServiceEntityRepository
         parent::__construct($registry, Score::class);
     }
 
+    public function deleteOne($score){
+        return $this->createQueryBuilder('s')
+        ->delete()
+        ->where('s.id = :id ')
+        ->setParameter('id',$score)
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function moyenneNote($news){
+        return $this->createQueryBuilder('n')
+        ->where('n.News = :id')
+        ->setParameter('id',$news)
+        ->select('AVG(n.value)')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+
+
     // /**
     //  * @return Score[] Returns an array of Score objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -37,10 +56,10 @@ class ScoreRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Score
+    public function findOneBySomeField($value): ?Comment
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
