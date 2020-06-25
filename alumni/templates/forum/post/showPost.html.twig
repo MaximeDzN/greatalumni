@@ -5,17 +5,18 @@
 {% endblock %}
 
 {% block content_body %}
-	<div class="forum__subject">
-		<div class="forum__user-infos">
-			<a href="#" class="forum__author-name">{{ post.author.username }}</a>
-			<div class="forum__img-container">
-				{% if post.author.photo %}
-					<img class="forum__subject-img" src="/images/avatar/{{ post.author.photo }}">
-				{% else %}
-					<img class="forum__subject-img" src="/images/avatar/avatar.png">
-				{% endif %}
-			</div>
 
+    <div class="forum__subject">
+        <div class="forum__user-infos">
+            <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">{{ post.author.username }}</a>
+            <div class="forum__img-container">
+                {% if post.author.photo %}
+							<img class="forum__subject-img"
+						 src="/images/avatar/{{ post.author.photo }}">
+                {% else %}
+						<img class="forum__subject-img" src="/images/avatar/avatar.png">
+                {% endif %}
+            </div>
 		</div>
 
 		<div class="forum__subject-content">
@@ -39,18 +40,17 @@
 	</div>
 
 
-	{% for postAnswer in post.postAnswers %}
-		<div class="forum__subject">
-			<div class="forum__user-infos">
-				<a href="#" class="forum__author-name">{{ postAnswer.author.username }}</a>
-				<div class="forum__img-container">
-					{% if postAnswer.author.photo %}
-						<img class="forum__subject-img" src="/images/avatar/{{ postAnswer.author.photo }}">
-					{% else %}
-						<img class="forum__subject-img" src="/images/avatar/avatar.png">
-					{% endif %}
+    {% for postAnswer in post.postAnswers %}
+        <div class="forum__subject">
+            <div class="forum__user-infos">
+                <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">{{ postAnswer.author.username }}</a>
+                <div class="forum__img-container">
+                    {% if postAnswer.author.photo %}
+							<img class="forum__subject-img" src="{{asset('images/avatar/'~postAnswer.author.photo)}}">
+                    {% else %}
+                            <img class="forum__subject-img" src="/images/avatar/avatar.png">
+                    {% endif %}
 
-				</div>
 
 			</div>
 

@@ -102,7 +102,7 @@ class SecurityController extends AbstractController
             $hobbies =  $request->request->get('hobbies');
             $career = $request->request->get('career');
             $school_curriculum = $request->request->get('school_curriculum');
-            
+            dump($request);
             // On supprime le token
             $user->setRegistrationToken(null);
             $hash = $passwordEncoder->encodePassword($user, $user->getPassword());

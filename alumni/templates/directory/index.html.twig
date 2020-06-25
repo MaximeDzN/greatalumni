@@ -1,36 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block content_title %}Annuaire
+{% block content_title %}
+	Annuaire
 {% endblock %}
 
 {% block content_body %}
-
-
-	{{form_start( formSearch )}}
-
-
-	{{form_end( formSearch )}}
-	
-
 	<div class="__row">
+		<div class="input__container">
+			<h3>Rechercher un étudiant</h3>
+		</div>
+	</div>
+
+	<div class="__row" border-bottom="1rem">
+
+		<div class="input__container">
+			{{form_start( formSearch )}}
+			{{form_label(formSearch.Name,' ')}}
+			{{form_widget(formSearch.Name,{'attr':{'placeholder':'Nom'}})}}
+			{{form_errors(formSearch.Name)}}
+		</div>
+		<div class="input__container">
+
+			{{form_label(formSearch.Lastname,' ')}}
+			{{form_widget(formSearch.Lastname,{'attr':{'placeholder':'Prénom'}})}}
+			{{form_errors(formSearch.Lastname)}}
+		</div>
+				
+
+		<div class="input__container">
+
+			{{form_label(formSearch.promo,' ')}}
+			{{form_widget(formSearch.promo,{'attr':{'placeholder':'Promotion'}})}}
+			{{form_errors(formSearch.promo)}}
+		</div>
+		
+		<div class="input__container">
+
+			{{form_widget(formSearch.Rechercher)}}
+
+		</div>
+
+		{{form_end( formSearch )}}
+	</div>
+
+	<div  class="b5" ></div>
+
+	<div class="__row" >
 
 		{% for user in users %}
 
-			<a href="{{ path('showInfos',{'id': user.id}) }}">
-				<div class="__col  __col--half">
-					<div class="__row">
-						<div class="__col  __col--half container__photo">
-							<img class="directory__photo" src="/images/avatar/{{ user.photo }}"/>
-						</div>
-						<div class="__col  __col--half">
-							<h3>{{ user.name }}</h3>
-							<h3>{{ user.nickname }}</h3>
-							<h3>{{ user.promo }}</h3>
-						</div>
-
+			<div class="__col __col--third">
+				<a href="{{ path('showInfos',{'id': user.id}) }}">
+					<div class="__col  __col--half container__photo">
+						<img class="directory__photo" src="/images/avatar/{{ user.photo }}"/>
+					</div>
+					<div class="__col  __col--half">
+						<h3>{{ user.name }} {{ user.nickname }}</h3>							
+						<span>{{ user.promo }}</span>
 					</div>
 				</a>
-			</div>
+			</div>			
+
 		{% endfor %}
 	</div>
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Rappoter un bug {% endblock %}
+
+{% block content_body %}
+
+    <div class="__row" border-bottom="1rem">
+
+		<div class="input__container">
+	{{form_start( form )}}
+			{{form_label(form.local_erreur,'Provenance de l\'erreur')}}
+			{{form_widget(form.local_erreur)}}
+			{{form_errors(form.local_erreur)}}
+		</div>
+
+		<div class="input__container">
+
+			{{form_label(form.alert_level,'Niveau')}}
+			{{form_widget(form.alert_level)}}
+			{{form_errors(form.alert_level)}}
+		</div>
+				
+
+		<div class="input__container">
+
+			{{form_label(form.comments,'Commentaire')}}
+			{{form_widget(form.comments)}}
+			{{form_errors(form.comments)}}
+		</div>
+		
+		<div class="input__container">
+
+			{{form_widget(form.envoyer)}}
+
+		</div>
+
+	{{form_end( form )}}
+	</div>
+{% endblock %}

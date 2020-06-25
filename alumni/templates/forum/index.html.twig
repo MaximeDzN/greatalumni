@@ -28,8 +28,7 @@
 					<span class="badge badge-light badge-pill">{{ postType.posts | length }}</span>
 				</td>
 				{% if is_granted('ROLE_ADMIN')  %}
-				<td>
-				
+				<td>				
 					<form method="post" action="{{ path('supprimerCat', { id: postType.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">
 						<input type="hidden" name="_method" value="DELETE">
 						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postType.id) }}">

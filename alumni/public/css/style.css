@@ -17,12 +17,20 @@ var
 flex
 grid
 ****/
-
+.b5 {
+    border-bottom-style:solid;
+    border-bottom-width: 0.2rem;
+    border-width: 100%;
+    border-color:  #119DA4 ;
+    padding-top: 3rem;
+    margin-bottom: 3rem;
+   
+}
 :root {
     /** Colors **/
     --darkblue: #0B6A7D;
     --middleblue: #119DA4;
-    --lightblue: #BFDBF7;
+    --lightblue: #BFDBF7;   
     --black: #343434;
     --color-darkgrey: #585858;
     --color-lightgrey: #ccc;
@@ -304,6 +312,7 @@ form {
     }
     ;
 }
+
 
 
 /* #endregion */
