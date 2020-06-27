@@ -67,6 +67,7 @@ class UserFixtures extends Fixture
                 ->setName($faker->name)
                 ->setNickname($faker->firstName)
                 ->setPromo("2019")
+                ->setIsConfirmed(1)
                 ->setDepartment('greatalumni user')
                 ->setPhoto('avatar.png')
                 ->setIsConfirmed(0);

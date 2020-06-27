@@ -77,21 +77,21 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
+     * @Route("/forum/{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
      */
 
-    public function show($id, PaginatorInterface $paginator, Request $request, postType $postType, PostRepository $repoPost)
+    public function show($id, PaginatorInterface $paginator, Request $request, PostType $PostType, PostRepository $repoPost)
     {
         //Vérification que la personne est connecté
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $posts = $paginator->paginate(
-            $postType->getPosts(),
+            $PostType->getPosts(),
             $request->query->getInt('page', 1),
             12
         );
         return $this->render('forum/show.html.twig', [
-            'postType' => $postType,
+            'postType' => $PostType,
             'posts' => $posts,
         ]);
     }
@@ -146,7 +146,7 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/forum/post/{slug}/{id}", name="forum.showPost", methods={"GET", "POST"})
+     * @Route("/forum/post/details/{id}", name="forum.showPost", methods={"GET", "POST"})
      */
     public function showPost(Post $post, Request $request)
     {
@@ -166,7 +166,7 @@ class ForumController extends AbstractController
             $postAnswer->setDate(new \DateTime('now'));
             $postAnswer->setIsReported(0);
             $postAnswer->setAuthor($user);
-            $user->setPhoto($photo);
+            
             $this->entityManager->persist($postAnswer);
             $this->entityManager->flush();
             return $this->redirectToRoute('forum.showPost', [
@@ -182,7 +182,7 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/forum/post/{slug}/{id}", name="editPost", methods="GET|POST")
+     * @Route("/forum/post/edit/{id}", name="editPost", methods="GET|POST")
      */
     public function editPost(Post $post, Request $request,$id)
     {
@@ -190,6 +190,7 @@ class ForumController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
+        $user = $this->getUser();
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->entityManager->flush();
@@ -207,6 +208,7 @@ class ForumController extends AbstractController
         ]);
     }
 
+  
     /**
      * @Route("forum/post/{id}", name="supprimerpost", methods={"DELETE"})
      */

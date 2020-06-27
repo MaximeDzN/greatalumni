@@ -24,6 +24,7 @@
 			<div class="forum__date">édité le
 				{{ post.date|date("d/m/Y H:i:s") }}</div>
 			{% if is_granted('ROLE_ADMIN') or app.user == post.author  %}
+			<a href="{{ path('editPost', {slug: post.slug, id: post.id}) }}" class="far fa-edit"></a>
 				<form method="post" action="{{ path('supprimerpost', {id: post.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
 					<input type="hidden" name="_method" value="DELETE">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
@@ -59,6 +60,7 @@
 				<div class="forum__date">édité le
 					{{ post.date|date("d/m/Y H:i:s") }}</div>   
 				{% if is_granted('ROLE_ADMIN') or app.user == postAnswer.author  %}
+				
                     <form method="post" action="{{ path('supprimerpostanswer', {id: postAnswer.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
 					<input type="hidden" name="_method" value="DELETE">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postAnswer.id) }}">

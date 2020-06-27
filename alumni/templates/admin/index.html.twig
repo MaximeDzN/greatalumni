@@ -40,6 +40,13 @@
 					{% for c in reportedComment %}
 						{{c.author.login}}
 						{{c.content}}
+						<a class="" href="{{ path('comment_unreport',{id: c.id, comment: c})}}">
+							<span>approuver</span>
+						</a>
+
+						<a class="" href="{{ path('admin_comment_del',{id: c.id, comment: c})}}">
+							<span>supprimer</span>
+						</a>
 					{% endfor %}
 				{% else %}
 					<span>Aucun commentaire signalé.</span>
@@ -55,6 +62,13 @@
 					{% for post in reportedPost %}
 						{{post.author.login}}
 						{{post.content}}
+							<a class="" href="{{ path('post_unreport',{id: post.id, Post: post})}}">
+							<span>approuver</span>
+						</a>
+
+						<a class="" href="{{ path('admin_post_del',{id: post.id, Post: post})}}">
+							<span>supprimer</span>
+						</a>
 					{% endfor %}
 				{% else %}
 					<span>Aucun Post signalé.</span>
@@ -70,8 +84,13 @@
 					{% for post in reportedPostAnswer %}
 						{{post.author.login}}
 						{{post.content}}
+							<a class="" href="{{ path('postAnswer_unreport',{id: post.id, post: post})}}">
+							<span>approuver</span>
+						</a>
 
-
+						<a class="" href="{{ path('admin_postAnswer_del',{id: post.id, PostAnswer: post})}}">
+							<span>supprimer</span>
+						</a>
 					{% endfor %}
 				{% else %}
 					<span>Aucune réponse de post signalé.</span>

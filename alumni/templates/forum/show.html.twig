@@ -51,7 +51,7 @@
 					</td>
 					{% else %}
 					<td>
-					<a href="">signaler</a>
+					<a href="{{ path('post_report',{id: post.id, post: post}) }}">signaler</a>
 					</td>
 					{% endif %}
 				</tr>

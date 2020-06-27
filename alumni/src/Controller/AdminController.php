@@ -73,6 +73,56 @@ class AdminController extends AbstractController
         }
     }
 
+    
+    /**
+     * @Route("/admin/postdel/{id}", name="admin_post_del")
+     */
+    public function postDel(
+        EntityManagerInterface $manager,
+        Request $request,
+        Post $Post
+    ) {
+        $user = $this->getUser();
+        //On regarde qui est l'auteur du commentaire ou si l'utilisateur est administrateur
+        if (
+            $user == $Post->getAuthor() ||
+            in_array('ROLE_ADMIN', $user->getRoles())
+        ) {
+            //On supprime le commentaire
+            $manager->remove($Post);
+            $manager->flush();
+            //On redirige sur l'article.
+            return $this->redirectToRoute('admin');
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+    }
+
+     /**
+     * @Route("/admin/postanswer/{id}", name="admin_postAnswer_del")
+     */
+    public function postAnswerDel(
+        EntityManagerInterface $manager,
+        Request $request,
+        PostAnswer $PostAnswer
+    ) {
+        $user = $this->getUser();
+        //On regarde qui est l'auteur du commentaire ou si l'utilisateur est administrateur
+        if (
+            $user == $PostAnswer->getAuthor() ||
+            in_array('ROLE_ADMIN', $user->getRoles())
+        ) {
+            //On supprime le commentaire
+            $manager->remove($PostAnswer);
+            $manager->flush();
+            //On redirige sur l'article.
+            return $this->redirectToRoute('admin');
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+    }
+
+
     /**
      * @Route("/news/unreportcom/{id}", name="comment_unreport")
      */
