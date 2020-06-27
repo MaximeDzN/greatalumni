@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content_body %}
+        <div class="__row">
         <h3>Veuillez entrer vos informations ci-dessous.</h3>
         {{form_start(signupForm)}}
         <div class="__col  __col--half">
@@ -73,9 +74,10 @@
                                 <div> 
                                         <input type="text" name="school_curriculum[]" placeholder="Ecole ou formation">
                                 </div>
-                
+                        
                         </div>
                         </body>
+                        </div>
                 </div>
 
 
@@ -90,6 +92,7 @@
                                 </div>
                         </div>
                         </body>
+                        </div>
                 </div>
                 
                 <div class="__col  __col--half">
@@ -134,6 +137,7 @@
                 </div>
 
         {{form_end(signupForm)}}
+        </div>
         {% block javascript %}
                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                 <script src="{{asset('js/inscription.js')}}"></script>
