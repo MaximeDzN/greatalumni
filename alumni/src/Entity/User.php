@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Entity;
 
@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -32,6 +33,10 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string",nullable=true)
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Votre mot de passe doit contenir au minimum {{ limit }} caractères",
+     *      allowEmptyString = false)
      */
     private $password;
 
@@ -56,11 +61,11 @@ class User implements UserInterface
     private $promo;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true) 
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $email;
 
-   /**
+    /**
      * @ORM\Column(type="integer",nullable=true)
      */
     private $gender;

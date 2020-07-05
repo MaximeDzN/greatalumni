@@ -24,10 +24,9 @@ class MessageRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT uB
+           'SELECT uB
             FROM App\Entity\User uA, App\Entity\User uB, App\Entity\Message m
             WHERE uA.id = m.UserSend
-            
             AND uA.id = :userid'
         )->setParameter('userid', $user);
 

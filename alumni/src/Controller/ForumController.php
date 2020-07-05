@@ -2,27 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\PostType;
+use App\Entity\User;
 use App\Entity\Post;
 use App\Entity\PostAnswer;
-use App\Entity\User;
-
+use App\Entity\PostType;
 use App\Form\NewPostType;
 use App\Form\PostAnswerType;
 use App\Form\PosttypeType;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-
 use App\Repository\PostRepository;
-use App\Repository\PostTypeRepository;
-use App\Repository\PostAnswerRepository;
-
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
-
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ForumController extends AbstractController
 {
@@ -46,6 +38,7 @@ class ForumController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $repo = $this->getDoctrine()->getRepository(PostType::class);
         $postTypes = $repo->findAll();
+
         return $this->render('forum/index.html.twig', [
             'postTypes' => $postTypes,
         ]);
@@ -54,22 +47,26 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum/newpost", name="newposttype")
      */
+    //Créer une catégorie
     public function newposttype(Request $request)
     {
         //Vérification que ce soit bien un admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $postType = new PostType();
+
         $formpostType = $this->createForm(PosttypeType::class, $postType);
         $formpostType->handleRequest($request);
         if ($formpostType->isSubmitted() && $formpostType->isValid()) {
             $this->entityManager->persist($postType);
             $this->entityManager->flush();
+
             return $this->redirectToRoute('forum', [
                 'id' => $postType->getId(),
                 'slug' => $postType->getSlug(),
             ]);
         }
+
         return $this->render('forum/newposttype.html.twig', [
             'postType' => $postType,
             'formpostType' => $formpostType->createView(),
@@ -77,21 +74,23 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
+     * /* @Route("/forum/{id}", name="show",methods={"GET"}, requirements={"slug"="^[a-zA-Z0-9-_]+$"} )
+     *
+     * @param mixed $id
      */
-
-    public function show($id, PaginatorInterface $paginator, Request $request, postType $postType, PostRepository $repoPost)
+    //Accéder aux différentes catégories
+    public function show($id, PaginatorInterface $paginator, Request $request, PostType $PostType, PostRepository $repoPost)
     {
         //Vérification que la personne est connecté
-
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $posts = $paginator->paginate(
-            $postType->getPosts(),
+            $PostType->getPosts(),
             $request->query->getInt('page', 1),
             12
         );
+
         return $this->render('forum/show.html.twig', [
-            'postType' => $postType,
+            'postType' => $PostType,
             'posts' => $posts,
         ]);
     }
@@ -99,24 +98,26 @@ class ForumController extends AbstractController
     /**
      * @Route("forum/{id}", name="supprimerCat", methods={"DELETE"})
      */
+    //Supprimer une catégorie
     public function supprimerCat(Request $request, PostType $postType)
     {
         //Vérification que ce soit bien un admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($this->isCsrfTokenValid('delete' . $postType->getId(), $request->get('_token'))) {
-
+        if ($this->isCsrfTokenValid('delete'.$postType->getId(), $request->get('_token'))) {
             $this->entityManager->remove($postType);
             $this->entityManager->flush();
         }
+
         return $this->redirectToRoute('forum');
     }
 
-    /*************************  partie post **********************************/
+    // partie post
 
     /**
      * @Route("/forum/post/newpost", name="newpost")
      */
+    //Créer un nouveau sujet
     public function newpost(Request $request)
     {
         //Vérification que la personne est connecté
@@ -136,12 +137,14 @@ class ForumController extends AbstractController
 
             $this->entityManager->persist($post);
             $this->entityManager->flush();
+
+            //Redirection vers le nouveau post ajouté
             return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
         }
+
         return $this->render('forum/post/newpost.html.twig', [
             'post' => $post,
-            'form' => $form->createView()
-
+            'form' => $form->createView(),
         ]);
     }
 
@@ -153,7 +156,6 @@ class ForumController extends AbstractController
         //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-
         $postAnswer = new PostAnswer();
 
         $postAnswer->setPost($post);
@@ -162,13 +164,13 @@ class ForumController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $postAnswer->setDate(new \DateTime('now'));
             $postAnswer->setIsReported(0);
             $postAnswer->setAuthor($user);
-            $user->setPhoto($photo);
+
             $this->entityManager->persist($postAnswer);
             $this->entityManager->flush();
+
             return $this->redirectToRoute('forum.showPost', [
                 'slug' => $post->getSlug(),
                 'id' => $post->getId(),
@@ -183,19 +185,21 @@ class ForumController extends AbstractController
 
     /**
      * @Route("/forum/post/{slug}/{id}", name="editPost", methods="GET|POST")
+     *
+     * @param mixed $id
      */
-    public function editPost(Post $post, Request $request,$id)
+    public function editPost(Post $post, Request $request, $id)
     {
         //Vérification que la personne est connecté
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(NewPostType::class, $post);
         $form->handleRequest($request);
+        $user = $this->getUser();
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->entityManager->flush();
 
                 return $this->redirectToRoute('forum.showPost', ['slug' => $post->getSlug(), 'id' => $post->getId()]);
-
             }
         } else {
             return $this->redirectToRoute('app_login');
@@ -217,20 +221,18 @@ class ForumController extends AbstractController
         //recuperation de l'utilisateur
         $user = $this->getUser();
         if ($user == $post->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
-
-            if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->get('_token'))) {
-
+            if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->get('_token'))) {
                 $this->entityManager->remove($post);
                 $this->entityManager->flush();
+
                 return $this->redirectToRoute('forum');
             }
         } else {
             return $this->redirectToRoute('app_login');
-
         }
     }
 
-       /**
+    /**
      * @Route("forum/postAnswer/{id}", name="supprimerpostanswer", methods={"DELETE"})
      */
     public function supprimerAnswer(Request $request, PostAnswer $postAnswer)
@@ -244,12 +246,13 @@ class ForumController extends AbstractController
         ) {
             if (
                 $this->isCsrfTokenValid(
-                    'delete' . $postAnswer->getId(),
+                    'delete'.$postAnswer->getId(),
                     $request->get('_token')
                 )
             ) {
                 $this->entityManager->remove($postAnswer);
                 $this->entityManager->flush();
+
                 return $this->redirectToRoute('forum.showPost', [
                     'slug' => $post->getSlug(),
                     'id' => $post->getId(),
@@ -263,7 +266,6 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum/post/reportPost/{id}", name="post_report")
      */
-
     public function postReport(
         EntityManagerInterface $manager,
         Request $request,
@@ -273,6 +275,7 @@ class ForumController extends AbstractController
         $post->setIsReported(1);
         $manager->persist($post);
         $manager->flush();
+
         return $this->redirectToRoute('forum.showPost', [
             'slug' => $post->getSlug(),
             'id' => $post->getId(),
@@ -282,7 +285,6 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum/post/reportPostAnswer/{id}", name="postAnswer_report")
      */
-
     public function postAnswerReport(
         EntityManagerInterface $manager,
         Request $request,
@@ -293,10 +295,10 @@ class ForumController extends AbstractController
         $manager->persist($postAnswer);
         $manager->flush();
         $post = $postAnswer->getPost();
+
         return $this->redirectToRoute('forum.showPost', [
             'slug' => $post->getSlug(),
             'id' => $post->getId(),
         ]);
     }
-
 }

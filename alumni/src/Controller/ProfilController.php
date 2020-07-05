@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\EditProfilType;
 use App\Form\PasswordEditType;
-
-
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfilController extends AbstractController
 {
@@ -20,7 +18,6 @@ class ProfilController extends AbstractController
      */
     public function ProfilEdit(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
-
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         // On créer un formulaire de modifcation
@@ -28,14 +25,14 @@ class ProfilController extends AbstractController
         $editForm = $this->createForm(EditProfilType::class, $user);
         //on récupère les données entrées.
         $editForm->handleRequest($request);
-        //On vérifie le contenu du formulaire de modification 
+        //On vérifie le contenu du formulaire de modification
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Si l'utilisateur change la photo
-            if ($user->getPhoto() != null) {
+            if (null != $user->getPhoto()) {
                 //On récupère le fichier
-                //On créer un nom unique pour l'image   
+                //On créer un nom unique pour l'image
                 $file = $editForm->get('photo')->getData();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $filename = md5(uniqid()).'.'.$file->guessExtension();
                 //On déplace le fichier vers "avatar_directory"
                 $file->move($this->getParameter('avatar_directory'), $filename);
                 //On applique la nouvelle photo pour l'utilisateur
@@ -44,16 +41,34 @@ class ProfilController extends AbstractController
                 $user->setPhoto($photo);
             }
             $school_curriculum = $request->request->get('school_curriculum');
-             $user->setSchoolCurriculum(array_unique($school_curriculum));
+            $realSchool = [];
+            for ($i = 0; $i < sizeof($school_curriculum); ++$i) {
+                if ('' != $school_curriculum[$i]) {
+                    array_push($realSchool, $school_curriculum[$i]);
+                }
+            }
+            $user->setSchoolCurriculum($realSchool);
             $career = $request->request->get('career');
-            $user->setCareer(array_unique($career));
-            $hobbies =  $request->request->get('hobbies');
-            $user->setHobbie(array_unique($hobbies));
+            $realCarreer = [];
+            for ($i = 0; $i < sizeof($career); ++$i) {
+                if ('' != $career[$i]) {
+                    array_push($realCarreer, $career[$i]);
+                }
+            }
+            $user->setCareer($realCarreer);
+            $test = $request->request->get('test');
+            $hobbies = $request->request->get('hobbies');
+            $realhobbies = [];
+            for ($i = 0; $i < sizeof($hobbies); ++$i) {
+                if ('' != $hobbies[$i]) {
+                    array_push($realhobbies, $hobbies[$i]);
+                }
+            }
+            $user->setHobbie($realhobbies);
             $manager->persist($user);
             $manager->flush();
-            //return $this->redirectToRoute('profil');  
+            //return $this->redirectToRoute('profil');
         }
-
 
         // On créer le formulaire de changement de mot de passe
         $pwdForm = $this->createForm(PasswordEditType::class);
@@ -67,23 +82,22 @@ class ProfilController extends AbstractController
                 if ($pwdForm['oldPassword']->getData() == $pwdForm['password']->getData()) {
                     //Si Oui, on autorise pas la modification
                     return $this->redirectToRoute('profil');
-                } else {
-                    //Si Non, on autorise la modification
-                    $user->setPassword($encoder->encodePassword($user, $pwdForm['password']->getData()));
-                    $manager->persist($user);
-                    $manager->flush();
-                    return $this->redirectToRoute('profil');
                 }
-            } else {
-                //Si Non on autorise pas la modification
+                //Si Non, on autorise la modification
+                $user->setPassword($encoder->encodePassword($user, $pwdForm['password']->getData()));
+                $manager->persist($user);
+                $manager->flush();
+
                 return $this->redirectToRoute('profil');
             }
+            //Si Non on autorise pas la modification
+            return $this->redirectToRoute('profil');
         }
 
         return $this->render('profil/index.html.twig', [
             'editForm' => $editForm->createView(),
             'pwdForm' => $pwdForm->CreateView(),
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }

@@ -40,12 +40,28 @@
 					{% for c in reportedComment %}
 						{{c.author.login}}
 						{{c.content}}
+<<<<<<< Updated upstream
+=======
+
+						<a class="" href="{{ path('comment_unreport',{id: c.id, comment: c})}}">
+							<button class="">
+								<span>approuver</span>
+							</button>
+						</a>
+
+						<a class="" href="{{ path('admin_comment_del',{id: c.id, comment: c})}}">
+							<span>supprimer</span>
+						</a>
+>>>>>>> Stashed changes
 					{% endfor %}
 				{% else %}
 					<span>Aucun commentaire signalé.</span>
 				{% endif %}
 			</div>
 		</div>
+
+<!--Post Signalés-->
+
 		<div class="__col--third">
 			<div class="post__section__list">
 				<h2>
@@ -55,6 +71,17 @@
 					{% for post in reportedPost %}
 						{{post.author.login}}
 						{{post.content}}
+						<br>
+						<button type="submit">
+							<a class="" href="{{ path('post_unreport',{id: post.id, Post: post})}}">
+								<span>Approuver</span>
+							</a>
+						</button>
+						<button type="submit">
+							<a class="" href="{{ path('admin_post_del',{id: post.id, Post: post})}}">
+								<span>Supprimer</span>
+							</a>
+						</button>
 					{% endfor %}
 				{% else %}
 					<span>Aucun Post signalé.</span>
@@ -70,6 +97,12 @@
 					{% for post in reportedPostAnswer %}
 						{{post.author.login}}
 						{{post.content}}
+<<<<<<< Updated upstream
+=======
+						<a class="" href="{{ path('postAnswer_unreport',{id: post.id, post: post})}}">
+							<span>approuver</span>
+						</a>
+>>>>>>> Stashed changes
 
 
 					{% endfor %}

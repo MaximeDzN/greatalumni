@@ -1,36 +1,32 @@
-<?php  
+<?php
 
 namespace App\DataFixtures;
 
-use App\Entity\PostType;
 use App\Entity\Post;
 use App\Entity\PostAnswer;
+use App\Entity\PostType;
 use App\Entity\User;
-
 use App\Repository\UserRepository;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
-
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-
 use Faker\Factory;
 
 class ForumFixtures extends Fixture implements DependentFixtureInterface
 {
     private $userRepository;
 
-    public function __construct( UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
     public function load(ObjectManager $manager)
     {
-        $types = ["Emploi","Stage","Juridique","Divers"];
-        $typesDesc = ["Discutez de votre travail","Vous cherchez un stage ? Demandez ici.","Des questions sur la juridique ? Alors c'est ici.","Pour tout autre sujet c'est par là."];
+        $types = ['Emploi', 'Stage', 'Juridique', 'Divers'];
+        $typesDesc = ['Discutez de votre travail', 'Vous cherchez un stage ? Demandez ici.', "Des questions sur la juridique ? Alors c'est ici.", "Pour tout autre sujet c'est par là."];
 
-        for ($i = 0; $i < sizeof($types); $i++){
+        for ($i = 0; $i < sizeof($types); ++$i) {
             $postType = new PostType();
             $postType->setTitle($types[$i]);
             $postType->setDescription($typesDesc[$i]);
@@ -49,20 +45,20 @@ class ForumFixtures extends Fixture implements DependentFixtureInterface
 
             for ($j = 0; $j <= 20; $j++) {
                 $user = $this->getReference('user-' . mt_rand(0, 20));
-                
+
                 $post = new Post();
                 $post->setTitle($faker->word(2, true));
                 $post->setContent($faker->sentences(3, true));
                 $post->setPostType($postType);
                 $post->setDate(new \DateTime('now'));
                 $post->setAuthor($user);
-                
+
 
                 $manager->persist($post);
 
                 for ($k = 0; $k < 20; $k++) {
                     $user = $this->getReference('user-' . mt_rand(0, 20));
-                   
+
 
                     $postAnswer = new PostAnswer();
                     $postAnswer->setContent($faker->paragraph($nbSentences = 20));
@@ -70,11 +66,11 @@ class ForumFixtures extends Fixture implements DependentFixtureInterface
                     $postAnswer->setPost($post);
                     $postAnswer->setDate(new \DateTime('now'));
                     $postAnswer->setAuthor($user);
-                    
-                    
+
+
                     $manager->persist($postAnswer);
                 }
-               
+
             }
         }
         $manager->flush();*/

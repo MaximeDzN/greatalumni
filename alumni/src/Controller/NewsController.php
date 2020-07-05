@@ -2,25 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\News;
-use App\Form\NewType;
-use App\Form\NewsEditType;
-
-
 use App\Entity\Comment;
+use App\Entity\News;
 use App\Entity\Score;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Form\CommentType;
+use App\Form\NewsEditType;
+use App\Form\NewType;
 use App\Form\ScoreType;
 use App\Repository\CommentRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ScoreRepository;
-
-
-
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class NewsController extends AbstractController
 {
@@ -34,7 +29,7 @@ class NewsController extends AbstractController
         $allNews = $newsRepo->findAllReverse();
 
         return $this->render('news/index.html.twig', [
-            'allnews' => $allNews
+            'allnews' => $allNews,
         ]);
     }
 
@@ -44,6 +39,7 @@ class NewsController extends AbstractController
     public function write(EntityManagerInterface $manager, Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $user = $this->getUser();
         //On Créer un nouveau User.
         $news = new News();
@@ -53,20 +49,21 @@ class NewsController extends AbstractController
         $newsForm->handleRequest($request);
         //On vérifie le contenu du formulaire
         if ($newsForm->isSubmitted() && $newsForm->isValid()) {
-
             $news->setDate(new \DateTime('now'));
             $file = $newsForm->get('media')->getData();
-            //On créer un nom unique pour l'image   
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
-            //On déplace le fichier vers "avatar_directory"
+            //On créer un nom unique pour l'image
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            //On déplace le fichier vers "news_directory"
             $file->move($this->getParameter('newsImg_directory'), $filename);
             //On applique la nouvelle photo pour l'utilisateur
             $news->setMedia($filename);
             $news->setAuthor($user);
             $manager->persist($news);
             $manager->flush();
+
             return $this->redirectToRoute('news');
         }
+
         return $this->render('news/write.html.twig', [
             'newsForm' => $newsForm->createView(),
         ]);
@@ -86,12 +83,11 @@ class NewsController extends AbstractController
             $newsForm->handleRequest($request);
             //On vérifie le contenu du formulaire
             if ($newsForm->isSubmitted() && $newsForm->isValid()) {
-                if ($news->getMedia() != null) {
-
+                if (null != $news->getMedia()) {
                     $file = $newsForm->get('media')->getData();
-                    //On créer un nom unique pour l'image   
-                    $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                    //On déplace le fichier vers "avatar_directory"
+                    //On créer un nom unique pour l'image
+                    $filename = md5(uniqid()).'.'.$file->guessExtension();
+                    //On déplace le fichier vers "News_directory"
                     $file->move($this->getParameter('newsImg_directory'), $filename);
                     //On applique la nouvelle photo pour l'utilisateur
                     $news->setMedia($filename);
@@ -100,50 +96,49 @@ class NewsController extends AbstractController
                 }
                 $manager->persist($news);
                 $manager->flush();
+
                 return $this->redirectToRoute('news');
             }
         } else {
             return $this->redirectToRoute('app_login');
         }
+
         return $this->render('news/edit.html.twig', [
             'news' => $news,
             'newsForm' => $newsForm->createView(),
         ]);
     }
 
-           /**
+    /**
      * @Route("/news/news_del/{id}", name="news_del")
      */
-    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo,CommentRepository $comRepo,ScoreRepository $scoreRepo, News $news )
+    public function newsdel(EntityManagerInterface $manager, Request $request, NewsRepository $newsRepo, CommentRepository $comRepo, ScoreRepository $scoreRepo, News $news)
     {
         $user = $this->getUser();
         //On regarde si l'utilisateur courant est l'auteur ou un administrateur
-        if($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles()) ){
+        if ($user == $news->getAuthor() || in_array('ROLE_ADMIN', $user->getRoles())) {
             //Si oui on récupère tous les commentaires de l'article
             $comments = $news->getComments();
             $scores = $news->getScores();
-            foreach($comments as $c){
+            foreach ($comments as $c) {
                 //On Supprime tous les commentaires de l'article
                 $comRepo->deleteOne($c->getId());
             }
-            foreach($scores as $s){
+            foreach ($scores as $s) {
                 $scoreRepo->deleteOne($s->getId());
             }
             //On supprime l'article
             $newsRepo->deleteOne($news->getId());
+
             return $this->redirectToRoute('news');
-        } else {
-            return $this->redirectToRoute('app_login');
         }
-       
 
+        return $this->redirectToRoute('app_login');
     }
-
 
     /**
      * @Route("/news/{id}", name="news_details")
      */
-
     public function newsDetails(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, ScoreRepository $scoRepo, News $news)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -169,9 +164,9 @@ class NewsController extends AbstractController
             $score->setNews($news);
             $manager->persist($score);
             $manager->flush();
+
             return $this->redirect($request->getUri());
         }
-
 
         $comment = new Comment();
         //On créer le formulaire d'inscription prédéfini dans Form/NewType
@@ -180,36 +175,35 @@ class NewsController extends AbstractController
         $commentForm->handleRequest($request);
         //On vérifie le contenu du formulaire
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-
             $comment->setDate(new \DateTime('now'));
             $comment->setAuthor($user);
             $comment->setNews($news);
             $comment->setIsReported(0);
             $manager->persist($comment);
             $manager->flush();
+
             return $this->redirect($request->getUri());
         }
 
-
-        if ($voted == true) {
+        if (true == $voted) {
             return $this->render('news/details.html.twig', [
                 'news' => $news,
                 'commentForm' => $commentForm->createView(),
                 'comments' => $comments,
                 'note' => $note,
                 'scoreForm' => $scoreForm->createView(),
-                'voted' => $voted
-            ]);
-        } else {
-            return $this->render('news/details.html.twig', [
-                'news' => $news,
-                'commentForm' => $commentForm->createView(),
-                'comments' => $comments,
-                'note' => $note,
-                'scoreForm' => $scoreForm->createView(),
-                'voted' => $voted
+                'voted' => $voted,
             ]);
         }
+
+        return $this->render('news/details.html.twig', [
+            'news' => $news,
+            'commentForm' => $commentForm->createView(),
+            'comments' => $comments,
+            'note' => $note,
+            'scoreForm' => $scoreForm->createView(),
+            'voted' => $voted,
+        ]);
     }
 
     /**
@@ -225,23 +219,22 @@ class NewsController extends AbstractController
             $comRepo->deleteOne($comment->getId());
             //On redirige sur l'article.
             return $this->redirectToRoute('news_details', ['id' => $news->getId(), 'news' => $news]);
-        } else {
-            return $this->redirectToRoute('app_login');
         }
+
+        return $this->redirectToRoute('app_login');
     }
 
-     /**
+    /**
      * @Route("/news/reportcom/{id}", name="comment_report")
      */
-
-    public function commentReport(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, Comment $comment){
+    public function commentReport(EntityManagerInterface $manager, Request $request, CommentRepository $comRepo, Comment $comment)
+    {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $news = $comment->getNews();
         $comment->setIsReported(1);
         $manager->persist($comment);
         $manager->flush();
+
         return $this->redirectToRoute('news_details', ['id' => $news->getId(), 'news' => $news]);
     }
-
-
 }

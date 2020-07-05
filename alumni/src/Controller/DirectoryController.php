@@ -5,11 +5,10 @@ namespace App\Controller;
 use App\Entity\PropertySearch;
 use App\Entity\User;
 use App\Form\PropertySearchType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Knp\Component\Pager\PaginatorInterface;
 use PhpParser\Node\Name;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DirectoryController extends AbstractController
 {
@@ -20,53 +19,36 @@ class DirectoryController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(User::class);
 
-        $users =$repo->findBy(['isConfirmed'=>'1']);
+        $users = $repo->findBy(['isConfirmed' => '1']);
 
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
+
         $form->handleRequest($request);
 
-       if(!($request->query->get('property_search') == null))
-       {
-          
-           $name = $request->query->get('property_search')['Name'];
-           $lastname = $request->query->get('property_search')['Lastname'];
-           $promo = $request->query->get('property_search')['promo'];
-           
-            if ($name!= "" && $lastname == "" && $promo =="") 
-            {
-                $users = $repo->findBy(['name'=>$name]);
-            }
-            else if ($name== "" && $lastname != "" && $promo =="") 
-            {
-                $users = $repo->findBy(['nickname'=>$lastname]);
-            }
-            else if ($name== "" && $lastname == "" && $promo !="") 
-            {
-                $users = $repo->findBy(['promo'=>$promo]);
-            }
-            else if  ($name!= "" && $lastname != "" && $promo !="") 
-            {
-                $users = $repo->findBy(['name'=>$name,'nickname'=>$lastname,'promo'=>$promo]);
-            }
-            else  if (($name!= "" && $lastname != "" && $promo =="")) 
-            {
-                $users = $repo->findBy(['name'=>$name,'nickname'=>$lastname]);
-            }
-            else if (($name!= "" && $lastname == "" && $promo !="")) 
-            {
-                $users = $repo->findBy(['name'=>$name,'promo'=>$promo]);            
-            }
-            else if (($name== "" && $lastname != "" && $promo !=""))
-            {
-                $users = $repo->findBy(['nickname'=>$lastname,'promo'=>$promo]);
-            }
-            else 
-            {
-                $users =$repo->findBy(['isConfirmed'=>'1']);;
-            }
+        if (!(null == $request->query->get('property_search'))) {
+            $name = $request->query->get('property_search')['Name'];
+            $lastname = $request->query->get('property_search')['Lastname'];
+            $promo = $request->query->get('property_search')['promo'];
 
-       }  
+            if ('' != $name && '' == $lastname && '' == $promo) {
+                $users = $repo->findBy(['name' => $name]);
+            } elseif ('' == $name && '' != $lastname && '' == $promo) {
+                $users = $repo->findBy(['nickname' => $lastname]);
+            } elseif ('' == $name && '' == $lastname && '' != $promo) {
+                $users = $repo->findBy(['promo' => $promo]);
+            } elseif ('' != $name && '' != $lastname && '' != $promo) {
+                $users = $repo->findBy(['name' => $name, 'nickname' => $lastname, 'promo' => $promo]);
+            } elseif (('' != $name && '' != $lastname && '' == $promo)) {
+                $users = $repo->findBy(['name' => $name, 'nickname' => $lastname]);
+            } elseif (('' != $name && '' == $lastname && '' != $promo)) {
+                $users = $repo->findBy(['name' => $name, 'promo' => $promo]);
+            } elseif (('' == $name && '' != $lastname && '' != $promo)) {
+                $users = $repo->findBy(['nickname' => $lastname, 'promo' => $promo]);
+            } else {
+                $users = $repo->findBy(['isConfirmed' => '1']);
+            }
+        }
 
         return $this->render('directory/index.html.twig', [
             'controller_name' => 'DirectoryController',
@@ -77,16 +59,16 @@ class DirectoryController extends AbstractController
 
     /**
      * @Route("/directory/{id}", name="showInfos")
+     *
+     * @param mixed $id
      */
     public function showUserInfos($id)
     {
-        $repo = $this->getDoctrine()->getRepository(user::class);
-        $user =$repo ->find($id);
-        
-        return $this->render('directory/showInfos.html.twig', [            
-            'user' => $user
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($id);
+
+        return $this->render('directory/showInfos.html.twig', [
+            'user' => $user,
         ]);
     }
-
-    
 }
