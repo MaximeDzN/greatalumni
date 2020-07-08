@@ -148,7 +148,7 @@ class NewsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-        $comments = $comRepo->findAllReverse();
+        $comments = $comRepo->findBy(['News' => $news->getId()],['date' => 'DESC']);
         $notes = $news->getScores();
         $voted = false;
         $note = null;
