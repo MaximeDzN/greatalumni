@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block content_title %}Forum
 {% endblock %}
@@ -46,6 +46,58 @@
 <div class="input__container input__containerButton">
 	<a href="{{ path('newposttype') }}" class="button-link">créer une catégorie</a>
 	<div>
+{% endif %}
+
+{% endblock %}
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Tous les forums
+{% endblock %}
+
+{% block content_body %}
+
+<div class="__row">
+<div class="__col">
+<div class="forum_table __col">
+	<div class="forum_table_header">
+			<div class="__col __col--half"><h3>Catégorie</h3></div>
+			<div class="__col--30"><h3>Description</h3></div>
+			<div class="__col--10"><h3>Nb</h3></div>
+			<div class="__col--10"></div>
+	</div>
+	
+{% for postType in postTypes %}
+	<div class="forum_table_content">
+			<div class="__col __col--half" style="font-weight:bold"><a href="{{path('show',{slug: postType.slug, id: postType.id})}}"><span>Forum {{postType.title}}</span></a></div>
+			<div class="__col--30"><a href="{{path('show',{slug: postType.slug, id: postType.id})}}"><span>{{postType.description}}</span></a></div>
+			<div class="__col--10"><a href="{{path('show',{slug: postType.slug, id: postType.id})}}"><span>{{ postType.posts | length }}</span></a></div>
+			<div class="__col--10">
+			{% if is_granted('ROLE_ADMIN')  %}			
+					<form method="post" action="{{ path('supprimerCat', { id: postType.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postType.id) }}">
+						<button  class="button--danger">
+							<i type="submit" class="fa fa-trash fa-1x" aria-hidden="true"></i>
+						</button>
+					</form>
+			{% endif %}
+			</div>
+	</div>
+{% endfor %}
+
+
+</div>
+</div>
+</div>
+
+{% if is_granted('ROLE_ADMIN')  %}
+<div>
+<button>
+	<a href="{{ path('newposttype') }}" >Créer une catégorie</a>
+</button>
+</div>
 {% endif %}
 
 {% endblock %}

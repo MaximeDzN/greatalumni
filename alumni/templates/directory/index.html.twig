@@ -45,11 +45,11 @@
 
 	<div  class="b5" ></div>
 
-	<div class="__row" >
+	<div class="__row directory" >
 
 		{% for user in users %}
 
-			<div class="__col __col--third">
+			<div class="__col __col--third directory_unity">
 				<a href="{{ path('showInfos',{'id': user.id}) }}">
 					<div class="__col  __col--half container__photo">
 						<img class="directory__photo" src="/images/avatar/{{ user.photo }}"/>

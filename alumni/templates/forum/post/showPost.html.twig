@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block content_title %}
 	{{ post.title }}
@@ -88,5 +88,97 @@
 		Répondre
 	</button>
 	{{ form_end(form) }}
+
+{% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content_body %}
+
+
+<div class="__row">
+	<a class="goBack_link" href="{{path('show',{slug: post.postType.slug, id: post.postType.id})}}">
+		<i class="fas fa-arrow-left"></i> Revenir au forum {{post.postType.slug |capitalize}}
+	</a>
+		<div class="comment__section __col">
+			<div class="comment__section__list">
+				{# {% for c in comments %} #}
+                    <!-- Original Post -->
+                    <div class="comment__section__list_unity __row">
+						<div class="__col __col--oneQuarter comment__section__list_unity_profil">
+                        <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">
+                            {% if post.author.photo %}
+							    <div><img class="forum__subject-img" src="/images/avatar/{{ post.author.photo }}"></div>
+                            {% else %}
+						        <div><img class="forum__subject-img" src="/images/avatar/avatar.png"></div>
+                            {% endif %}
+								<span class="comment__section__list__unity__profil__name">{{ post.author.username }}</span>
+								<span class="comment__section__list__unity__profil__date">{{ post.date|date("d/m/Y H:i:s") }}</span>
+                        </a>
+						</div>
+						<div class="__col __col--threeQuarter comment__section__list_unity_content">
+							<p>{{ post.content }}</p>
+							<div>
+								{% if post.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="">
+										<span>Supprimer</span>
+									</a>
+									{% elseif post.isReported == 0 %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+                    <!-- REPLIES -->
+                    {% for postAnswer in post.postAnswers %}
+					<div class="comment__section__list_unity __row">
+						<div class="__col __col--oneQuarter comment__section__list_unity_profil">
+                        <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">
+                            {% if postAnswer.author.photo %}
+                                    <div><img class="forum__subject-img" src="{{asset('images/avatar/'~postAnswer.author.photo)}}"></div>
+                            {% else %}
+                                    <div><img class="forum__subject-img" src="/images/avatar/avatar.png"></div>
+                            {% endif %}
+								<span class="comment__section__list__unity__profil__name">{{ postAnswer.author.username }}</span>
+								<span class="comment__section__list__unity__profil__date">{{ post.date|date("d/m/Y H:i:s") }}</span>
+                        </a>
+						</div>
+						<div class="__col __col--threeQuarter comment__section__list_unity_content">
+							<p>{{ postAnswer.content }}</p>
+							<div>
+								{% if post.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="">
+										<span>Supprimer</span>
+									</a>
+									{% elseif post.isReported == 0 %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+    <!-- test -->
+
+    {{ form_start(form) }}
+    <div class="__col">
+        {{ form_widget(form) }}
+    </div>
+    <button type="submit" class="mt-10">
+        Répondre
+    </button>
+    {{ form_end(form) }}
 
 {% endblock %}

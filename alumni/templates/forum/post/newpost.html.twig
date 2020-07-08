@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block content_title %}création d'un nouveau post {% endblock %}
 
@@ -15,4 +15,42 @@
             {{ form_row(form.Content) }}
         </div>
     {{ form_end(form) }}
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Nouvelle discussion{% endblock %}
+
+{% block content_body %}
+
+    <div class="__row forum_newCategory">
+            <p>Renseignez les champs suivants afin de créer une nouvelle discussion dans le forum.</p>
+            {{ form_start(form) }}
+            <div  class="__col">
+                <div class="input__container">
+                    {{ form_row(form.title) }}
+                </div>
+            </div>
+            <div  class="__col">
+                <div class="input__container">
+                    {{ form_row(form.PostType) }}
+                </div>
+            </div>
+            <div  class="__col">
+                <div class="input__container">
+                    {{ form_row(form.Content) }}
+                </div>
+            </div>
+            <div class="__col">
+                <button type="submit" id="newTopicButton">
+                    Créer la discussion
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+    </div>
+
+
+
+
 {% endblock %}
