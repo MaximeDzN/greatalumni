@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+	Administration
+{% endblock %}
+
+{% block content_body %}
+	<div class="__row">
+		<div class="__col--half  ">
+			<div class="input__container input__containerButton">
+
+
+				<form action="{{path('signup')}}" method="post">
+					<button type="submit">
+						<span>Inscription d'un membre</span>
+					</button>
+				</form>
+
+
+			</div>
+		</div>
+		<div class="__col--half  ">
+			<div class="input__container input__containerButton">
+
+				<form action="{{path('app_forgotten_password')}}" method="post">
+					<button type="submit">
+						<span>Réinitialisation d'un mot de passe</span>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="__row">
+		<div class="__col--third">
+			<div class="comment__section__list">
+				<h2>
+					Commentaires signalés
+				</h2>
+				{% if (reportedComment|length) > 0 %}
+					{% for c in reportedComment %}
+						{{c.author.login}}
+						{{c.content}}
+						<a class="" href="{{ path('comment_unreport',{id: c.id, comment: c})}}">
+							<span>approuver</span>
+						</a>
+
+						<a class="" href="{{ path('admin_comment_del',{id: c.id, comment: c})}}">
+							<span>supprimer</span>
+						</a>
+					{% endfor %}
+				{% else %}
+					<span>Aucun commentaire signalé.</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="__col--third">
+			<div class="post__section__list">
+				<h2>
+					Post signalés
+				</h2>
+				{% if (reportedPost|length) > 0 %}
+					{% for post in reportedPost %}
+						{{post.author.login}}
+						{{post.content}}
+							<a class="" href="{{ path('post_unreport',{id: post.id, Post: post})}}">
+							<span>approuver</span>
+						</a>
+
+						<a class="" href="{{ path('admin_post_del',{id: post.id, Post: post})}}">
+							<span>supprimer</span>
+						</a>
+					{% endfor %}
+				{% else %}
+					<span>Aucun Post signalé.</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="__col--third">
+			<div class="postAnswer__section__list">
+				<h2>
+					Réponses de post signalés
+				</h2>
+				{% if (reportedPostAnswer|length) > 0 %}
+					{% for post in reportedPostAnswer %}
+						{{post.author.login}}
+						{{post.content}}
+							<a class="" href="{{ path('postAnswer_unreport',{id: post.id, post: post})}}">
+							<span>approuver</span>
+						</a>
+
+						<a class="" href="{{ path('admin_postAnswer_del',{id: post.id, PostAnswer: post})}}">
+							<span>supprimer</span>
+						</a>
+					{% endfor %}
+				{% else %}
+					<span>Aucune réponse de post signalé.</span>
+				{% endif %}
+			</div>
+		</div>
+	{% endblock %}

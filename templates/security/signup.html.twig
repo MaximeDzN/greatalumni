@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+	Inscription
+{% endblock %}
+
+{% block content_body %}
+
+
+{{form_start(signupForm)}}
+
+        <div class="__col  __col--half">
+	<div class="input__container">
+        {{form_label(signupForm.login,'Nom d\'utilisateur',{'label_attr': {'class': ''}})}}
+        {{form_widget(signupForm.login)}}
+        {{form_errors(signupForm.login)}}
+        </div>
+        
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.email,'Email')}}
+        {{form_widget(signupForm.email)}}
+        {{form_errors(signupForm.email)}}
+        </div>
+        </div>
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.name,'Nom')}}
+        {{form_widget(signupForm.name)}}
+        {{form_errors(signupForm.name)}}
+        </div>
+        </div>
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.nickname,'Prénom')}}
+        {{form_widget(signupForm.nickname)}}
+        {{form_errors(signupForm.nickname)}}
+        </div>
+        </div>
+
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.department,'Département')}}
+        {{form_widget(signupForm.department)}}
+        {{form_errors(signupForm.department)}}
+        </div>
+        </div>
+
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.promo,'Promotion')}}
+        {{form_widget(signupForm.promo)}}
+        {{form_errors(signupForm.promo)}}
+        </div>
+        </div>
+
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.expression,'Expression')}}
+        {{form_widget(signupForm.expression)}}
+        {{form_errors(signupForm.expression)}}
+        </div>
+        </div>
+{# 
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.hobbies,'Passions')}}
+        {{form_widget(signupForm.hobbies)}}
+        {{form_errors(signupForm.hobbies)}}
+        </div>
+
+        
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.professionnalCareer,'Cariere professionelle')}}
+        {{form_widget(signupForm.professionnalCareer)}}
+        {{form_errors(signupForm.professionnalCareer)}}
+        </div>
+        </div> #}
+
+
+
+        <div class="__col  __col--half">
+        <div class="input__container">
+        {{form_label(signupForm.password.first,'Mot de passe')}}        
+        {{form_widget(signupForm.password.first)}}
+        {{form_errors(signupForm.password.first)}}
+        </div>
+        </div>
+
+        <div class="__col  __col--half">
+			<div class="input__container">
+        {{form_label(signupForm.password.second,'Répêtez le mot de passe')}}
+        {{form_widget(signupForm.password.second)}}
+        {{form_errors(signupForm.password.second)}}
+        </div>
+        </div>
+
+        <div class="__col  __col--half">
+			<div class="input__container">
+        {{form_label(signupForm.gender,'Genre')}}
+        {{form_widget(signupForm.gender)}}
+        {{form_errors(signupForm.gender)}}
+        </div>
+        </div>
+
+        <div class="__col  ">
+			<div class="input__container input__containerButton">
+        {{form_widget(signupForm.Valider)}}
+        </div>
+        </div>
+
+
+
+{{form_end(signupForm)}}
+
+
+{% endblock %}

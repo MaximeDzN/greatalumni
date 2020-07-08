@@ -1,0 +1,53 @@
+{# {% extends 'base.html.twig' %}
+
+{% block content_title %}création d'une nouvelle catégorie {% endblock %}
+
+{% block content_body %}
+    <h2>Nouvelle catégorie</h2>
+
+    {{ form_start(formpostType) }}
+    <div class="__row">
+        {{ form_row(formpostType.title) }}
+        
+    </div>
+    <div class="__row">
+        {{ form_row(formpostType.description) }}
+    </div>
+    <button type="submit" id="newTopicButton">
+        <i class="fas fa-plus"></i> Créer
+    </button>
+    {{ form_end(formpostType) }}
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Nouvelle catégorie{% endblock %}
+
+{% block content_body %}
+    
+
+
+    <div class="__row forum_newCategory">
+
+
+            <p>Renseignez les champs suivants afin de créer une nouvelle catégorie de forum.</p>
+            {{ form_start(formpostType) }}
+            <div  class="__col">
+                <div class="input__container">
+                    {{ form_row(formpostType.title) }}
+                </div>
+            </div>
+            <div  class="__col">
+                <div class="input__container">
+                    {{ form_row(formpostType.description) }}
+                </div>
+            </div>
+            <div class="__col">
+                <button type="submit" id="newTopicButton">
+                    Créer la catégorie
+                </button>
+            </div>
+            {{ form_end(formpostType) }}
+    </div>
+
+{% endblock %}

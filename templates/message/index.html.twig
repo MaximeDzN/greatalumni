@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Messagerie
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="__row directory" >
+		{% for c in chatList %}
+			<div class="__col __col--third directory_unity">
+
+				{% if c.ParticipantA.id == app.user.id %}
+				<a href="{{path('writeMessage',{user : c.ParticipantB, id : c.ParticipantB.id })}}">
+					<div class="__col  __col--half container__photo">
+						{% if c.ParticipantB.photo is null %}
+							<img class="directory__photo" src="{{asset('images/avatar/avatar.png')}}"/>
+						{% else %}
+							<img class="" src="{{asset('images/avatar/'~c.ParticipantB.photo)}}"/>
+						{% endif %}
+					</div>
+					<div class="__col">
+						<h3>{{ c.ParticipantB.login }}</h3>	
+					</div>
+				</a>
+				{% else %}
+				<a href="{{path('writeMessage',{user : c.ParticipantA, id : c.ParticipantA.id })}}">
+					<div class="__col  __col--half container__photo">
+						{% if c.ParticipantA.photo is null %}
+							<img class="directory__photo" src="{{asset('images/avatar/avatar.png')}}"/>
+						{% else %}
+							<img class="directory__photo" src="{{asset('images/avatar/'~c.ParticipantA.photo)}}"/>
+						{% endif %}
+					</div>
+					<div class="__col  __col--half">
+						<h3>{{ c.ParticipantA.login }}</h3>	
+					</div>
+				</a>
+				{% endif %}
+
+			</div>			
+		{% endfor %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{# On récupère le template base.html.twig #}
+
+{% block content_title %}Bienvenue sur The Great Alumni
+{% endblock %}
+
+
+{% block content_body %}
+	<div class="__row">
+		<div class="homepage_titre">
+			<div class="__col">
+				<h2>Le réseau social des anciens</h2>
+			</div>
+			<div class="__col">
+				<p>The Great Alumni est un réseau social destiné aux anciens de Greatcom +.</p>
+			</div>
+		</div>
+	
+<div class="__col ">
+<div class= "input__signIn" >
+		<form method="post">
+
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
+
+			<div class="__col ">
+				<h2 class="h3 mb-3 font-weight-normal">Se connecter</h2>
+			</div>
+			<div class="__col  s">
+				<div class="input__container">
+					<label for="inputEmail">Nom d'utilisateur</label>
+					<input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" placeholder="Nom d'utilisateur" required autofocus>
+				</div>
+			</div>
+			<div class="__col  ">
+				<div class="input__container">
+					<label for="inputPassword">Mot de passe</label>
+					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+				</div>
+			</div>
+			{# <div class="__col ">
+				<h4>
+					Vous n'avez pas encore de compte?
+					<a href="{{ path('signup')}}">Céer un compte
+					</a>
+				</h4>
+			</div> #}
+			<div class="__col">
+				<div class="input__container input__containerButton">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<button class="btn btn-lg btn-primary" type="submit">
+						Se connecter
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+    </div>
+    </div>
+
+</div>
+{% endblock %}

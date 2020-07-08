@@ -1,0 +1,184 @@
+{# {% extends 'base.html.twig' %}
+
+{% block content_title %}
+	{{ post.title }}
+{% endblock %}
+
+{% block content_body %}
+
+    <div class="forum__subject">
+        <div class="forum__user-infos">
+            <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">{{ post.author.username }}</a>
+            <div class="forum__img-container">
+                {% if post.author.photo %}
+							<img class="forum__subject-img"
+						 src="/images/avatar/{{ post.author.photo }}">
+                {% else %}
+						<img class="forum__subject-img" src="/images/avatar/avatar.png">
+                {% endif %}
+            </div>
+		</div>
+
+		<div class="forum__subject-content">
+			<div class="forum__content">{{ post.content }}</div>
+			<div class="forum__date">édité le
+				{{ post.date|date("d/m/Y H:i:s") }}</div>
+			{% if is_granted('ROLE_ADMIN') or app.user == post.author  %}
+			<a href="{{ path('editPost', {slug: post.slug, id: post.id}) }}" class="far fa-edit"></a>
+				<form method="post" action="{{ path('supprimerpost', {id: post.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+					<button type="submit" class="button-default">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</form>
+			{% else %}
+				<div class="forum__admin">
+					<a href="{{ path('post_report',{id: post.id, post: post}) }}">signaler</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+
+    {% for postAnswer in post.postAnswers %}
+        <div class="forum__subject">
+            <div class="forum__user-infos">
+                <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">{{ postAnswer.author.username }}</a>
+                <div class="forum__img-container">
+                    {% if postAnswer.author.photo %}
+							<img class="forum__subject-img" src="{{asset('images/avatar/'~postAnswer.author.photo)}}">
+                    {% else %}
+                            <img class="forum__subject-img" src="/images/avatar/avatar.png">
+                    {% endif %}
+
+
+			</div>
+
+			<div class="forum__subject-content">
+				<div class="forum__content">{{ postAnswer.content }}</div>
+				<div class="forum__date">édité le
+					{{ post.date|date("d/m/Y H:i:s") }}</div>   
+				{% if is_granted('ROLE_ADMIN') or app.user == postAnswer.author  %}
+				
+                    <form method="post" action="{{ path('supprimerpostanswer', {id: postAnswer.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postAnswer.id) }}">
+					<button type="submit" class="button-default">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</form>
+					{% else %}
+						<div class="forum__admin">
+							<a href="{{ path('postAnswer_report',{id: postAnswer.id, post: postAnswer}) }}">signaler</a>
+						</div>
+				{% endif %}
+			</div>
+
+		</div>
+
+	{% endfor %}
+
+	{{ form_start(form) }}
+	<div class="__col">
+		{{ form_widget(form) }}
+	</div>
+	<button type="submit" class="mt-10">
+		<i class="fas fa-reply"></i>
+		Répondre
+	</button>
+	{{ form_end(form) }}
+
+{% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block content_title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content_body %}
+
+
+<div class="__row">
+	<a class="goBack_link" href="{{path('show',{slug: post.postType.slug, id: post.postType.id})}}">
+		<i class="fas fa-arrow-left"></i> Revenir au forum {{post.postType.slug |capitalize}}
+	</a>
+		<div class="comment__section __col">
+			<div class="comment__section__list">
+				{# {% for c in comments %} #}
+                    <!-- Original Post -->
+                    <div class="comment__section__list_unity __row">
+						<div class="__col __col--oneQuarter comment__section__list_unity_profil">
+                        <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">
+                            {% if post.author.photo %}
+							    <div><img class="forum__subject-img" src="/images/avatar/{{ post.author.photo }}"></div>
+                            {% else %}
+						        <div><img class="forum__subject-img" src="/images/avatar/avatar.png"></div>
+                            {% endif %}
+								<span class="comment__section__list__unity__profil__name">{{ post.author.username }}</span>
+								<span class="comment__section__list__unity__profil__date">{{ post.date|date("d/m/Y H:i:s") }}</span>
+                        </a>
+						</div>
+						<div class="__col __col--threeQuarter comment__section__list_unity_content">
+							<p>{{ post.content }}</p>
+							<div>
+								{% if post.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="">
+										<span>Supprimer</span>
+									</a>
+									{% elseif post.isReported == 0 %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+                    <!-- REPLIES -->
+                    {% for postAnswer in post.postAnswers %}
+					<div class="comment__section__list_unity __row">
+						<div class="__col __col--oneQuarter comment__section__list_unity_profil">
+                        <a href="{{ path('showInfos',{'id': post.author.id}) }}" class="forum__author-name">
+                            {% if postAnswer.author.photo %}
+                                    <div><img class="forum__subject-img" src="{{asset('images/avatar/'~postAnswer.author.photo)}}"></div>
+                            {% else %}
+                                    <div><img class="forum__subject-img" src="/images/avatar/avatar.png"></div>
+                            {% endif %}
+								<span class="comment__section__list__unity__profil__name">{{ postAnswer.author.username }}</span>
+								<span class="comment__section__list__unity__profil__date">{{ post.date|date("d/m/Y H:i:s") }}</span>
+                        </a>
+						</div>
+						<div class="__col __col--threeQuarter comment__section__list_unity_content">
+							<p>{{ postAnswer.content }}</p>
+							<div>
+								{% if post.author == app.user or is_granted('ROLE_ADMIN') %}
+									<a class="" href="">
+										<span>Supprimer</span>
+									</a>
+									{% elseif post.isReported == 0 %}
+									<a class="" href="">
+										<span>Signaler</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+    <!-- test -->
+
+    {{ form_start(form) }}
+    <div class="__col">
+        {{ form_widget(form) }}
+    </div>
+    <button type="submit" class="mt-10">
+        Répondre
+    </button>
+    {{ form_end(form) }}
+
+{% endblock %}
