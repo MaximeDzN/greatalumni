@@ -808,6 +808,7 @@ th, td {
 }
 
 .container__photo {
+	overflow:hidden;
  width: 15rem;
     height: 15rem;
 }
