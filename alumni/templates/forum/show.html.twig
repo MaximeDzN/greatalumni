@@ -7,7 +7,7 @@
 
 <div class="__row">
 	<a class="goBack_link" href="{{ path('forum') }}">
-		<i class="fas fa-arrow-left"></i> Revenir au choix de forum
+		<i class="fas fa-arrow-left"></i> &nbsp; Revenir au choix de forum
 	</a>
 <div class="__col">
 <div class="forum_table __col">
@@ -28,16 +28,16 @@
 			<div class="__col--5"><a href="{{ path('forum.showPost', {slug: post.slug, id: post.id} ) }}" class="forum_table-link"><span>{{ post.postAnswers | length }}</span></a></div>
 			<div class="__col--10">
 			{% if is_granted('ROLE_ADMIN') or app.user == post.author  %}		
-						<a href="{{ path('editPost', {slug: post.slug, id: post.id}) }}">edit</a>
+						<a href="{{ path('editPost', {slug: post.slug, id: post.id}) }}"><span>edit</span></a>
 						<form method="post" action="{{ path('supprimerpost', {id: post.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
-							<button type="submit" class="button--danger">
+							<button type="submit" class="forum_delete">
 								<i class="fa fa-trash" aria-hidden="true"></i>
 							</button>
 						</form>
 			{% else %}
-					<a href="">signaler</a>
+						{# <a href="">signaler</a> #}
 			{% endif %}
 			</div>
 		</div>
@@ -47,9 +47,11 @@
 </div>
 
 <div>
+	<a href="{{ path('newpost') }}" >
 <button>
-	<a href="{{ path('newpost') }}" >Créer une discussion</a>
-</button>
+	Créer une discussion</button>
+	</a>
+
 </div>
 
 

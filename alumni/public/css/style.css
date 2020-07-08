@@ -93,6 +93,14 @@ form {
     width: 50%;
 }
 
+.__col--oneQuarter {
+    width: 25%;
+}
+
+.__col--threeQuarter {
+    width: 75%;
+}
+
 .__col--third {
     width: calc(100% / 3);
 }
@@ -141,7 +149,9 @@ form {
 @media only screen and (max-width: 760px) {
     .__col--third,
     .__col--half,
-    .__col--twoThird {
+    .__col--twoThird,
+    .__col--oneQuarter,
+    .__col--threeQuarter {
         width: 100%
     }
     ;
@@ -550,7 +560,7 @@ footer a:hover {
 
 .comment__section__list_unity_profil img{
     height: inherit;
-    width: 80%;
+    width: inherit;
 }
 
 .comment__section__list__unity__profil__name{
@@ -970,6 +980,13 @@ img {
 
 /* #region forum */
 
+.forum_delete, .forum_delete:hover, .forum_delete:active, .forum_delete:focus{
+    background-color:rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0);
+    color:black;
+    box-shadow: none;
+}
+
 .forum_table{
 }
 
@@ -1138,12 +1155,6 @@ form[name="post_answer"] {
     word-wrap: break-word;
 } */
 
-/* .forum__subject-img {
-    margin-top: 10px;
-    max-width: 100px;
-    max-height: 100px;
-} */
-
 /* .forum__img {
     display: block;
     margin-left: 10px;
@@ -1173,67 +1184,7 @@ form[name="post_answer"] {
 /* #endregion forum */
 
 /* #region forum - non utilisé */
-.forum__subject {
-    display: grid;
-    grid-template-columns: [gstart] 100px [gmain] auto [gend];
-    grid-gap: 10px;
-    padding: 10px;
-    font-size: 1rem;
-    background-color: var(--color-lightgrey-table);
-    border-bottom: 1px solid var(--color-lightgrey);
-}
 
-.forum__subject:first-child {
-    border-top: 1px solid var(--color-lightgrey);
-}
-
-form[name="post_answer"] {
-    margin-top: 3rem;
-}
-
-.form[name="post_answer"] textarea {
-    width: 100%;
-}
-
-.forum__user-infos {
-    border-right: 1px solid var(--color-lightgrey);
-    padding-right: 1rem;
-}
-
-.forum__author-name {
-    text-decoration: underline;
-    overflow: hidden;
-    word-wrap: break-word;
-}
-
-.forum__subject-img {
-    margin-top: 10px;
-    max-width: 100px;
-    max-height: 100px;
-}
-
-.forum__img {
-    display: block;
-    margin-left: 10px;
-    width: 3rem;
-    height: 3rem;
-}
-
-.forum__subject-content {
-    display: grid;
-    grid-template-rows: auto 20px;
-    margin-left: 1rem;
-}
-
-.forum__content {
-    margin-bottom: 1rem;
-}
-
-.forum__date {
-    color: var(--color-grey);
-    font-size: 11px;
-    opacity: 0.5;
-}
 
 /* end style for forum page */
 
