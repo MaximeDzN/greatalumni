@@ -20,18 +20,18 @@
 	</div>
 	<a href="{{path('writeMessage',{user : user, id : user.id })}}">
 		<button class="" type="submit">
-			Rediger un message 
+			Rediger un message
 		</button>
 	</a>
-	 {% if app.user %}
-			{% if is_granted('ROLE_ADMIN') %}
+	{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') %}
 
-	<a href="{{path('update_role',{user : user, id : user.id })}}">
-		<button class="" type="submit">
-			Modifier le rôle	
-		</button>
-	</a>
-			{% endif %}
+			<a href="{{path('update_role',{user : user, id : user.id })}}">
+				<button class="" type="submit">
+					Modifier le rôle
+				</button>
+			</a>
+		{% endif %}
 	{% endif %}
 
 
@@ -82,7 +82,7 @@
 				</h2>
 			</div>
 		</div>
-		
+
 		<div class="__col  __col--half ">
 			<div class="show__directory">
 				{% if user.gender == 1  %}
@@ -97,7 +97,7 @@
 
 			</div>
 		</div>
-		
+
 		<div class="__col  __col--half">
 			<div class="show__directory">
 				<h2>
@@ -105,67 +105,35 @@
 				</h2>
 			</div>
 		</div>
-		{# Pour l'affichage Le cursus scolaire #}
-			<div class="__col  __col--half ">
-			<div class="show__directory">
-			<h5>Cursus scolaire</h5>
-				<table>
 
-				{% for item in user.schoolCurriculum %}
-					
-						 <tr>
-						 <td>{{ item }}</td>	
-						 </tr><br>		
-						 			
-				{% endfor %}
-				
-			</table>
-			</div>
-		</div>
-		{# Pour l'affichage Le parcours professionnel #}
-			<div class="__col  __col--half ">
-			<div class="show__directory">
-			<h5>Parcours professionnel</h5>
-			<table>
-
-				{% for item in user.career %}
-					
-						 	 <tr>
-						 <td>{{ item }}</td>
-						 </tr><br>
-					
-				{% endfor %}
-			</table>
-			</div>
-		</div>
-	{# Pour l'affichage hobbies #}
-		<div class="__col  __col--half ">
-			<div class="show__directory">
-			<h5>Hobbies</h5>
-			<table>
-
-				{% for item in user.hobbie %}
-					
-						 <tr>
-						 <td>{{ item }}</td>
-						 </tr><br>
-					
-				{% endfor %}
-			</table>	
-			</div>
-		</div>
-		 <div class="__col  __col--half ">
-				<div class="show__directory">
-					
-						{% if user.roles[0] == "ROLE_ADMIN"  %}
-					<h2>
-						Administrateur
-					</h2>
-				
-				{% endif %}
-					
-				</div>
-			</div>
 	</div>
 
-</div>{% endblock %}
+	<div class="__row">
+
+		<h3 class="__col">Cursus Scolaire</h3>
+		<div class="__col">
+			{% for item in user.schoolCurriculum %}
+				<p>&bull;
+					{{ item }}</p>
+			{% endfor %}
+		</div>
+	
+
+	<h3 class="__col">Carrière</h3>
+	<div class="__col">
+		{% for item in user.career %}
+			<p>&bull;
+				{{ item }}</p>
+		{% endfor %}
+	</div>
+
+
+<h3 class="__col">Hobbies</h3>
+<div class="__col">
+	{% for item in user.hobbie %}
+		<p>&bull;
+			{{ item }}</p>
+	{% endfor %}
+</div>
+</div>
+{% endblock %}
