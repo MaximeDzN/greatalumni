@@ -808,9 +808,7 @@ th, td {
 }
 
 .container__photo {
-    /* padding-right: 1rem; */
-    width: 15rem;
-    height: 15rem;
+    overflow:hidden;
 }
 
 .show__directory {
@@ -820,7 +818,7 @@ th, td {
 }
 
 .directory_unity img{
-    transition:  all 0.5s ease;
+    margin-bottom:0.5rem;
 }
 
 .directory_unity .container__photo{

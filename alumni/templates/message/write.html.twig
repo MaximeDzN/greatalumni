@@ -15,16 +15,18 @@
 
                     <div class="__col messenger_container">
 					{% for n in content %}
-							{% if n.id == app.user.id %}
+						{% if n.id == app.user.id %}
 							<div class="__col messenger_message messenger_message--out">
                             	<div class="messenger_message_content"><p>{{n.content}}</p><p class="messenger_message_date">{{n.sendDate|date("d/m/Y H:i")}}</p></div>
-							    <div class="messenger_message_image"><img class="" src="/images/avatar/{{ user.photo }}"/></div>
+							    <div class="messenger_message_image"><img class="" src="/images/avatar/{{ app.user.photo }}"/>
+							</div>
 							
 							{% else %}
 							<div class="__col messenger_message messenger_message--in">
 								<div class="messenger_message_image"><img class="" src="/images/avatar/{{ user.photo }}"/></div>
-                            	<div class="messenger_message_content"><p>{{n.content}}</p><p class="messenger_message_date">{{n.sendDate|date("d/m/Y H:i")}}</p></div>
-							{% endif %}
+                            	<div class="messenger_message_content"><p>{{n.content}}</p><p class="messenger_message_date">{{n.sendDate|date("d/m/Y H:i")}}</p>
+							</div>
+						{% endif %}
                        		</div>
 					{% endfor %}
                     </div>
