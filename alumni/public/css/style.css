@@ -808,7 +808,8 @@ th, td {
 }
 
 .container__photo {
-    overflow:hidden;
+ width: 15rem;
+    height: 15rem;
 }
 
 .show__directory {
@@ -1008,8 +1009,10 @@ img {
 }
 /*-------*/
 .forum_table_content {
+	display:flex;
+	border-bottom: 0.03rem black solid;
+	height:auto;
     padding-top: 0.3rem;
-    border-bottom: 0.3rem;
 }
 
 .forum_table_content div{
