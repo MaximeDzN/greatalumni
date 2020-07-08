@@ -78,7 +78,7 @@
 					<form method="post" action="{{ path('supprimerCat', { id: postType.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">
 						<input type="hidden" name="_method" value="DELETE">
 						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ postType.id) }}">
-						<button  class="button--danger">
+						<button  class="forum_delete">
 							<i type="submit" class="fa fa-trash fa-1x" aria-hidden="true"></i>
 						</button>
 					</form>
@@ -94,9 +94,12 @@
 
 {% if is_granted('ROLE_ADMIN')  %}
 <div>
-<button>
-	<a href="{{ path('newposttype') }}" >Créer une catégorie</a>
-</button>
+
+
+	<a href="{{ path('newposttype') }}" >
+	<button>Créer une catégorie
+	</button></a>
+
 </div>
 {% endif %}
 

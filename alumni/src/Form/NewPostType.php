@@ -13,23 +13,24 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/* formulaire pour créer une nouvelle discussion dans le forum */
 class NewPostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
            
-            ->add('title', TextType::class, ['label' => 'Titre du post'])
-            ->add('Content', TextareaType::class, ['label' => 'description', 'attr' => [
+            ->add('title', TextType::class, ['label' => 'Titre'])
+            ->add('Content', TextareaType::class, ['label' => 'Description', 'attr' => [
                 'rows' => '10'
             ]])
             
             ->add('PostType', EntityType::class, [
                 'class' => PostType::class,
                 'choice_label' => 'title',
-                'label' => 'choisissez une catégorie'
+                'label' => 'Catégorie'
             ])
-            ->add('Poster',SubmitType::class)
+
         ;
     }
 
